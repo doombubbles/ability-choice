@@ -10,7 +10,7 @@ public class GlueStrike : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.GlueStrike;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Glue weakens Bloons, making them take increased damage and be vulnerable to Sharp sources.";
 
     public override void Apply1(TowerModel model)

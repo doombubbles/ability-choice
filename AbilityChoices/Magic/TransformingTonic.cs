@@ -9,7 +9,7 @@ public class TransformingTonic : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.TransformingTonic;
 
-    protected override string Description1 => "Gains a monstrous laser beam attack.";
+    public override string Description1 => "Gains a monstrous laser beam attack.";
         
     public override void Apply1(TowerModel model)
     {

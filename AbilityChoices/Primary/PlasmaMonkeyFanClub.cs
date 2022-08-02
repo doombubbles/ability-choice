@@ -11,9 +11,9 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
 {
     public override string UpgradeId => UpgradeType.PlasmaMonkeyFanClub;
-        
-    protected override string Description1 => "Up to 6 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
-    protected override string Description2 => "Permanently shoots powerful plasma blasts itself.";
+
+    public override string Description1 => "Up to 6 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
+    public override string Description2 => "Permanently shoots powerful plasma blasts itself.";
         
     protected override float SuperMonkeyAttackSpeed => .03f;
         

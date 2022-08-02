@@ -8,7 +8,7 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class TurboCharge : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.TurboCharge;
-    protected override string Description1 => "Further increased attack speed.";
+    public override string Description1 => "Further increased attack speed.";
 
     public override void Apply1(TowerModel model)
     {

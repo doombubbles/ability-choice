@@ -19,10 +19,10 @@ public class AssassinateMOAB : AbilityChoice
 
     public override string UpgradeId => UpgradeType.MOABAssassin;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Frequently shoots out mini Moab Assassin missiles at the strongest Moab on screen.";
 
-    protected override string Description2 => "Main attacks do further increased MOAB damage with more range.";
+    public override string Description2 => "Main attacks do further increased MOAB damage with more range.";
 
     public override void Apply1(TowerModel model)
     {

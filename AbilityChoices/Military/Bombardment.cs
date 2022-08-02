@@ -9,7 +9,7 @@ public class Bombardment : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.ArtilleryBattery;
 
-    protected override string Description1 => "Main attack upgrades to 3+ barrels for extremely fast attacks.";
+    public override string Description1 => "Main attack upgrades to 3+ barrels for extremely fast attacks.";
 
     public override void Apply1(TowerModel model)
     {

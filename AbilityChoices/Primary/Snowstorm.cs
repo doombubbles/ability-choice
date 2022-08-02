@@ -10,8 +10,8 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class Snowstorm : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.Snowstorm;
-        
-    protected override string Description1 => "Cold aura can partially slows MOAB class bloons.";
+
+    public override string Description1 => "Cold aura can partially slows MOAB class bloons.";
 
     public override void Apply1(TowerModel model)
     {

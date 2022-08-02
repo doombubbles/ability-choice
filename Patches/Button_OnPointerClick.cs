@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Unity.UI_New.InGame;
+using Assets.Scripts.Unity.UI_New.Popups;
 using Assets.Scripts.Unity.UI_New.Upgrade;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Extensions;
@@ -20,7 +21,7 @@ internal static class Button_OnPointerClick
         {
             if (InGame.instance != null)
             {
-                ModHelper.Warning<AbilityChoiceMod>("This change will only take effect when you reload the match");
+                PopupScreen.instance.ShowOkPopup("In order for this to take effect, you'll need to exit to the main menu and come back to the game.");
             }
             abilityChoice.Toggle();
             upgrade.OnPointerExit(eventData);

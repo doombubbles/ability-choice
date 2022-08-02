@@ -16,8 +16,8 @@ public class TechTerror : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.TechTerror;
 
-    protected override string Description1 => "Frequently annihilates nearby Bloons.";
-    protected override string Description2 => "Nanobot plasma seeks out and destroys Bloons with strong Crits";
+    public override string Description1 => "Frequently annihilates nearby Bloons.";
+    public override string Description2 => "Nanobot plasma seeks out and destroys Bloons with strong Crits";
 
     private const int Factor = 20;
 

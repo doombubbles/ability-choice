@@ -7,9 +7,9 @@ namespace AbilityChoice.AbilityChoices.Magic;
 public class LegendDarkshift : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.LegendOfTheNight;
-    protected override string AbilityName => nameof(ChampionDarkshift);
+    public override string AbilityName => nameof(ChampionDarkshift);
 
-    protected override string Description1 => "We turn to him, when all hope is lost... and he's got a bit more range";
+    public override string Description1 => "We turn to him, when all hope is lost... and he's got a bit more range";
         
     public override void Apply1(TowerModel model)
     {

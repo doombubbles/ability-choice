@@ -10,11 +10,11 @@ namespace AbilityChoice.AbilityChoices.Support;
 
 public class CallToArms : AbilityChoice
 {
-    protected override string AbilityName => "Call to Arms";
+    public override string AbilityName => "Call to Arms";
 
     public override string UpgradeId => UpgradeType.CallToArms;
 
-    protected override string Description1 => "Permanent weaker nearby attack speed / pierce buff.";
+    public override string Description1 => "Permanent weaker nearby attack speed / pierce buff.";
 
     protected virtual bool IsGlobal => false;
 

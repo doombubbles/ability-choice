@@ -12,7 +12,7 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class AbsoluteZero : Snowstorm
 {
     public override string UpgradeId => UpgradeType.AbsoluteZero;
-    protected override string Description1 => "Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.";
+    public override string Description1 => "Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.";
 
     public override void Apply1(TowerModel model)
     {

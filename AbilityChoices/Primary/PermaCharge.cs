@@ -8,7 +8,7 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class PermaCharge : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.PermaCharge;
-    protected override string Description1 => "Perma Charge has permanent super fast attack speed, and a moderate damage increase.";
+    public override string Description1 => "Perma Charge has permanent super fast attack speed, and a moderate damage increase.";
 
     public override void Apply1(TowerModel model)
     {

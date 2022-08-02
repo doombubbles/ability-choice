@@ -13,9 +13,9 @@ public class SummonPheonix : AbilityChoice // Yup this is an actual typo
 {
     public override string UpgradeId => UpgradeType.SummonPhoenix;
 
-    protected override string Description1 => "Summons a Phoenix which wreaks a moderate amount of bloon havoc.";
-        
-    protected override string Description2 => "Wizard gains the attacks of the Phoenix itself (non-globally).";
+    public override string Description1 => "Summons a Phoenix which wreaks a moderate amount of bloon havoc.";
+
+    public override string Description2 => "Wizard gains the attacks of the Phoenix itself (non-globally).";
 
     public override void Apply1(TowerModel model)
     {

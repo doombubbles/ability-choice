@@ -11,7 +11,7 @@ public class BombBlitz : AbilityChoice
     private const float ExpectedPierce = 4;
 
     public override string UpgradeId => UpgradeType.BombBlitz;
-    protected override string Description1 => "Deals even further increased damage.";
+    public override string Description1 => "Deals even further increased damage.";
 
     public override void Apply1(TowerModel model)
     {

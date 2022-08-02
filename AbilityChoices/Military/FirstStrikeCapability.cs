@@ -15,9 +15,9 @@ public class FirstStrikeCapability : AbilityChoice
 
     public override string UpgradeId => UpgradeType.FirstStrikeCapability;
 
-    protected override string Description1 => "Gains frequent First Strike style missile attacks.";
+    public override string Description1 => "Gains frequent First Strike style missile attacks.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Ballistic missiles do more damage, further increased against MOABs and Ceramics";
 
 

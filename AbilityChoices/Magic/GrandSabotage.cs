@@ -10,9 +10,9 @@ public class GrandSabotage : Sabotage
 {
     public override string UpgradeId => UpgradeType.GrandSaboteur;
 
-    protected override string Description1 => "";
+    public override string Description1 => "All Bloons move at partially reduced speed.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types.";
 
     public override void Apply1(TowerModel model)

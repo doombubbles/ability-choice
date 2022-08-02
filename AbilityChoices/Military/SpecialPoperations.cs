@@ -14,10 +14,10 @@ public class SpecialPoperations : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.SpecialPoperations;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Occasionally deploys a powerful special Monkey Marine with machine gun.";
 
-    protected override string Description2 => "A Monkey Marine attacks from inside the Heli with a machine gun.";
+    public override string Description2 => "A Monkey Marine attacks from inside the Heli with a machine gun.";
 
     public override void Apply1(TowerModel model)
     {

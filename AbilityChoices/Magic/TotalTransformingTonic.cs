@@ -10,10 +10,10 @@ public class TotalTransformingTonic : TransformingTonic
 {
     public override string UpgradeId => UpgradeType.TotalTransformation;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Has a monstrous laser attack, and 2 nearby Monkeys are constantly transformed into monsters.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Transforms just itself permanently into an even more powerful monster!";
 
     public override void Apply1(TowerModel model)

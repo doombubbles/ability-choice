@@ -15,10 +15,10 @@ public class SuperMonkeyFanClub : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.SuperMonkeyFanClub;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Up to 3 nearby Dart Monkeys including itself are permanently Super Monkey fans.";
 
-    protected override string Description2 => "Gains permanent Super attack speed and range itself.";
+    public override string Description2 => "Gains permanent Super attack speed and range itself.";
 
     protected virtual float SuperMonkeyAttackSpeed => .06f;
 

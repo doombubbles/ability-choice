@@ -8,10 +8,10 @@ namespace AbilityChoice.AbilityChoices.Support;
 public class IMFLoan : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.IMFLoan;
-    protected override string AbilityName => UpgradeId;
+    public override string AbilityName => UpgradeId;
 
-    protected override string Description1 => "Periodically gives you $10,000 that has to be paid back over time.";
-    protected override string Description2 => "Bank capacity is increased to a base of $17,500";
+    public override string Description1 => "Periodically gives you $10,000 that has to be paid back over time.";
+    public override string Description2 => "Bank capacity is increased to a base of $17,500";
 
     public override void Apply1(TowerModel model)
     {

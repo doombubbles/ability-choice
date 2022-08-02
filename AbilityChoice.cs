@@ -7,6 +7,7 @@ using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.UI_New.Upgrade;
+using Assets.Scripts.Utils;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Enums;
@@ -22,10 +23,10 @@ public abstract class AbilityChoice : ModVanillaUpgrade
 {
     public static readonly Dictionary<string, AbilityChoice> Cache = new();
 
-    protected abstract string Description1 { get; }
-    protected virtual string Description2 => "";
+    public abstract string Description1 { get; }
+    public virtual string Description2 => "";
 
-    protected virtual string AbilityName => Regex.Replace(
+    public virtual string AbilityName => Regex.Replace(
         Name,
         "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
         " $1",
@@ -65,6 +66,15 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         }
 
         updated = true;
+    }
+
+    public void SetMode(int i)
+    {
+        setting.Value = i;
+        if (setting.Value == 2 && string.IsNullOrEmpty(Description2))
+        {
+            setting.Value = 1;
+        }
     }
 
     public sealed override IEnumerable<ModContent> Load()
@@ -112,18 +122,7 @@ public abstract class AbilityChoice : ModVanillaUpgrade
             }
 
             abilityObject.SetActive(true);
-            switch (abilityChoice.setting.Value)
-            {
-                case 1:
-                    circle.SetSprite(VanillaSprites.NotifyRed);
-                    break;
-                case 2:
-                    circle.SetSprite(VanillaSprites.NotifyBlue);
-                    break;
-                default:
-                    circle.SetSprite(VanillaSprites.NotificationYellow);
-                    break;
-            }
+            circle.SetSprite(IconForMode(abilityChoice.setting.Value));
 
             abilityChoice.updated = false;
         }
@@ -132,6 +131,13 @@ public abstract class AbilityChoice : ModVanillaUpgrade
             circle.SetSprite(VanillaSprites.NotificationYellow);
         }
     }
+
+    public static SpriteReference IconForMode(int mode) => mode switch
+    {
+        1 => VanillaSprites.NotifyRed,
+        2 => VanillaSprites.NotifyBlue,
+        _ => VanillaSprites.NotificationYellow
+    };
 
     public virtual AbilityModel AbilityModel(TowerModel model)
     {

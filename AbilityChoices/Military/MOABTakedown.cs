@@ -15,10 +15,10 @@ public class MOABTakedown : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.MonkeyPirates;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Adds 2 new cannons to the ship and cannons attacks do more damage. Also gains a hook attack which can periodically take-down MOABs or DDTs.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Adds 2 new cannons to the ship and cannons attacks do more damage, further increased against MOABs and Ceramics.";
 
     private const int MoabWorthMultiplier = 6;

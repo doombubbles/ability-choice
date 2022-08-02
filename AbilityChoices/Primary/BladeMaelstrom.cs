@@ -12,9 +12,9 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class BladeMaelstrom : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.BladeMaelstrom;
-    protected override string Description1 => "Shoots out a slow swirl of global, high pierce blades.";
+    public override string Description1 => "Shoots out a slow swirl of global, high pierce blades.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Blades have additional range range and pierce, and seek out Bloons on their own.";
 
     protected virtual int Pierce => 6;

@@ -10,8 +10,8 @@ public class ZOMGTakedown : MOABTakedown
 {
     public override string UpgradeId => UpgradeType.PirateLord;
 
-    protected override string Description1 => "Greatly increased attack speed for all attacks, and hook attack is faster, and can also pull in BFBs.";
-    protected override string Description2 => "Greatly increased attack speed for all attacks, with further increased MOAB and Ceramic damage.";
+    public override string Description1 => "Greatly increased attack speed for all attacks, and hook attack is faster, and can also pull in BFBs.";
+    public override string Description2 => "Greatly increased attack speed for all attacks, with further increased MOAB and Ceramic damage.";
 
     protected override bool FilterBFBs => false;
 

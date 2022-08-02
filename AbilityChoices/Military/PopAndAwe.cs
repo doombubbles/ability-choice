@@ -12,10 +12,10 @@ public class PopAndAwe : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.PopAndAwe;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Main attack gains additional bonus damage to stunned Bloons. Occasionally causes mini-Pop and Awe effects on target.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Main attack gains additional bonus damage to stunned Bloons, and has turbo attack speed permanently";
 
     public override void Apply1(TowerModel model)

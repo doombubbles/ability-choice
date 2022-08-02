@@ -10,10 +10,10 @@ public class Overclock : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.Overclock;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Modified Ability: Permanently boost (based on tier) one tower at a time.";
 
-    protected override string Description2 => "All towers in range have increased Attack Speed.";
+    public override string Description2 => "All towers in range have increased Attack Speed.";
 
     protected virtual float Multiplier => .8f;
         

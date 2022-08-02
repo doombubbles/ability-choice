@@ -10,9 +10,9 @@ public class SummonLordPhoenix : SummonPheonix
 {
     public override string UpgradeId => UpgradeType.WizardLordPhoenix;
 
-    protected override string Description1 => "Summons a somewhat powerful Lava Phoenix.";
-        
-    protected override string Description2 => "Wizard gains the attacks of both Phoenixes itself (non-globally).";
+    public override string Description1 => "Summons a somewhat powerful Lava Phoenix.";
+
+    public override string Description2 => "Wizard gains the attacks of both Phoenixes itself (non-globally).";
 
     public override void Apply1(TowerModel model)
     {

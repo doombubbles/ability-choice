@@ -13,8 +13,8 @@ public class Sabotage : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.BloonSabotage;
 
-    protected override string Description1 => "All Bloons move at partially reduced speed.";
-    protected override string Description2 => "Ninja’s attacks have more range and slow Bloons to half speed.";
+    public override string Description1 => "All Bloons move at partially reduced speed.";
+    public override string Description2 => "Ninja’s attacks have more range and slow Bloons to half speed.";
 
     public override void Apply1(TowerModel model)
     {

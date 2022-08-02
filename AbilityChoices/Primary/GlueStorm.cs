@@ -7,7 +7,7 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class GlueStorm : GlueStrike
 {
     public override string UpgradeId => UpgradeType.GlueStorm;
-    protected override string Description1 => "Glue weakens and slows Bloons further. Range is increased.";
+    public override string Description1 => "Glue weakens and slows Bloons further. Range is increased.";
 
     public override void Apply1(TowerModel model)
     {

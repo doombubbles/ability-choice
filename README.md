@@ -1,28 +1,23 @@
-<a href="https://github.com/doombubbles/ability-choice/releases/latest/download/AbilityChoice.dll"><img align="right" alt="Download" height="75" src="https://github.com/doombubbles/BTD6-Mods/blob/main/download.png?raw=true"></a>
+<a href="https://github.com/doombubbles/ability-choice/releases/latest/download/AbilityChoice.dll">
+    <img align="left" alt="Icon" height="90" src="Icon.png">
+    <img align="right" alt="Download" height="75" src="https://raw.githubusercontent.com/gurrenm3/BTD-Mod-Helper/master/BloonsTD6%20Mod%20Helper/Resources/DownloadBtn.png">
+</a>
 
-# Ability Choice
+<h1 align="center">Ability Choice</h1>
 
-## NOTE: This alpha version of the mod requires BTD6 Mod Helper >v3.0, see [here](https://github.com/doombubbles/BTD6-Mods#readme) for the stable mods
 
 BTD6 Abilities are fun and interactive, definitely, but sometimes you just don't feel like using them. This mod gives
 you a choice: use the ability of a tower like normal, or give it up to instead give the base tower new effects.
 
-Adds in two new choices for towers with abilities that you can pick instead of having an active ability, now selected in the Upgrades menu for the tower by Right-Clicking on the Upgrade. 
+Adds in 1-2 new choices for towers with abilities that you can pick instead of having an active ability, now selected in the Upgrades menu for the tower by Right-Clicking on the Upgrade.
 
-Yellow Icon: Default Effect 
+Yellow Icon: Default Effect
 
-Red Icon: Permanent but weaker effect of the ability 
+Red Icon: Permanent but weaker effect of the ability
 
-Blue Icon: A new effect base on the theme of the upgrade path
+Blue Icon (Not All Towers): A new different effect based on the theme of the upgrade/path
 
-Examples:
+## See [Here](AbilityChoices/README.md#all-ability-choices) for the full list of effects.
 
-Plasma Monkey Fan Club
-
-![Plasma Monkey Fan Club](https://github.com/doombubbles/BTD6-Mods/blob/main/AbilityChoice/PlasmaMonkey.gif?raw=true)
-
-Rocket Storm
-
-![Rocket Storm](https://github.com/doombubbles/BTD6-Mods/blob/main/AbilityChoice/RocketStorm.gif?raw=true)
-
-For a full list of possiblities and their exact effects, look [here](https://tinyurl.com/abilitychoice).
+## NOTE: This alpha version of the mod requires [BTD6 Mod Helper >v3.0](https://github.com/gurrenm3/BTD-Mod-Helper/wiki/Mod-Helper-3.0-Alpha), see [here](https://github.com/doombubbles/BTD6-Mods#readme) for the stable mods
+[![Requires BTD6 Mod Helper](https://raw.githubusercontent.com/gurrenm3/BTD-Mod-Helper/master/banner.png)](https://github.com/gurrenm3/BTD-Mod-Helper#readme)

@@ -5,8 +5,8 @@ namespace AbilityChoice.AbilityChoices.Magic;
 public class AntiBloon : TechTerror
 {
     public override string UpgradeId => UpgradeType.TheAntiBloon;
-    protected override string AbilityName => ""; //weird
+    public override string AbilityName => ""; //weird
 
-    protected override string Description1 => "Frequently eradicates nearby Bloons.";
-    protected override string Description2 => "Nanobot plasma seeks out and destroys Bloons with strong Crits";
+    public override string Description1 => "Frequently eradicates nearby Bloons.";
+    public override string Description2 => "Nanobot plasma seeks out and destroys Bloons with strong Crits";
 }

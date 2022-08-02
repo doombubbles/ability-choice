@@ -8,8 +8,8 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class MoabEliminator : AssassinateMOAB
 {
     public override string UpgradeId => UpgradeType.MOABEliminator;
-    protected override string Description1 => "Frequently shoots out mini Moab Eliminator missiles at the strongest Moab on screen.";
-    protected override string Description2 => "Does extremely further increased MOAB damage.";
+    public override string Description1 => "Frequently shoots out mini Moab Eliminator missiles at the strongest Moab on screen.";
+    public override string Description2 => "Does extremely further increased MOAB damage.";
 
     protected override void ApplyDisplay(ProjectileModel projectileModel)
     {

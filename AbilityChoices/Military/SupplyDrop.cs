@@ -9,10 +9,10 @@ public class SupplyDrop : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.SupplyDrop;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Occasionally drops crates of cash. Regular attack also damages Lead Bloons and increases Shrapnel popping power.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Bullets can bounce twice as much. Regular attack also damages Lead Bloons and increases Shrapnel popping power.";
 
 

@@ -11,10 +11,10 @@ public class SupportDrop : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.SupportChinook;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Occasionally drops lives and cash crates. Can pick up and redeploy most Monkey types.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Downdraft attack is stronger and damages Moab class bloons. Can pick up and redeploy most Monkey types.";
 
     public override void Apply1(TowerModel model)

@@ -11,9 +11,9 @@ public class SpikeStorm : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.SpikeStorm;
 
-    protected override string Description1 => "Continuously shoots out a stream of spikes over the entire track.";
-        
-    protected override string Description2 => "Gains extremely accelerated production for the first few seconds of each round.";
+    public override string Description1 => "Continuously shoots out a stream of spikes over the entire track.";
+
+    public override string Description2 => "Gains extremely accelerated production for the first few seconds of each round.";
         
     public override void Apply1(TowerModel model)
     {

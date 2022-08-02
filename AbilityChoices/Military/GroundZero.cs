@@ -17,10 +17,10 @@ public class GroundZero : AbilityChoice
 {
     public override string UpgradeId => UpgradeType.GroundZero;
 
-    protected override string Description1 =>
+    public override string Description1 =>
         "Bomb damage increased significantly. Occasionally drops mini Ground Zeros.";
 
-    protected override string Description2 =>
+    public override string Description2 =>
         "Bomb damage increased significantly. Shoots a continuous stream of bombs.";
 
     protected const int Factor = 7;

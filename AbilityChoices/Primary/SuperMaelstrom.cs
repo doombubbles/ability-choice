@@ -8,9 +8,9 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class SuperMaelstrom : BladeMaelstrom
 {
     public override string UpgradeId => UpgradeType.SuperMaelstrom;
-        
-    protected override string Description1 => "Shoots out a faster and larger swirl of global, high pierce blades.";
-    protected override string Description2 => "Shoots out more homing blades with increased range and pierce.";
+
+    public override string Description1 => "Shoots out a faster and larger swirl of global, high pierce blades.";
+    public override string Description2 => "Shoots out more homing blades with increased range and pierce.";
 
     protected override int Pierce => 9;
     protected override float Lifespan => 16;

@@ -11,12 +11,12 @@ namespace AbilityChoice.AbilityChoices.Military;
 
 public class RocketStorm : AbilityChoice
 {
-    protected override string AbilityName => Name;  // There's no space in RocketStorm in the ability model /shrug
+    public override string AbilityName => Name;  // There's no space in RocketStorm in the ability model /shrug
 
     public override string UpgradeId => UpgradeType.RocketStorm;
-        
-    protected override string Description1 => "Occasionally shoots a wave of Rocket Storm missiles.";
-    protected override string Description2 => "Shoots a single stream of Rocket Storm missiles with the same accuracy of its main attack.";
+
+    public override string Description1 => "Occasionally shoots a wave of Rocket Storm missiles.";
+    public override string Description2 => "Shoots a single stream of Rocket Storm missiles with the same accuracy of its main attack.";
 
     public override void Apply1(TowerModel model)
     {
