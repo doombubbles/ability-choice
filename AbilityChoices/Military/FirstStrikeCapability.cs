@@ -41,7 +41,7 @@ public class FirstStrikeCapability : AbilityChoice
         }
 
         var asset = abilityWeapon.projectile.GetBehavior<CreateEffectOnExpireModel>();
-        asset.assetId = "";
+        asset.assetId = CreatePrefabReference("");
         asset.effectModel = new EffectModel(asset.name, asset.assetId, .5f, asset.lifespan, false,
             false, false, false, false, false, false);
 

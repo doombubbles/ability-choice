@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AbilityChoice;
+using Assets.Scripts;
 using Assets.Scripts.Unity.UI_New.InGame;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
@@ -46,11 +47,12 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public static readonly ModSettingButton CreateMds = new(GenerateReadme.Generate);
 #endif
 
-    public static Dictionary<int, int> CurrentBoostIDs = new();
+    public static Dictionary<ObjectId, ObjectId> CurrentBoostIDs = new();
 
     public override void OnMainMenu()
     {
         ResetCaches();
+        AbilityChoiceSettings.SaveToFile(false);
     }
 
     public override void OnRestart()
@@ -67,7 +69,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         if (InGame.instance == null || !InGame.instance.quitting)
         {
-            CurrentBoostIDs = new Dictionary<int, int>();
+            CurrentBoostIDs = new Dictionary<ObjectId, ObjectId>();
         }
     }
 

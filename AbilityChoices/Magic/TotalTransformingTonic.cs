@@ -32,8 +32,8 @@ public class TotalTransformingTonic : TransformingTonic
         morphTowerModel.lifespanFrames = interval * 60 - 1;
         morphTowerModel.lifespan= morphTowerModel.lifespanFrames / 60f;
 
-        morphTowerModel.effectModel.assetId = "";
-        morphTowerModel.effectOnTransitionBackModel.assetId = "";
+        morphTowerModel.effectModel.assetId = CreatePrefabReference("");
+        morphTowerModel.effectOnTransitionBackModel.assetId = CreatePrefabReference("");
 
         abilityModel.RemoveBehavior<CreateEffectOnAbilityModel>();
         abilityModel.RemoveBehavior<CreateSoundOnAbilityModel>();

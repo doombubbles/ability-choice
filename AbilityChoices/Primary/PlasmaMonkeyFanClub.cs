@@ -26,7 +26,7 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
             var plasmaModel = Game.instance.model.GetTower(TowerType.SuperMonkey, 2).GetWeapon().projectile;
 
             foreach (var weaponProjectile in model.GetDescendants<ProjectileModel>().ToList()
-                         .Where(weaponProjectile => weaponProjectile.display != null))
+                         .Where(weaponProjectile => !string.IsNullOrEmpty(weaponProjectile.display.GUID)))
             {
                 weaponProjectile.display = plasmaModel.display;
                 weaponProjectile.GetBehavior<DisplayModel>().display = plasmaModel.display;

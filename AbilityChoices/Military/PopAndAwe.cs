@@ -30,7 +30,7 @@ public class PopAndAwe : AbilityChoice
 
         var newWeapon = realWeapon.Duplicate();
         var weaponEffect = newWeapon.projectile.GetBehavior<CreateEffectOnExpireModel>();
-        weaponEffect.assetId = "";
+        weaponEffect.assetId = CreatePrefabReference("");
         weaponEffect.effectModel = popAndEffect;
         weaponEffect.effectModel.scale /= 3f;
         weaponEffect.effectModel.useCenterPosition = false;

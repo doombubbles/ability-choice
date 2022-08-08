@@ -53,9 +53,8 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         // MelonLogger.Msg($"Registered AbilityChoice {Name} for upgrade {UpgradeId} and value {setting.Value}");
     }
 
-    public string CurrentDescription => Mode2 && !string.IsNullOrEmpty(Description2) ? Description2 : Description1;
 
-    public bool updated;
+    public string CurrentDescription => Mode2 && !string.IsNullOrEmpty(Description2) ? Description2 : Description1;
 
     public void Toggle()
     {
@@ -64,8 +63,6 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         {
             setting.Value = 0;
         }
-
-        updated = true;
     }
 
     public void SetMode(int i)
@@ -83,10 +80,18 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         yield return new AbilityChoiceDescription(this);
     }
 
-    public abstract void Apply1(TowerModel model);
+    public virtual void Apply1(TowerModel model)
+    {
+        
+    }
 
     public virtual void Apply2(TowerModel model)
     {
+    }
+
+    public virtual void ApplyBoth(TowerModel model)
+    {
+        
     }
 
     public sealed override void Apply(TowerModel towerModel)
@@ -100,6 +105,8 @@ public abstract class AbilityChoice : ModVanillaUpgrade
             Apply1(towerModel);
         }
 
+        ApplyBoth(towerModel);
+
         RemoveAbility(towerModel);
     }
 
@@ -110,21 +117,14 @@ public abstract class AbilityChoice : ModVanillaUpgrade
             .OrderBy(model => model.appliedUpgrades.Length);
     }
 
-    public static void HandleIcon(UpgradeDetails upgradeDetails, bool update = false)
+    public static void HandleIcon(UpgradeDetails upgradeDetails)
     {
         var abilityObject = upgradeDetails.abilityObject;
         var circle = abilityObject.GetComponent<Image>();
         if (upgradeDetails.AbilityChoice() is AbilityChoice abilityChoice)
         {
-            if (update && !abilityChoice.updated)
-            {
-                return;
-            }
-
             abilityObject.SetActive(true);
             circle.SetSprite(IconForMode(abilityChoice.setting.Value));
-
-            abilityChoice.updated = false;
         }
         else
         {
@@ -132,7 +132,7 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         }
     }
 
-    public static SpriteReference IconForMode(int mode) => mode switch
+    public static string IconForMode(int mode) => mode switch
     {
         1 => VanillaSprites.NotifyRed,
         2 => VanillaSprites.NotifyBlue,

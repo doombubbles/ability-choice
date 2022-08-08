@@ -317,10 +317,10 @@
             <h2>Grand Sabotage</h2>
         </td>
         <td>
-            All Bloons move at partially reduced speed.
+            All Bloons move at further reduced speed. MOAB-Class Bloons spawn with slightly reduced health. Permanent Shinobi buff.
         </td>
         <td>
-            Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types.
+            Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types. Permanent Shinobi buff.
         </td>
     </tr>
     <tr>

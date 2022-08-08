@@ -25,7 +25,7 @@ public class GlueStrike : AbilityChoice
             var slowModel = projectileModel.GetBehavior<SlowModel>();
             slowModel.lifespan = abilitySlow.lifespan;
             slowModel.layers = abilitySlow.layers;
-            slowModel.mutator.multiplier = abilitySlow.Multiplier;
+            slowModel.multiplier = abilitySlow.multiplier;
 
             if (damageBoost != null)
             {

@@ -30,7 +30,7 @@ public class TechTerror : AbilityChoice
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         abilityWeapon.projectile.display = effect.assetId;
         var effectBehavior =
-            new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_Annihilation", "", effect, 0,
+            new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_Annihilation", CreatePrefabReference(""), effect, 0,
                 false, 1.0f, -1f, false);
         abilityWeapon.projectile.AddBehavior(effectBehavior);
         abilityWeapon.projectile.GetDamageModel().damage /= Factor;

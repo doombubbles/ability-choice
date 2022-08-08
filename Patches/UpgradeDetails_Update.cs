@@ -16,6 +16,6 @@ internal static class UpgradeDetails_Update
     [HarmonyPostfix]
     private static void Postfix(UpgradeDetails __instance)
     {
-        AbilityChoice.HandleIcon(__instance, true);
+        AbilityChoice.HandleIcon(__instance);
     }
 }

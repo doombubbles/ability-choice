@@ -37,10 +37,10 @@ public class SuperMonkeyFanClub : AbilityChoice
         monkeyFanClubModel.lifespan = interval + 1;
         monkeyFanClubModel.lifespanFrames = (interval + 1) * 60;
 
-        monkeyFanClubModel.effectOnOtherId = "";
-        monkeyFanClubModel.effectModel.assetId = "";
-        monkeyFanClubModel.otherDisplayModel.display = "";
-        monkeyFanClubModel.endDisplayModel.effectModel.assetId = "";
+        monkeyFanClubModel.effectOnOtherId = CreatePrefabReference("");
+        monkeyFanClubModel.effectModel.assetId = CreatePrefabReference("");
+        monkeyFanClubModel.otherDisplayModel.display = CreatePrefabReference("");
+        monkeyFanClubModel.endDisplayModel.effectModel.assetId = CreatePrefabReference("");
 
         abilityModel.RemoveBehavior<CreateEffectOnAbilityModel>();
         abilityModel.RemoveBehavior<CreateSoundOnAbilityModel>();
@@ -56,7 +56,7 @@ public class SuperMonkeyFanClub : AbilityChoice
         model.range += 20;
         model.GetAttackModels()[0].range += 20;
         foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList()
-                     .Where(projectileModel => projectileModel.display != null))
+                     .Where(projectileModel => !string.IsNullOrEmpty(projectileModel.display.GUID)))
         {
             projectileModel.GetBehavior<TravelStraitModel>().lifespan *= 2f;
             projectileModel.GetBehavior<TravelStraitModel>().lifespanFrames *= 2;

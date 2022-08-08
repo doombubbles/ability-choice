@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Models.Towers;
+using Assets.Scripts.Models.Towers.Behaviors;
+using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
@@ -10,14 +12,24 @@ public class GrandSabotage : Sabotage
 {
     public override string UpgradeId => UpgradeType.GrandSaboteur;
 
-    public override string Description1 => "All Bloons move at partially reduced speed.";
+    public override string Description1 =>
+        "All Bloons move at further reduced speed. MOAB-Class Bloons spawn with slightly reduced health. Permanent Shinobi buff.";
 
     public override string Description2 =>
-        "Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types.";
+        "Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types. Permanent Shinobi buff.";
 
     public override void Apply1(TowerModel model)
     {
         base.Apply1(model);
+        var abilityModel = AbilityModel(model);
+
+        var uptime = abilityModel.GetDescendant<AgeModel>().Lifespan / abilityModel.Cooldown;
+
+        model.GetDescendants<DamagePercentOfMaxModel>().ForEach(maxModel =>
+        {
+            var percent = CalcAvgBonus(uptime, 1 + maxModel.percent) - 1;
+            maxModel.percent = percent;
+        });
     }
 
     public override void Apply2(TowerModel model)
@@ -40,7 +52,6 @@ public class GrandSabotage : Sabotage
             {
                 if (weaponModel.projectile.GetDamageModel().IsType(out DamageModel damageModel))
                 {
-
                     var behavior = new DamageModifierForTagModel("DamageModifierForTagModel_" + i, tags[i], 1.0f,
                         10 * (i + 1), false, false) {tags = new[] {tags[i]}};
                     weaponModel.projectile.AddBehavior(behavior);
@@ -50,5 +61,20 @@ public class GrandSabotage : Sabotage
                 }
             }
         }
+    }
+
+    public override void ApplyBoth(TowerModel model)
+    {
+        var abilityModel = AbilityModel(model);
+
+        var range = abilityModel.GetDescendant<ActivateRangeSupportZoneModel>();
+        var permaRange = new RangeSupportModel("RangeSupportModel_", true, range.multiplier, range.additive / 2f,
+            range.mutatorId, range.filters, range.isGlobal, range.buffLocsName, range.buffIconName);
+        model.AddBehavior(permaRange);
+
+        var damage = abilityModel.GetDescendant<ActivateDamageModifierSupportZoneModel>();
+        var permaDamage = new DamageModifierSupportModel("DamageSupportModel_", damage.isUnique, damage.mutatorId,
+            damage.filters, damage.isGlobal, damage.damageModifierModel);
+        model.AddBehavior(permaDamage);
     }
 }

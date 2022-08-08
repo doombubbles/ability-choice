@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AbilityChoice.AbilityChoices.Support;
+using Assets.Scripts;
 using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Scripts.Simulation.Objects;
@@ -77,7 +78,7 @@ public static class OverclockHandler
         }
     }
 
-    public static void RemoveBoostOn(int id)
+    public static void RemoveBoostOn(ObjectId id)
     {
         var otherTower = InGame.instance.GetTowerManager().GetTowerById(id);
         otherTower?.RemoveMutatorsById("Overclock");

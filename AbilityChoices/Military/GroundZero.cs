@@ -51,14 +51,14 @@ public class GroundZero : AbilityChoice
         }
 
         weapon.ejectY = 0;
-        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", "", effectModel, -1, false, false,
+        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1, false, false,
             true, false, false));
 
         var projectile = weapon.projectile;
 
         projectile.GetBehavior<CreateProjectileOnExhaustFractionModel>().projectile = abilityWeapon.projectile;
         projectile.RemoveBehavior<CreateEffectOnExhaustFractionModel>();
-        projectile.GetBehavior<DisplayModel>().display = "";
+        projectile.GetBehavior<DisplayModel>().display = CreatePrefabReference("");
 
         weapon.AddBehavior(new CreateSoundOnProjectileCreatedModel(
             "CreateSoundOnProjectileCreatedModel_", sound, sound,
