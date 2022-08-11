@@ -82,7 +82,6 @@ public abstract class AbilityChoice : ModVanillaUpgrade
 
     public virtual void Apply1(TowerModel model)
     {
-        
     }
 
     public virtual void Apply2(TowerModel model)
@@ -91,7 +90,6 @@ public abstract class AbilityChoice : ModVanillaUpgrade
 
     public virtual void ApplyBoth(TowerModel model)
     {
-        
     }
 
     public sealed override void Apply(TowerModel towerModel)

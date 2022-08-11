@@ -1,3 +1,1 @@
-- Revamped to Upgrade Screen choice
-- Updated for Mod Helper 3.0
-- Fixed for BTD6 v32.0
+- Recompiled for v32.1 to fix ShowOkPopup method signature change
