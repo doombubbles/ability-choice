@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Models.Towers.Behaviors;
+using Assets.Scripts.Models.Towers.Behaviors.Abilities;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
@@ -25,14 +26,15 @@ public class SuperMonkeyFanClub : AbilityChoice
     public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
-        abilityModel.enabled = false;
+        // abilityModel.enabled = false;
+        abilityModel.CooldownSpeedScale = -1;
+        
         var monkeyFanClubModel = abilityModel.GetBehavior<MonkeyFanClubModel>();
 
         monkeyFanClubModel.towerCount =
             (int) Math.Round(monkeyFanClubModel.towerCount * monkeyFanClubModel.lifespan / abilityModel.Cooldown);
 
         const int interval = 5;
-        abilityModel.Cooldown = interval;
 
         monkeyFanClubModel.lifespan = interval + 1;
         monkeyFanClubModel.lifespanFrames = (interval + 1) * 60;

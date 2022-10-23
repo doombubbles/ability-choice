@@ -1,4 +1,5 @@
-﻿using BTD_Mod_Helper.Api.Enums;
+﻿using Assets.Scripts.Models.Towers;
+using BTD_Mod_Helper.Api.Enums;
 
 namespace AbilityChoice.AbilityChoices.Support;
 
@@ -13,4 +14,9 @@ public class CarpetOfSpikes : SpikeStorm
     public override string Description2 =>
         "Regularly sets a carpet of spikes over the whole track alongside the accelerated production.";
         
+    public override void ApplyBoth(TowerModel model)
+    {
+        var ability = AbilityModel(model);
+        ability.CooldownSpeedScale = -1;
+    }
 }

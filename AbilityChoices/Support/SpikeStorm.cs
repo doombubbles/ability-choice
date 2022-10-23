@@ -13,8 +13,9 @@ public class SpikeStorm : AbilityChoice
 
     public override string Description1 => "Continuously shoots out a stream of spikes over the entire track.";
 
-    public override string Description2 => "Gains extremely accelerated production for the first few seconds of each round.";
-        
+    public override string Description2 =>
+        "Gains extremely accelerated production for the first few seconds of each round.";
+
     public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
@@ -38,5 +39,12 @@ public class SpikeStorm : AbilityChoice
         }
 
         buffModel.modifier /= 10f;
+    }
+
+    public override void RemoveAbility(TowerModel model)
+    {
+        if (model.appliedUpgrades.Contains(UpgradeType.CarpetOfSpikes)) return;
+
+        base.RemoveAbility(model);
     }
 }

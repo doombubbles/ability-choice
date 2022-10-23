@@ -132,6 +132,9 @@
         <td>
             Gains a monstrous laser beam attack.
         </td>
+        <td>
+            Gains a monstrous laser beam attack (with the looks to match it).
+        </td>
     </tr>
 </table>
         

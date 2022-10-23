@@ -15,6 +15,7 @@ using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
 using MelonLoader;
 using NinjaKiwi.Common;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace AbilityChoice;
@@ -166,7 +167,8 @@ public abstract class AbilityChoice : ModVanillaUpgrade
     {
         var ability = AbilityModel(model);
 
-        ability.enabled = false;
+        // ability.enabled = false;
+        ability.CooldownSpeedScale = -1;
         var behavior = new ActivateAbilityAfterIntervalModel($"ActivateAbilityAfterIntervalModel_{model.name}",
             ability, ability.Cooldown);
         model.AddBehavior(behavior);

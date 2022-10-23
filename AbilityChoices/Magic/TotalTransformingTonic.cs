@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Models.Towers;
+﻿using Assets.Scripts.Models.GenericBehaviors;
+using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using BTD_Mod_Helper.Api.Enums;
@@ -21,7 +22,8 @@ public class TotalTransformingTonic : TransformingTonic
         base.Apply1(model);
 
         var abilityModel = AbilityModel(model);
-        abilityModel.enabled = false;
+        // abilityModel.enabled = false;
+        abilityModel.CooldownSpeedScale = -1;
         var morphTowerModel = abilityModel.GetBehavior<MorphTowerModel>();
 
         morphTowerModel.maxTowers = 2;
@@ -30,7 +32,7 @@ public class TotalTransformingTonic : TransformingTonic
         abilityModel.Cooldown = interval;
 
         morphTowerModel.lifespanFrames = interval * 60 - 1;
-        morphTowerModel.lifespan= morphTowerModel.lifespanFrames / 60f;
+        morphTowerModel.lifespan = morphTowerModel.lifespanFrames / 60f;
 
         morphTowerModel.effectModel.assetId = CreatePrefabReference("");
         morphTowerModel.effectOnTransitionBackModel.assetId = CreatePrefabReference("");
@@ -40,7 +42,7 @@ public class TotalTransformingTonic : TransformingTonic
         abilityModel.RemoveBehavior<IncreaseRangeModel>();
         abilityModel.RemoveBehavior<ActivateAttackModel>();
         abilityModel.RemoveBehavior<SwitchDisplayModel>();
-            
+
         model.AddBehavior(new ActivateAbilityAfterIntervalModel("ActivateAbilityAfterIntervalModel_", abilityModel,
             interval));
     }
@@ -59,6 +61,9 @@ public class TotalTransformingTonic : TransformingTonic
         model.AddBehavior(abilityAttack);
 
         model.IncreaseRange(ability.GetBehavior<IncreaseRangeModel>().addative);
+        
+        var display = ability.GetBehavior<SwitchDisplayModel>().display;
+        model.display = model.GetBehavior<DisplayModel>().display = display;
     }
 
     public override void RemoveAbility(TowerModel model)

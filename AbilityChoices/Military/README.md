@@ -9,6 +9,9 @@
         <td>
             Main attack upgrades to 3+ barrels for extremely fast attacks.
         </td>
+        <td>
+            Main attack upgrades to 3+ barrels for incredibly fast attacks with expanded radius.
+        </td>
     </tr>
     <tr>
         <td align='center'>

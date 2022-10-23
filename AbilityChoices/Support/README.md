@@ -9,6 +9,9 @@
         <td>
             Permanent weaker nearby attack speed / pierce buff.
         </td>
+        <td>
+            Permanent moderate nearby attack speed.
+        </td>
     </tr>
     <tr>
         <td align='center'>
@@ -26,7 +29,10 @@
             <h2>Homeland Defense</h2>
         </td>
         <td>
-            Permanent global attack speed / pierce buff.
+            Permanent global moderate attack speed / pierce buff.
+        </td>
+        <td>
+            Permanent global strong attack speed buff.
         </td>
     </tr>
     <tr>

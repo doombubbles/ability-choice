@@ -10,11 +10,13 @@ namespace AbilityChoice.AbilityChoices.Support;
 
 public class CallToArms : AbilityChoice
 {
-    public override string AbilityName => "Call to Arms";
+    public override string AbilityName => UpgradeType.CallToArms;
 
     public override string UpgradeId => UpgradeType.CallToArms;
 
     public override string Description1 => "Permanent weaker nearby attack speed / pierce buff.";
+    
+    public override string Description2 => "Permanent moderate nearby attack speed.";
 
     protected virtual bool IsGlobal => false;
 
@@ -45,5 +47,24 @@ public class CallToArms : AbilityChoice
 
         model.AddBehavior(buff);
         model.AddBehavior(buff2);
+    }
+
+    public override void Apply2(TowerModel model)
+    {
+        var ability = AbilityModel(model);
+
+        var c2a = ability.GetBehavior<CallToArmsModel>();
+        var buffIndicator = c2a.Mutator.buffIndicator;
+
+        var bonus = CalcAvgBonus(c2a.Lifespan / ability.Cooldown, c2a.multiplier * c2a.multiplier);
+
+        var buff = new RateSupportModel($"RateSupportModel_{Name}", 1 / bonus, true, $"Village:{Name}", IsGlobal, 1,
+            new Il2CppReferenceArray<TowerFilterModel>(0), buffIndicator.buffName, buffIndicator.iconName)
+        {
+            onlyShowBuffIfMutated = true,
+            isUnique = true
+        };
+
+        model.AddBehavior(buff);
     }
 }

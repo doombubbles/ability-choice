@@ -1,1 +1,10 @@
-- Fixed for v32.3
+- Fixed many Red Icon affects that've been broken by recent BTD6 internal changes
+  - This is mainly the income generating and trasnforming related ones
+- Fixed both Spike Factory Effects
+- Also finished off giving Blue Icon effects to all middle paths that didn't already have them 
+  - Added a Blue Icon choice to Transforming Tonic for whether he looks like the monster or not
+  - Added a Blue Icon choice to Artillery Battery for permanently gaining the blast radius increase of the Bombardment ability
+  - Turned the current Ice Monkey Red Icon effects into Blue Icon effects. The new Red Icon effects are about periodically freezing all Bloons on screen for a short duration.
+  - Similarly, turned the current Glue Gunner Red Icon effects into Blue Icon effects. The new Red Icon effects are about periodically gluing all Bloons on screen for a short duration.
+  - Added Blue Icon effects for Call to Arms and Homeland Defense for doubling the attack speed but not buffing pierce at all (gotta go fast)
+  - Added Blue Icon effects for Turbo Charge and Perma Charge for increasing damage via a shock effect

@@ -21,11 +21,7 @@ public class SpecialPoperations : AbilityChoice
 
     public override void Apply1(TowerModel model)
     {
-        var ability = AbilityModel(model);
-        ability.enabled = false;
-        var behavior =
-            new ActivateAbilityAfterIntervalModel("ActivateAbilityAfterIntervalModel", ability, ability.Cooldown);
-        model.AddBehavior(behavior);
+        TechBotify(model);
     }
 
     public override void Apply2(TowerModel model)

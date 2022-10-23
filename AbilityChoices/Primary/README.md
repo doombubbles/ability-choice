@@ -7,6 +7,9 @@
             <h2>Absolute Zero</h2>
         </td>
         <td>
+            Periodically freezes all Bloons on screen for 2s. Also globally buffs the attack speed of Ice Monkeys.
+        </td>
+        <td>
             Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.
         </td>
     </tr>
@@ -45,12 +48,18 @@
             <h2>Glue Storm</h2>
         </td>
         <td>
+            Frequently glues all bloons on screen, making them take increased damage.
+        </td>
+        <td>
             Glue weakens and slows Bloons further. Range is increased.
         </td>
     </tr>
     <tr>
         <td align='center'>
             <h2>Glue Strike</h2>
+        </td>
+        <td>
+            Periodically glues all bloons on screen for a short duration, making them take increased damage.
         </td>
         <td>
             Glue weakens Bloons, making them take increased damage and be vulnerable to Sharp sources.
@@ -74,6 +83,9 @@
         <td>
             Perma Charge has permanent super fast attack speed, and a moderate damage increase.
         </td>
+        <td>
+            Perma Charge has permanent super fast attack speed, and an even more powerful shock effect.
+        </td>
     </tr>
     <tr>
         <td align='center'>
@@ -89,6 +101,9 @@
     <tr>
         <td align='center'>
             <h2>Snowstorm</h2>
+        </td>
+        <td>
+            Periodically freezes all Bloons on screen for 1s.
         </td>
         <td>
             Cold aura can partially slows MOAB class bloons.
@@ -121,7 +136,10 @@
             <h2>Turbo Charge</h2>
         </td>
         <td>
-            Further increased attack speed.
+            Significantly increased attack speed.
+        </td>
+        <td>
+            Moderate attack speed increase, and boomerangs shock Bloons.
         </td>
     </tr>
 </table>

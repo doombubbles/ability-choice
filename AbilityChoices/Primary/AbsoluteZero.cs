@@ -12,14 +12,23 @@ namespace AbilityChoice.AbilityChoices.Primary;
 public class AbsoluteZero : Snowstorm
 {
     public override string UpgradeId => UpgradeType.AbsoluteZero;
-    public override string Description1 => "Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.";
 
-    public override void Apply1(TowerModel model)
+    public override string Description1 => "Periodically freezes all Bloons on screen for 2s. Also globally buffs the attack speed of Ice Monkeys.";
+
+    public override string Description2 =>
+        "Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.";
+
+    protected override int Factor => 5;
+
+    public override void Apply2(TowerModel model)
     {
-        base.Apply1(model);
+        base.Apply2(model);
 
         model.GetBehaviors<SlowBloonsZoneModel>().Last().speedScale -= .1f;
-            
+    }
+
+    public override void ApplyBoth(TowerModel model)
+    {
         var abilityModel = AbilityModel(model);
         var support = abilityModel.GetBehavior<ActivateRateSupportZoneModel>();
 
