@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AbilityChoice;
-using Assets.Scripts;
-using Assets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Enums;

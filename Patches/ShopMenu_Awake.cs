@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Unity.UI_New.InGame.RightMenu;
-using Assets.Scripts.Unity.UI_New.InGame.StoreMenu;
+﻿using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.StoreMenu;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using UnityEngine;

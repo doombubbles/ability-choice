@@ -2,7 +2,7 @@
 
 public static class ModHelperData
 {
-    public const string Version = "2.1.0";
+    public const string Version = "2.1.1";
     public const string Name = "Ability Choice";
 
     public const string Description =

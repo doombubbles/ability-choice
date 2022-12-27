@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Simulation.Towers.Behaviors.Abilities;
+﻿using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
 using HarmonyLib;
 
 namespace AbilityChoice.Patches;

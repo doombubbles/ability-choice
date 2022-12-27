@@ -1,5 +1,5 @@
 ﻿using AbilityChoice.Displays;
-using Assets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 

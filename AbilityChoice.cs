@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Unity.UI_New.Upgrade;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
+using Il2CppAssets.Scripts.Utils;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
+using Il2CppNinjaKiwi.Common;
 using MelonLoader;
-using NinjaKiwi.Common;
+using Il2CppNinjaKiwi.Common;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
@@ -169,8 +170,15 @@ public abstract class AbilityChoice : ModVanillaUpgrade
 
         // ability.enabled = false;
         ability.CooldownSpeedScale = -1;
-        var behavior = new ActivateAbilityAfterIntervalModel($"ActivateAbilityAfterIntervalModel_{model.name}",
-            ability, ability.Cooldown);
-        model.AddBehavior(behavior);
+        var name = $"ActivateAbilityAfterIntervalModel_{AbilityName.Replace(" ", "")}";
+        if (model.behaviors.FirstOrDefault(a => a.name == name).Is<ActivateAbilityAfterIntervalModel>(out var m))
+        {
+            m.abilityModel = ability;
+            m.interval = ability.Cooldown;
+        }
+        else
+        {
+            model.AddBehavior(new ActivateAbilityAfterIntervalModel(name, ability, ability.Cooldown));
+        }
     }
 }

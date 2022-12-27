@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Unity.UI_New.Upgrade;
+﻿using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
 
 namespace AbilityChoice;
 

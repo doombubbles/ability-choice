@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Data;
-using Assets.Scripts.Data.Bloons;
-using Assets.Scripts.Unity.Display;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Data;
+using Il2CppAssets.Scripts.Data.Bloons;
+using Il2CppAssets.Scripts.Unity.Display;
+using Il2CppAssets.Scripts.Utils;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Display;
 using BTD_Mod_Helper.Extensions;
-using NinjaKiwi.Common;
+using Il2Cpp;
+using Il2CppNinjaKiwi.Common;
 using UnityEngine;
 
 namespace AbilityChoice.Displays;
 
 public class ElectricShock : ModDisplay
 {
+    public static string OverlayType = "LaserShock" /*nameof(ElectricShock)*/;
+
     /// <summary>
     /// The overlay class that this is for
     /// </summary>
@@ -60,9 +62,12 @@ public class ElectricShock : ModDisplay
     /// <summary>
     /// Load an instance for each overlay class
     /// </summary>
-    public override IEnumerable<ModContent> Load() => Enum.GetValues(typeof(BloonOverlayClass))
+    public override IEnumerable<ModContent> Load() /* => Enum.GetValues(typeof(BloonOverlayClass))
         .Cast<BloonOverlayClass>()
-        .Select(bc => new ElectricShock(bc));
+        .Select(bc => new ElectricShock(bc));*/
+    {
+        return Enumerable.Empty<ModContent>();
+    }
 
     /// <summary>
     /// Setup the BloonOverlayScriptable over the course of each instance registering
@@ -76,7 +81,7 @@ public class ElectricShock : ModDisplay
         {
             electricShock = OverlayTypes[nameof(ElectricShock)] =
                 ScriptableObject.CreateInstance<BloonOverlayScriptable>();
-            electricShock.assets = new SerializableDictionary<BloonOverlayClass, PrefabReference>();
+            // electricShock.assets = new SerializableDictionary<BloonOverlayClass, PrefabReference>();
             electricShock.displayLayer = OverlayTypes[BaseOverlay].displayLayer;
         }
         else

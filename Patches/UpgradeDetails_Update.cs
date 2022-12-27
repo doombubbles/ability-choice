@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Unity.UI_New.Upgrade;
-using Assets.Scripts.Unity.Utils;
-using Assets.Scripts.Utils;
+﻿using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
+using Il2CppAssets.Scripts.Unity.Utils;
+using Il2CppAssets.Scripts.Utils;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;

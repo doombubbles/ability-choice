@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Simulation.Towers.Behaviors;
+﻿using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using MelonLoader;

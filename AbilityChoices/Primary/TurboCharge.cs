@@ -1,8 +1,8 @@
 ﻿using AbilityChoice.Displays;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Unity;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
@@ -49,7 +49,7 @@ public class TurboCharge : AbilityChoice
         var dart = dartling.GetWeapon().projectile;
 
         var addBehaviorToBloonModel = dart.GetBehavior<AddBehaviorToBloonModel>().Duplicate();
-        addBehaviorToBloonModel.overlayType = nameof(ElectricShock);
+        addBehaviorToBloonModel.overlayType = ElectricShock.OverlayType;
         addBehaviorToBloonModel.mutationId = nameof(ElectricShock);
         projectile.AddBehavior(addBehaviorToBloonModel);
         var damageModifierForBloonStateModel = dart.GetBehavior<DamageModifierForBloonStateModel>().Duplicate();

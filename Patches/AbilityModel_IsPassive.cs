@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Models.Towers.Behaviors.Abilities;
+﻿using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using HarmonyLib;
 
 namespace AbilityChoice.Patches;
