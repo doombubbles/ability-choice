@@ -1,1 +1,1 @@
-- Recompiled for BTD6 v35.0
+- Fixed for BTD6 v36.0

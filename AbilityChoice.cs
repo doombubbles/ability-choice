@@ -7,16 +7,12 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
-using Il2CppAssets.Scripts.Utils;
-using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppNinjaKiwi.Common;
 using MelonLoader;
-using Il2CppNinjaKiwi.Common;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 namespace AbilityChoice;

@@ -44,11 +44,6 @@ public class GlueStrike : AbilityChoice
 
         foreach (var projectileModel in model.GetWeapon().GetDescendants<ProjectileModel>().ToList())
         {
-            var slowModel = projectileModel.GetBehavior<SlowModel>();
-            slowModel.lifespan = abilitySlow.lifespan;
-            slowModel.layers = abilitySlow.layers;
-            slowModel.multiplier = abilitySlow.multiplier;
-
             if (damageBoost != null)
             {
                 projectileModel.AddBehavior(damageBoost.Duplicate());
@@ -57,6 +52,14 @@ public class GlueStrike : AbilityChoice
             if (sharpWeak != null)
             {
                 projectileModel.AddBehavior(sharpWeak.Duplicate());
+            }
+            
+            var slowModel = projectileModel.GetBehavior<SlowModel>();
+            if (slowModel != null)
+            {
+                slowModel.lifespan = abilitySlow.lifespan;
+                slowModel.layers = abilitySlow.layers;
+                slowModel.multiplier = abilitySlow.multiplier;
             }
         }
     }
