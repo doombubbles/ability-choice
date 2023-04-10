@@ -37,6 +37,8 @@ public abstract class AbilityChoice : ModVanillaUpgrade
 
     protected string DefaultDescription { get; private set; }
 
+    public sealed override bool ShouldApply => Enabled;
+
     public bool Enabled => setting?.Value is 1 or 2;
 
     protected bool Mode2 => setting?.Value == 2;

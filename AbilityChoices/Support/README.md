@@ -26,6 +26,17 @@
     </tr>
     <tr>
         <td align='center'>
+            <h2>Giga STOMP </h2>
+        </td>
+        <td>
+            The biggest and most fierce dinosaur of them all, Giganotosaurus can shred almost any Bloon instantly and with ease. Stuns from stomping last longer. Requires 3 additional Tyrannosaurus Handlers to control.
+        </td>
+        <td>
+            The biggest and most fierce dinosaur of them all, Giganotosaurus can shred almost any Bloon instantly and with ease. Stuns last longer. Requires 3 additional Tyrannosaurus Handlers to control.
+        </td>
+    </tr>
+    <tr>
+        <td align='center'>
             <h2>Homeland Defense</h2>
         </td>
         <td>
@@ -77,6 +88,17 @@
         </td>
         <td>
             Gains extremely accelerated production for the first few seconds of each round.
+        </td>
+    </tr>
+    <tr>
+        <td align='center'>
+            <h2>T Rex STOMP</h2>
+        </td>
+        <td>
+            The Tyrannosaurus Rex's huge jaw and sharp teeth deal a ton of damage with each bite. T Rex occasionally stomps, stunning Bloons.
+        </td>
+        <td>
+            The Tyrannosaurus Rex's huge jaw and sharp teeth deal a ton of damage and briefly stun bloons with each bite.
         </td>
     </tr>
     <tr>

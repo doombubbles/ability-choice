@@ -1,1 +1,2 @@
-- Fixed for BTD6 v36.0
+- Added Beast Handler Ability Choices
+- Fixed issue where Yellow settings could act like Red settings
