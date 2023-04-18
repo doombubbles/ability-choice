@@ -19,5 +19,4 @@ Blue Icon (Not All Towers): A new different effect based on the theme of the upg
 
 ## See [Here](AbilityChoices/README.md#all-ability-choices) for the full list of effects.
 
-## NOTE: This alpha version of the mod requires [BTD6 Mod Helper >v3.0](https://github.com/gurrenm3/BTD-Mod-Helper/wiki/Mod-Helper-3.0-Alpha), see [here](https://github.com/doombubbles/BTD6-Mods#readme) for the stable mods
 [![Requires BTD6 Mod Helper](https://raw.githubusercontent.com/gurrenm3/BTD-Mod-Helper/master/banner.png)](https://github.com/gurrenm3/BTD-Mod-Helper#readme)
