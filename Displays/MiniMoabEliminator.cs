@@ -13,8 +13,4 @@ public class MiniMoabEliminator : ModDisplay
         .GetDescendant<ActivateAttackModel>().attacks[0].weapons[0].projectile.display;
 
     public override float Scale => .5f;
-
-    public override void ModifyDisplayNode(UnityDisplayNode node)
-    {
-    }
 }

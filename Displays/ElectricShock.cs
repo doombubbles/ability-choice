@@ -15,7 +15,7 @@ namespace AbilityChoice.Displays;
 
 public class ElectricShock : ModDisplay
 {
-    public static string OverlayType = "LaserShock" /*nameof(ElectricShock)*/;
+    public static readonly string OverlayType = "LaserShock" /*nameof(ElectricShock)*/;
 
     /// <summary>
     /// The overlay class that this is for

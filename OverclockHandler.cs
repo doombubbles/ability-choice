@@ -20,14 +20,14 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace AbilityChoice;
 
-public static class OverclockHandler
+internal static class OverclockHandler
 {
     private static Vector3 lastCursorPosUnity = Vector3.zero;
-    private static HashSet<TowerToSimulation> towers = new HashSet<TowerToSimulation>();
+    private static HashSet<TowerToSimulation> towers = new();
 
     private static int ultraBoostTimer;
 
-    public static Dictionary<Tower, int> UltraBoostFixes = new Dictionary<Tower, int>();
+    public static readonly Dictionary<Tower, int> UltraBoostFixes = new();
 
     public static BehaviorMutator GetMutator(TowerModel engineer, int tier, bool ultra)
     {
@@ -39,9 +39,9 @@ public static class OverclockHandler
 
     public static void AddBoost(Tower from, Tower to)
     {
-        if (AbilityChoiceMod.CurrentBoostIDs.ContainsKey(from.Id))
+        if (AbilityChoiceMod.CurrentBoostIDs.TryGetValue(from.Id, out var id))
         {
-            RemoveBoostOn(AbilityChoiceMod.CurrentBoostIDs[from.Id]);
+            RemoveBoostOn(id);
         }
 
         to.RemoveMutatorsById("Overclock");
@@ -85,7 +85,7 @@ public static class OverclockHandler
     }
 
     [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.Update))]
-    internal class OverclockInput_Update
+    internal static class OverclockInput_Update
     {
         [HarmonyPostfix]
         internal static void Postfix(OverclockInput __instance, Vector3 cursorPosUnityWorld)
@@ -106,7 +106,7 @@ public static class OverclockHandler
     }
 
     [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.ExitInputMode))]
-    internal class OverclockInput_ExitInputMode
+    internal static class OverclockInput_ExitInputMode
     {
         [HarmonyPostfix]
         internal static void Postfix(OverclockInput __instance)
@@ -134,7 +134,7 @@ public static class OverclockHandler
     }
 
     [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.GetAllAbilities))]
-    internal class UnityToSimulation_GetAllAbilities
+    internal static class UnityToSimulation_GetAllAbilities
     {
         [HarmonyPostfix]
         internal static void Postfix(ref Il2CppSystem.Collections.Generic.List<AbilityToSimulation> __result)
@@ -146,7 +146,7 @@ public static class OverclockHandler
     }
 
     [HarmonyPatch(typeof(InGame), nameof(InGame.SellTower))]
-    internal class InGame_SellTower
+    internal static class InGame_SellTower
     {
         [HarmonyPrefix]
         internal static void Prefix(TowerToSimulation tower)
@@ -160,7 +160,7 @@ public static class OverclockHandler
     }
 
     [HarmonyPatch(typeof(InGame), nameof(InGame.TowerUpgraded))]
-    internal class InGame_TowerUpgraded
+    internal static class InGame_TowerUpgraded
     {
         [HarmonyPostfix]
         internal static void Postfix(TowerToSimulation tower)
@@ -195,7 +195,7 @@ public static class OverclockHandler
             UltraBoostStack(tower, stacks);
         }
 
-        UltraBoostFixes = new Dictionary<Tower, int>();
+        UltraBoostFixes.Clear();
 
         if (!TimeManager.inBetweenRounds)
         {

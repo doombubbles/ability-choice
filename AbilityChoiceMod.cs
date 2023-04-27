@@ -47,7 +47,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public static readonly ModSettingButton CreateMds = new(GenerateReadme.Generate);
 #endif
 
-    public static Dictionary<ObjectId, ObjectId> CurrentBoostIDs = new();
+    public static readonly Dictionary<ObjectId, ObjectId> CurrentBoostIDs = new();
 
     public override void OnMainMenu()
     {
@@ -69,7 +69,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         if (InGame.instance == null || !InGame.instance.quitting)
         {
-            CurrentBoostIDs = new Dictionary<ObjectId, ObjectId>();
+            CurrentBoostIDs.Clear();
         }
     }
 
