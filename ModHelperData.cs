@@ -1,6 +1,6 @@
 ﻿namespace AbilityChoice;
 
-public static class ModHelperData
+internal static class ModHelperData
 {
     public const string WorksOnVersion = "36.1";
     public const string Version = "2.2.0";
