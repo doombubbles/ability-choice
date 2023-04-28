@@ -15,7 +15,7 @@ public class BladeMaelstrom : AbilityChoice
     public override string Description1 => "Shoots out a slow swirl of global, high pierce blades.";
 
     public override string Description2 =>
-        "Blades have additional range range and pierce, and seek out Bloons on their own.";
+        "Blades have additional range and pierce, and seek out Bloons on their own.";
 
     protected virtual int Pierce => 6;
     protected virtual float Lifespan => 4;

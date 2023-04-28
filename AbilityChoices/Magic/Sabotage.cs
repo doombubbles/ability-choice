@@ -47,7 +47,7 @@ public class Sabotage : AbilityChoice
 
         var dontSlowBadBehavior = abilityWeapon.projectile.GetBehavior<SlowModifierForTagModel>();
 
-        var slowBehavior = new SlowModel("Sabotage", 0f, 2f, slowMutator.mutationId, 999, "", true, false, null,
+        var slowBehavior = new SlowModel("Sabotage", 0.5f, 2f, slowMutator.mutationId, 999, "", true, false, null,
             false, false, false) {mutator = slowMutator};
 
 
