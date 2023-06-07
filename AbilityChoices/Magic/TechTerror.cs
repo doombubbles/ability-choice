@@ -9,6 +9,7 @@ using Il2CppAssets.Scripts.Unity.Towers.Weapons.Behaviors;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Models.Effects;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
@@ -31,7 +32,7 @@ public class TechTerror : AbilityChoice
         abilityWeapon.projectile.display = effect.assetId;
         var effectBehavior =
             new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_Annihilation", CreatePrefabReference(""), effect, 0,
-                false, 1.0f, -1f, false);
+                Fullscreen.No, 1.0f, -1f, false);
         abilityWeapon.projectile.AddBehavior(effectBehavior);
         abilityWeapon.projectile.GetDamageModel().damage /= Factor;
         abilityWeapon.rate = ability.Cooldown / Factor;

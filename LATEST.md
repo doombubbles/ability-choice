@@ -1,2 +1,2 @@
-- Added Beast Handler Ability Choices
-- Fixed issue where Yellow settings could act like Red settings
+- Fixed for BTD6 v37.0
+- Fixed issue with Ninja Sabo blue effect

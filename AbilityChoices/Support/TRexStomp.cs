@@ -1,5 +1,6 @@
 ﻿using System;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Effects;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
@@ -48,7 +49,7 @@ public class TRexStomp : AbilityChoice
         var effectBehavior =
             new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_",
                 CreatePrefabReference(""), effect, 0,
-                false, 1.0f, -1f, false);
+                Fullscreen.No, 1.0f, -1f, false);
         proj.AddBehavior(effectBehavior);
 
         tRex.AddBehavior(attackModel);

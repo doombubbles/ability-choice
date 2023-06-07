@@ -42,7 +42,7 @@ public class FirstStrikeCapability : AbilityChoice
 
         var asset = abilityWeapon.projectile.GetBehavior<CreateEffectOnExpireModel>();
         asset.assetId = CreatePrefabReference("");
-        asset.effectModel = new EffectModel(asset.name, asset.assetId, .5f, asset.lifespan, false,
+        asset.effectModel = new EffectModel(asset.name, asset.assetId, .5f, asset.lifespan, Fullscreen.No,
             false, false, false, false, false, false);
 
         model.AddBehavior(abilityAttack);

@@ -9,6 +9,7 @@ using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Emissions;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Effects;
 
 
 namespace AbilityChoice.AbilityChoices.Military;
@@ -51,7 +52,7 @@ public class GroundZero : AbilityChoice
         }
 
         weapon.ejectY = 0;
-        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1, false, false,
+        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1, Fullscreen.No, false,
             true, false, false));
 
         var projectile = weapon.projectile;
