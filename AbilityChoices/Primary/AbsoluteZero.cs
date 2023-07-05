@@ -1,12 +1,10 @@
-﻿using System.Linq;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.TowerFilters;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
@@ -14,21 +12,22 @@ public class AbsoluteZero : Snowstorm
 {
     public override string UpgradeId => UpgradeType.AbsoluteZero;
 
-    public override string Description1 => "Periodically freezes all Bloons on screen for 2s. Also globally buffs the attack speed of Ice Monkeys.";
+    public override string Description1 =>
+        "Periodically freezes all Bloons on screen for 2s. Also globally buffs the attack speed of Ice Monkeys.";
 
     public override string Description2 =>
         "Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.";
 
     protected override int Factor => 5;
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 
         model.GetBehaviors<SlowBloonsZoneModel>().Last().speedScale -= .1f;
     }
 
-    public override void ApplyBoth(TowerModel model)
+    protected override void ApplyBoth(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var support = abilityModel.GetBehavior<ActivateRateSupportZoneModel>();
@@ -41,7 +40,7 @@ public class AbsoluteZero : Snowstorm
                 new TowerFilterModel[]
                 {
                     new FilterInBaseTowerIdModel("FilterInBaseTowerIdModel_",
-                        new Il2CppStringArray(new[] {TowerType.IceMonkey}))
+                        new Il2CppStringArray(new[] { TowerType.IceMonkey }))
                 }
             )
             , "", "")

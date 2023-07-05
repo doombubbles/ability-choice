@@ -1,15 +1,14 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
-public class BladeMaelstrom : AbilityChoice
+public class BladeMaelstrom : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.BladeMaelstrom;
     public override string Description1 => "Shoots out a slow swirl of global, high pierce blades.";
@@ -20,7 +19,7 @@ public class BladeMaelstrom : AbilityChoice
     protected virtual int Pierce => 6;
     protected virtual float Lifespan => 4;
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -35,11 +34,11 @@ public class BladeMaelstrom : AbilityChoice
         model.AddBehavior(newAttack);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         model.range += 9;
         model.GetAttackModel().range += 9;
-            
+
         var neva = Game.instance.model.GetTower(TowerType.MonkeyAce, 0, 0, 3);
         var behavior = neva.GetDescendant<TrackTargetModel>().Duplicate();
 

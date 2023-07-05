@@ -1,4 +1,5 @@
 # All Ability Choices
+
 <h2>Primary</h2>
 
 <table>
@@ -143,7 +144,7 @@
         </td>
     </tr>
 </table>
-        
+
 <h2>Military</h2>
 
 <table>
@@ -302,7 +303,7 @@
         </td>
     </tr>
 </table>
-        
+
 <h2>Magic</h2>
 
 <table>
@@ -441,7 +442,7 @@
         </td>
     </tr>
 </table>
-        
+
 <h2>Support</h2>
 
 <table>

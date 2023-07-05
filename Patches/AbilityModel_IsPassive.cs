@@ -1,5 +1,5 @@
-﻿using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
-using HarmonyLib;
+﻿using HarmonyLib;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 
 namespace AbilityChoice.Patches;
 
@@ -14,6 +14,7 @@ internal static class AbilityModel_IsPassive
             __result = true;
             return false;
         }
+
         return true;
     }
 }

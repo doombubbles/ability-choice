@@ -1,5 +1,5 @@
-﻿using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
-using HarmonyLib;
+﻿using HarmonyLib;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
 
 namespace AbilityChoice.Patches;
 
@@ -14,6 +14,7 @@ internal static class Ability_ShowInAbilityMenu
             __result = false;
             return false;
         }
+
         return true;
     }
 }

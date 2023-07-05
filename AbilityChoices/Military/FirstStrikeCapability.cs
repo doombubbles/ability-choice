@@ -1,14 +1,13 @@
-﻿using System.Linq;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Effects;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Military;
 
-public class FirstStrikeCapability : AbilityChoice
+public class FirstStrikeCapability : TowerAbilityChoice
 {
     private const float ExpectedPierce = 10;
     private const float Factor = 50;
@@ -21,13 +20,13 @@ public class FirstStrikeCapability : AbilityChoice
         "Ballistic missiles do more damage, further increased against MOABs and Ceramics";
 
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
-            
+
         var abilityAttack = abilityModel.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate();
         var abilityWeapon = abilityAttack.weapons[0];
-            
+
         abilityWeapon.rate = abilityModel.Cooldown / Factor;
 
         foreach (var createProjectileOnExpireModel in abilityWeapon.projectile
@@ -48,7 +47,7 @@ public class FirstStrikeCapability : AbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 

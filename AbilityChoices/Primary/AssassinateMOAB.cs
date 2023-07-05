@@ -1,18 +1,15 @@
-﻿using System.Linq;
-using AbilityChoice.Displays;
-using Il2CppAssets.Scripts.Models.GenericBehaviors;
+﻿using AbilityChoice.Displays;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
-using BTD_Mod_Helper.Api.Display;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
-public class AssassinateMOAB : AbilityChoice
+public class AssassinateMOAB : TowerAbilityChoice
 {
     private const float ExpectedPierce = 4;
     private const float Factor = 10;
@@ -24,7 +21,7 @@ public class AssassinateMOAB : AbilityChoice
 
     public override string Description2 => "Main attacks do further increased MOAB damage with more range.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -36,14 +33,14 @@ public class AssassinateMOAB : AbilityChoice
 
         newAttackWeapon.Rate = abilityModel.Cooldown / Factor;
 
-        ApplyDisplay(newAttackWeapon.projectile);
+        newAttackWeapon.projectile.scale = 0.5f;
 
         newAttack.GetDescendant<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 1;
 
         model.AddBehavior(newAttack);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var baseWeaponRate = BaseTowerModel.GetWeapon().Rate;
@@ -62,10 +59,5 @@ public class AssassinateMOAB : AbilityChoice
 
         model.range += 5;
         model.GetDescendants<AttackModel>().ForEach(attackModel => attackModel.range += 5);
-    }
-
-    protected virtual void ApplyDisplay(ProjectileModel projectileModel)
-    {
-        projectileModel.ApplyDisplay<MiniMoabAssassin>();
     }
 }

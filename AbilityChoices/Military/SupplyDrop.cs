@@ -1,11 +1,10 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
+﻿using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers;
 
 namespace AbilityChoice.AbilityChoices.Military;
 
-public class SupplyDrop : AbilityChoice
+public class SupplyDrop : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.SupplyDrop;
 
@@ -16,17 +15,17 @@ public class SupplyDrop : AbilityChoice
         "Bullets can bounce twice as much. Regular attack also damages Lead Bloons and increases Shrapnel popping power.";
 
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         model.GetWeapon().projectile.pierce *= 2;
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (Mode2)
         {

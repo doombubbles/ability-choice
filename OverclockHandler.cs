@@ -1,22 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using AbilityChoice.AbilityChoices.Support;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using HarmonyLib;
 using Il2CppAssets.Scripts;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
-using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Utils;
-using BTD_Mod_Helper.Api;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using HarmonyLib;
-using Math = System.Math;
-using Vector3 = UnityEngine.Vector3;
+using UnityEngine;
 
 namespace AbilityChoice;
 
@@ -84,103 +81,6 @@ internal static class OverclockHandler
         otherTower?.RemoveMutatorsById("Overclock");
     }
 
-    [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.Update))]
-    internal static class OverclockInput_Update
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(OverclockInput __instance, Vector3 cursorPosUnityWorld)
-        {
-            var abilityName = __instance.ability.model.displayName;
-            var enabled = abilityName == UpgradeType.Ultraboost && ModContent.GetInstance<Ultraboost>().Enabled ||
-                          abilityName == UpgradeType.Overclock && ModContent.GetInstance<Overclock>().Enabled;
-
-            lastCursorPosUnity = cursorPosUnityWorld;
-            if (__instance.targetImages != null && enabled)
-            {
-                foreach (var kvp in __instance.targetImages)
-                {
-                    towers.Add(kvp.Key);
-                }
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.ExitInputMode))]
-    internal static class OverclockInput_ExitInputMode
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(OverclockInput __instance)
-        {
-            var abilityName = __instance.ability.model.displayName;
-            var enabled = abilityName == UpgradeType.Ultraboost && ModContent.GetInstance<Ultraboost>().Enabled ||
-                          abilityName == UpgradeType.Overclock && ModContent.GetInstance<Overclock>().Enabled;
-            if (__instance.ability.CooldownRemaining != 0 && enabled)
-            {
-                var tower = towers
-                    .OrderBy(tts => tts.position.ToSMathVector().Distance(lastCursorPosUnity.ToSMathVector()))
-                    .First().tower;
-
-                var engi = __instance.tower.tower;
-                AddBoost(engi, tower);
-
-                if (engi.towerModel.tier == 5)
-                {
-                    ultraBoostTimer = 0;
-                }
-            }
-
-            towers = new HashSet<TowerToSimulation>();
-        }
-    }
-
-    [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.GetAllAbilities))]
-    internal static class UnityToSimulation_GetAllAbilities
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(ref Il2CppSystem.Collections.Generic.List<AbilityToSimulation> __result)
-        {
-            __result = __result.Where(a2s =>
-                !(a2s.model.displayName == "Overclock" && ModContent.GetInstance<Overclock>().Enabled ||
-                  a2s.model.displayName == "Ultraboost" && ModContent.GetInstance<Ultraboost>().Enabled));
-        }
-    }
-
-    [HarmonyPatch(typeof(InGame), nameof(InGame.SellTower))]
-    internal static class InGame_SellTower
-    {
-        [HarmonyPrefix]
-        internal static void Prefix(TowerToSimulation tower)
-        {
-            if (tower.tower != null && AbilityChoiceMod.CurrentBoostIDs.ContainsKey(tower.tower.Id))
-            {
-                RemoveBoostOn(AbilityChoiceMod.CurrentBoostIDs[tower.tower.Id]);
-                AbilityChoiceMod.CurrentBoostIDs.Remove(tower.tower.Id);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(InGame), nameof(InGame.TowerUpgraded))]
-    internal static class InGame_TowerUpgraded
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(TowerToSimulation tower)
-        {
-            if (tower.tower != null)
-            {
-                foreach (var boostingKey in AbilityChoiceMod.CurrentBoostIDs.Keys)
-                {
-                    if (AbilityChoiceMod.CurrentBoostIDs[boostingKey] == tower.Id)
-                    {
-                        RemoveBoostOn(tower.Id);
-                        var engi = InGame.instance.GetTowerManager().GetTowerById(boostingKey);
-                        AddBoost(engi, tower.tower);
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
     public static void OnUpdate()
     {
         if (!InGame.instance)
@@ -228,4 +128,109 @@ internal static class OverclockHandler
             ultraBoostTimer = 0;
         }
     }
+
+
+    [HarmonyPatch(typeof(InGame), nameof(InGame.SellTower))]
+    internal static class InGame_SellTower
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(TowerToSimulation tower)
+        {
+            if (tower.tower != null && AbilityChoiceMod.CurrentBoostIDs.ContainsKey(tower.tower.Id))
+            {
+                RemoveBoostOn(AbilityChoiceMod.CurrentBoostIDs[tower.tower.Id]);
+                AbilityChoiceMod.CurrentBoostIDs.Remove(tower.tower.Id);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(InGame), nameof(InGame.TowerUpgraded))]
+    internal static class InGame_TowerUpgraded
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(TowerToSimulation tower)
+        {
+            if (tower.tower != null)
+            {
+                foreach (var boostingKey in AbilityChoiceMod.CurrentBoostIDs.Keys)
+                {
+                    if (AbilityChoiceMod.CurrentBoostIDs[boostingKey] == tower.Id)
+                    {
+                        RemoveBoostOn(tower.Id);
+                        var engi = InGame.instance.GetTowerManager().GetTowerById(boostingKey);
+                        AddBoost(engi, tower.tower);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.ExitInputMode))]
+    internal static class OverclockInput_ExitInputMode
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(OverclockInput __instance)
+        {
+            var abilityName = __instance.ability.model.displayName;
+            var enabled = abilityName == UpgradeType.Ultraboost && ModContent.GetInstance<Ultraboost>().Enabled ||
+                          abilityName == UpgradeType.Overclock && ModContent.GetInstance<Overclock>().Enabled;
+            if (__instance.ability.CooldownRemaining != 0 && enabled)
+            {
+                var tower = towers
+                    .OrderBy(tts => tts.position.ToSMathVector().Distance(lastCursorPosUnity.ToSMathVector()))
+                    .First().tower;
+
+                var engi = __instance.tower.tower;
+                AddBoost(engi, tower);
+
+                if (engi.towerModel.tier == 5)
+                {
+                    ultraBoostTimer = 0;
+                }
+            }
+
+            towers = new HashSet<TowerToSimulation>();
+        }
+    }
+
+
+    [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.Update))]
+    internal static class OverclockInput_Update
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(OverclockInput __instance, Vector3 cursorPosUnityWorld)
+        {
+            var abilityName = __instance.ability.model.displayName;
+            var enabled = abilityName == UpgradeType.Ultraboost && ModContent.GetInstance<Ultraboost>().Enabled ||
+                          abilityName == UpgradeType.Overclock && ModContent.GetInstance<Overclock>().Enabled;
+
+            lastCursorPosUnity = cursorPosUnityWorld;
+            if (__instance.targetImages != null && enabled)
+            {
+                foreach (var kvp in __instance.targetImages)
+                {
+                    if (kvp.Key != null)
+                    {
+                        towers.Add(kvp.Key);
+                    }
+                }
+            }
+        }
+    }
+
+
+    [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.GetAllAbilities))]
+    internal static class UnityToSimulation_GetAllAbilities
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(ref Il2CppSystem.Collections.Generic.List<AbilityToSimulation> __result)
+        {
+            __result = __result?.Where(a2s =>
+                !(a2s.model.displayName == "Overclock" && ModContent.GetInstance<Overclock>().Enabled ||
+                  a2s.model.displayName == "Ultraboost" && ModContent.GetInstance<Ultraboost>().Enabled));
+        }
+    }
+
 }

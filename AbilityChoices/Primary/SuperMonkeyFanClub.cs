@@ -1,18 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using Il2CppSystem;
-using Math = System.Math;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
-public class SuperMonkeyFanClub : AbilityChoice
+public class SuperMonkeyFanClub : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.SuperMonkeyFanClub;
 
@@ -23,12 +20,12 @@ public class SuperMonkeyFanClub : AbilityChoice
 
     protected virtual float SuperMonkeyAttackSpeed => .06f;
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         // abilityModel.enabled = false;
         abilityModel.CooldownSpeedScale = -1;
-        
+
         var monkeyFanClubModel = abilityModel.GetBehavior<MonkeyFanClubModel>();
 
         monkeyFanClubModel.towerCount =
@@ -51,7 +48,7 @@ public class SuperMonkeyFanClub : AbilityChoice
             interval));
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var baseRate = BaseTowerModel.GetWeapon().Rate;
         model.GetWeapon().rate *= SuperMonkeyAttackSpeed / baseRate;
@@ -65,7 +62,7 @@ public class SuperMonkeyFanClub : AbilityChoice
         }
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (setting.Value == 1)
         {

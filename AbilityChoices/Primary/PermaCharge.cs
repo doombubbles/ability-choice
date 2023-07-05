@@ -1,15 +1,14 @@
-﻿using System;
-using AbilityChoice.Displays;
+﻿using AbilityChoice.Displays;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
-public class PermaCharge : AbilityChoice
+public class PermaCharge : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.PermaCharge;
 
@@ -19,7 +18,7 @@ public class PermaCharge : AbilityChoice
     public override string Description2 =>
         "Perma Charge has permanent super fast attack speed, and an even more powerful shock effect.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var damageUp = abilityModel.GetBehavior<DamageUpModel>();
@@ -31,7 +30,7 @@ public class PermaCharge : AbilityChoice
         damageModel.damage += bonus;
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var damageUp = abilityModel.GetBehavior<DamageUpModel>();
@@ -51,9 +50,9 @@ public class PermaCharge : AbilityChoice
         projectile.AddBehavior(addBehaviorToBloonModel);
         var damageModifierForBloonStateModel = dart.GetBehavior<DamageModifierForBloonStateModel>().Duplicate();
         damageModifierForBloonStateModel.bloonState = nameof(ElectricShock);
-        damageModifierForBloonStateModel.bloonStates = new[] {nameof(ElectricShock)};
+        damageModifierForBloonStateModel.bloonStates = new[] { nameof(ElectricShock) };
         damageModifierForBloonStateModel.damageAdditive += bonus - 1;
         projectile.AddBehavior(damageModifierForBloonStateModel);
-        projectile.collisionPasses = new[] {0, 1};
+        projectile.collisionPasses = new[] { 0, 1 };
     }
 }

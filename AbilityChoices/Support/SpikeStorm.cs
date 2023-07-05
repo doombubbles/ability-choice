@@ -1,13 +1,13 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Support;
 
-public class SpikeStorm : AbilityChoice
+public class SpikeStorm : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.SpikeStorm;
 
@@ -16,7 +16,7 @@ public class SpikeStorm : AbilityChoice
     public override string Description2 =>
         "Gains extremely accelerated production for the first few seconds of each round.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -28,7 +28,7 @@ public class SpikeStorm : AbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         if (!model.HasBehavior(out StartOfRoundRateBuffModel buffModel))
         {
@@ -41,7 +41,7 @@ public class SpikeStorm : AbilityChoice
         buffModel.modifier /= 10f;
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (model.appliedUpgrades.Contains(UpgradeType.CarpetOfSpikes)) return;
 

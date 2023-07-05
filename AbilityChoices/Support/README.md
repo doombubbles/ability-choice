@@ -1,4 +1,3 @@
-
 <h2>Support</h2>
 
 <table>

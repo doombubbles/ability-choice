@@ -1,17 +1,15 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-
 
 namespace AbilityChoice.AbilityChoices.Military;
 
-public class SpecialPoperations : AbilityChoice
+public class SpecialPoperations : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.SpecialPoperations;
 
@@ -20,15 +18,15 @@ public class SpecialPoperations : AbilityChoice
 
     public override string Description2 => "A Monkey Marine attacks from inside the Heli with a machine gun.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
-            
+
         model.behaviors = model.behaviors.RemoveItem(ability);
 
         var marine = ability.GetBehavior<FindDeploymentLocationModel>().towerModel;
@@ -36,7 +34,7 @@ public class SpecialPoperations : AbilityChoice
         var weapon = marine.GetAttackModels()[0].weapons[0].Duplicate();
 
         var airBehavior = model.GetAttackModels()[0].weapons[0].GetBehavior<FireFromAirUnitModel>();
-        weapon.behaviors = new Il2CppReferenceArray<WeaponBehaviorModel>(new WeaponBehaviorModel[] {airBehavior});
+        weapon.behaviors = new Il2CppReferenceArray<WeaponBehaviorModel>(new WeaponBehaviorModel[] { airBehavior });
 
         weapon.ejectX = weapon.ejectY = weapon.ejectZ = 0;
 
@@ -52,7 +50,7 @@ public class SpecialPoperations : AbilityChoice
         model.GetAttackModels()[0].AddWeapon(weapon);
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (Mode2)
         {

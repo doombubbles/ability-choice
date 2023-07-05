@@ -1,15 +1,14 @@
 ﻿using AbilityChoice.Displays;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
-public class TurboCharge : AbilityChoice
+public class TurboCharge : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.TurboCharge;
 
@@ -17,7 +16,7 @@ public class TurboCharge : AbilityChoice
 
     public override string Description2 => "Moderate attack speed increase, and boomerangs shock Bloons.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();
@@ -28,7 +27,7 @@ public class TurboCharge : AbilityChoice
         model.GetWeapon().Rate /= bonus;
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();
@@ -54,8 +53,8 @@ public class TurboCharge : AbilityChoice
         projectile.AddBehavior(addBehaviorToBloonModel);
         var damageModifierForBloonStateModel = dart.GetBehavior<DamageModifierForBloonStateModel>().Duplicate();
         damageModifierForBloonStateModel.bloonState = nameof(ElectricShock);
-        damageModifierForBloonStateModel.bloonStates = new[] {nameof(ElectricShock)};
+        damageModifierForBloonStateModel.bloonStates = new[] { nameof(ElectricShock) };
         projectile.AddBehavior(damageModifierForBloonStateModel);
-        projectile.collisionPasses = new[] {0, 1};
+        projectile.collisionPasses = new[] { 0, 1 };
     }
 }

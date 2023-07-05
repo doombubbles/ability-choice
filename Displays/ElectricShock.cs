@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using BTD_Mod_Helper.Api.Display;
+using BTD_Mod_Helper.Extensions;
+using Il2Cpp;
 using Il2CppAssets.Scripts.Data;
 using Il2CppAssets.Scripts.Data.Bloons;
 using Il2CppAssets.Scripts.Unity.Display;
 using Il2CppAssets.Scripts.Utils;
-using BTD_Mod_Helper.Api;
-using BTD_Mod_Helper.Api.Display;
-using BTD_Mod_Helper.Extensions;
-using Il2Cpp;
 using Il2CppNinjaKiwi.Common;
 using UnityEngine;
 
@@ -15,34 +13,17 @@ namespace AbilityChoice.Displays;
 
 public class ElectricShock : ModDisplay
 {
+    /// <summary>
+    /// What we're copying from, same as the "overlayType" field in behaviors
+    /// </summary>
+    private const string BaseOverlay = "LaserShock";
+
     public static readonly string OverlayType = "LaserShock" /*nameof(ElectricShock)*/;
 
     /// <summary>
     /// The overlay class that this is for
     /// </summary>
     protected readonly BloonOverlayClass overlayClass;
-
-    /// <summary>
-    /// Quick getter for all overlays
-    /// </summary>
-    private static SerializableDictionary<string, BloonOverlayScriptable> OverlayTypes =>
-        GameData.Instance.bloonOverlays.overlayTypes;
-
-    /// <summary>
-    /// What we're copying from, same as the "overlayType" field in behaviors
-    /// </summary>
-    private const string BaseOverlay = "LaserShock";
-
-
-    /// <summary>
-    /// Unique name for each overlay
-    /// </summary>
-    public override string Name => base.Name + "-" + overlayClass;
-
-    /// <summary>
-    /// Get the corresponding base overlay
-    /// </summary>
-    public override PrefabReference BaseDisplayReference => OverlayTypes[BaseOverlay].assets[overlayClass];
 
     /// <summary>
     /// Still need a 0 argument constructor
@@ -60,14 +41,28 @@ public class ElectricShock : ModDisplay
     }
 
     /// <summary>
+    /// Quick getter for all overlays
+    /// </summary>
+    private static SerializableDictionary<string, BloonOverlayScriptable> OverlayTypes =>
+        GameData.Instance.bloonOverlays.overlayTypes;
+
+
+    /// <summary>
+    /// Unique name for each overlay
+    /// </summary>
+    public override string Name => base.Name + "-" + overlayClass;
+
+    /// <summary>
+    /// Get the corresponding base overlay
+    /// </summary>
+    public override PrefabReference BaseDisplayReference => OverlayTypes[BaseOverlay].assets[overlayClass];
+
+    /// <summary>
     /// Load an instance for each overlay class
     /// </summary>
     public override IEnumerable<ModContent> Load() /* => Enum.GetValues(typeof(BloonOverlayClass))
         .Cast<BloonOverlayClass>()
-        .Select(bc => new ElectricShock(bc));*/
-    {
-        return Enumerable.Empty<ModContent>();
-    }
+        .Select(bc => new ElectricShock(bc));*/ => Enumerable.Empty<ModContent>();
 
     /// <summary>
     /// Setup the BloonOverlayScriptable over the course of each instance registering

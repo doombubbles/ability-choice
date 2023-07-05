@@ -2,21 +2,21 @@
 
 namespace AbilityChoice;
 
-public class AbilityChoiceDescription : ModTextOverride
+public abstract class AbilityChoiceDescription<T> : ModTextOverride where T : AbilityChoice
 {
-    private readonly AbilityChoice abilityChoice;
-
-    public override string Name => abilityChoice.Name;
-
-    public override string LocalizationKey => abilityChoice.UpgradeId + " Description";
-
-    public override string TextValue => abilityChoice.CurrentDescription;
-
-    public override bool Active => abilityChoice.Enabled;
+    protected readonly T abilityChoice;
+    protected readonly int mode;
 
     // Having this constructor makes it not automatically load
-    public AbilityChoiceDescription(AbilityChoice abilityChoice)
+    protected AbilityChoiceDescription(T abilityChoice, int mode, string description)
     {
         this.abilityChoice = abilityChoice;
+        this.mode = mode;
+        TextValue = description;
     }
+
+    public sealed override string Name => abilityChoice.Name;
+    public sealed override string TextValue { get; }
+
+    public override bool Active => abilityChoice.Mode == mode;
 }

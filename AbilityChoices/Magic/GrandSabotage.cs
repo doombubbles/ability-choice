@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2Cpp;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using Il2Cpp;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
@@ -19,7 +19,7 @@ public class GrandSabotage : Sabotage
     public override string Description2 =>
         "Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types. Permanent Shinobi buff.";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         base.Apply1(model);
         var abilityModel = AbilityModel(model);
@@ -33,7 +33,7 @@ public class GrandSabotage : Sabotage
         });
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         base.Apply2(model);
         model.IncreaseRange(10);
@@ -54,7 +54,7 @@ public class GrandSabotage : Sabotage
                 if (weaponModel.projectile.GetDamageModel().IsType(out DamageModel damageModel))
                 {
                     var behavior = new DamageModifierForTagModel("DamageModifierForTagModel_" + i, tags[i], 1.0f,
-                        10 * (i + 1), false, false) {tags = new[] {tags[i]}};
+                        10 * (i + 1), false, false) { tags = new[] { tags[i] } };
                     weaponModel.projectile.AddBehavior(behavior);
                     weaponModel.projectile.pierce += 10;
 
@@ -64,7 +64,7 @@ public class GrandSabotage : Sabotage
         }
     }
 
-    public override void ApplyBoth(TowerModel model)
+    protected override void ApplyBoth(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 

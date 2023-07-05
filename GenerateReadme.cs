@@ -1,8 +1,5 @@
 ﻿#if DEBUG
 using System.IO;
-using System.Linq;
-using BTD_Mod_Helper;
-using BTD_Mod_Helper.Api;
 using HarmonyLib;
 
 namespace AbilityChoice;
@@ -11,10 +8,10 @@ internal static class GenerateReadme
 {
     private const string ReadMe = "README.md";
 
-    private static string FilePath =>
-        Path.Combine(ModHelper.ModSourcesDirectory, nameof(AbilityChoice), "AbilityChoices");
+    private static readonly string[] TowerSets = { "Primary", "Military", "Magic", "Support" };
 
-    private static readonly string[] TowerSets = {"Primary", "Military", "Magic", "Support"};
+    private static string FilePath =>
+        Path.Combine(ModHelper.ModSourcesDirectory, nameof(TowerAbilityChoice), "AbilityChoices");
 
     public static void Generate()
     {
@@ -36,12 +33,12 @@ internal static class GenerateReadme
         $@"
 <h2>{category}</h2>
 
-<table>{ModContent.GetContent<AbilityChoice>().Where(abilityChoice => abilityChoice.GetType().Namespace!.Contains(category)).Select(GenerateEntry).Join(delimiter: "")}
+<table>{ModContent.GetContent<TowerAbilityChoice>().Where(abilityChoice => abilityChoice.GetType().Namespace!.Contains(category)).Select(GenerateEntry).Join(delimiter: "")}
 </table>
         ";
 
 
-    private static string GenerateEntry(AbilityChoice abilityChoice) =>
+    private static string GenerateEntry(TowerAbilityChoice abilityChoice) =>
         $@"
     <tr>
         <td align='center'>

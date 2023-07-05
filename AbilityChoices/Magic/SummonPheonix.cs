@@ -1,15 +1,14 @@
-﻿using System.Linq;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
-public class SummonPheonix : AbilityChoice // Yup this is an actual typo
+public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
 {
     public override string UpgradeId => UpgradeType.SummonPhoenix;
 
@@ -17,10 +16,11 @@ public class SummonPheonix : AbilityChoice // Yup this is an actual typo
 
     public override string Description2 => "Wizard gains the attacks of the Phoenix itself (non-globally).";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
-        var uptime = abilityModel.GetDescendant<TowerModel>().GetBehavior<TowerExpireModel>().Lifespan / abilityModel.Cooldown;
+        var uptime = abilityModel.GetDescendant<TowerModel>().GetBehavior<TowerExpireModel>().Lifespan /
+                     abilityModel.Cooldown;
         var lord = Game.instance.model.GetTower(TowerType.WizardMonkey, model.tiers[0], 5, model.tiers[2]);
 
         var permaBehavior = lord.GetBehavior<TowerCreateTowerModel>().Duplicate();
@@ -29,11 +29,11 @@ public class SummonPheonix : AbilityChoice // Yup this is an actual typo
 
         model.AddBehavior(permaBehavior);
     }
-        
-    public override void Apply2(TowerModel model)
+
+    protected override void Apply2(TowerModel model)
     {
         model.range = model.GetBehaviors<AttackModel>().Max(attackModel => attackModel.range);
-            
+
         var abilityModel = AbilityModel(model);
 
         var phoenix = abilityModel.GetDescendant<TowerModel>();
@@ -47,10 +47,10 @@ public class SummonPheonix : AbilityChoice // Yup this is an actual typo
         {
             attackModel.range = model.range;
             attackModel.targetProvider = null;
-            
+
             attackModel.RemoveBehavior<PathMovementFromScreenCenterModel>();
             attackModel.RemoveBehavior<PathMovementFromScreenCenterPatternModel>();
-            
+
             foreach (var targetSupplierModel in model.GetAttackModel().GetBehaviors<TargetSupplierModel>())
             {
                 attackModel.AddBehavior(targetSupplierModel);
@@ -58,7 +58,7 @@ public class SummonPheonix : AbilityChoice // Yup this is an actual typo
             }
 
             attackModel.weapons[0].ejectZ = 0;
-                
+
             model.AddBehavior(attackModel);
         }
     }

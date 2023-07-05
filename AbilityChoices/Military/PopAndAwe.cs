@@ -1,14 +1,14 @@
-﻿using Il2CppAssets.Scripts.Models;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Military;
 
-public class PopAndAwe : AbilityChoice
+public class PopAndAwe : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.PopAndAwe;
 
@@ -18,7 +18,7 @@ public class PopAndAwe : AbilityChoice
     public override string Description2 =>
         "Main attack gains additional bonus damage to stunned Bloons, and has turbo attack speed permanently";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var realWeapon = model.GetWeapon();
         var ability = AbilityModel(model);
@@ -56,7 +56,7 @@ public class PopAndAwe : AbilityChoice
         model.GetAttackModels()[0].AddWeapon(newWeapon);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var multiplier = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 4).GetDescendant<TurboModel>()
             .multiplier;

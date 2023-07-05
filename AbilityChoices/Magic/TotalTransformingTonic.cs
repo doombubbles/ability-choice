@@ -1,9 +1,9 @@
-﻿using Il2CppAssets.Scripts.Models.GenericBehaviors;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
@@ -17,7 +17,7 @@ public class TotalTransformingTonic : TransformingTonic
     public override string Description2 =>
         "Transforms just itself permanently into an even more powerful monster!";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         base.Apply1(model);
 
@@ -47,7 +47,7 @@ public class TotalTransformingTonic : TransformingTonic
             interval));
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var abilityAttack = ability.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate();
@@ -55,18 +55,18 @@ public class TotalTransformingTonic : TransformingTonic
         abilityWeapon.Rate /= 2;
         abilityWeapon.projectile.pierce *= 3;
         abilityWeapon.projectile.GetDamageModel().damage *= 2;
-            
+
         abilityAttack.range = model.range;
 
         model.AddBehavior(abilityAttack);
 
         model.IncreaseRange(ability.GetBehavior<IncreaseRangeModel>().addative);
-        
+
         var display = ability.GetBehavior<SwitchDisplayModel>().display;
         model.display = model.GetBehavior<DisplayModel>().display = display;
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (Mode2)
         {

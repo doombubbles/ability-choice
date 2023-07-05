@@ -1,11 +1,10 @@
-﻿using System.Linq;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2Cpp;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Unity;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using Il2Cpp;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 
@@ -13,12 +12,14 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
 {
     public override string UpgradeId => UpgradeType.PlasmaMonkeyFanClub;
 
-    public override string Description1 => "Up to 6 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
+    public override string Description1 =>
+        "Up to 6 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
+
     public override string Description2 => "Permanently shoots powerful plasma blasts itself.";
-        
+
     protected override float SuperMonkeyAttackSpeed => .03f;
-        
-    public override void Apply2(TowerModel model)
+
+    protected override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 
@@ -31,11 +32,10 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
             {
                 weaponProjectile.display = plasmaModel.display;
                 weaponProjectile.GetBehavior<DisplayModel>().display = plasmaModel.display;
-                weaponProjectile.GetDamageModel().damage += 2;
+                weaponProjectile.GetDamageModel().damage += AbilityChoiceMod.MoreBalanced ? 2 : 1;
                 weaponProjectile.GetDamageModel().immuneBloonProperties = BloonProperties.Purple;
-                weaponProjectile.pierce += 5;
+                weaponProjectile.pierce += AbilityChoiceMod.MoreBalanced ? 3 : 5;
             }
         }
-
     }
 }

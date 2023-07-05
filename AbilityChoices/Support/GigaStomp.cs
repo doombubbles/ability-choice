@@ -1,10 +1,12 @@
-﻿namespace AbilityChoice.AbilityChoices.Support;
+﻿using BTD_Mod_Helper.Api.Enums;
+
+namespace AbilityChoice.AbilityChoices.Support;
 
 public class GigaStomp : TRexStomp
 {
     public override string AbilityName => "Giga STOMP ";
 
-    public override string UpgradeId => "Giganotosaurus"; // TODO UpgradeType when updated
+    public override string UpgradeId => UpgradeType.Giganotosaurus;
 
     public override string Description1 =>
         "The biggest and most fierce dinosaur of them all, Giganotosaurus can shred almost any Bloon instantly and with ease. " +

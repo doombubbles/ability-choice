@@ -1,21 +1,19 @@
-﻿using Il2CppAssets.Scripts.Models.GenericBehaviors;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Effects;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Towers.Emissions;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Effects;
-
 
 namespace AbilityChoice.AbilityChoices.Military;
 
-public class GroundZero : AbilityChoice
+public class GroundZero : TowerAbilityChoice
 {
+    protected const int Factor = 7;
     public override string UpgradeId => UpgradeType.GroundZero;
 
     public override string Description1 =>
@@ -24,9 +22,7 @@ public class GroundZero : AbilityChoice
     public override string Description2 =>
         "Bomb damage increased significantly. Shoots a continuous stream of bombs.";
 
-    protected const int Factor = 7;
-
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var pineapple = model.GetAttackModel("Pineapple");
         var ability = AbilityModel(model);
@@ -52,7 +48,8 @@ public class GroundZero : AbilityChoice
         }
 
         weapon.ejectY = 0;
-        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1, Fullscreen.No, false,
+        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1,
+            Fullscreen.No, false,
             true, false, false));
 
         var projectile = weapon.projectile;
@@ -68,7 +65,7 @@ public class GroundZero : AbilityChoice
         model.AddBehavior(newAttack);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var pineapple = model.GetAttackModel("Pineapple");
         var emissionOverTime = pineapple.GetDescendant<EmissionOverTimeModel>();

@@ -1,9 +1,9 @@
-﻿using Il2CppAssets.Scripts.Unity.UI_New.InGame;
-using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
-using BTD_Mod_Helper;
+﻿using AbilityChoice.Components;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Unity.Menu;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -15,17 +15,30 @@ internal static class Button_OnPointerClick
     [HarmonyPostfix]
     private static void Postfix(Button __instance, PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right &&
-            __instance.gameObject.GetComponentInParent<UpgradeDetails>().IsType(out UpgradeDetails upgrade) 
-            && upgrade.AbilityChoice() is AbilityChoice abilityChoice)
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+
+        if (__instance.gameObject.HasComponent(out TowerAbilityChoiceInfo towerInfo))
         {
-            if (InGame.instance != null)
-            {
-                PopupScreen.instance.ShowOkPopup("In order for this to take effect, you'll need to exit to the main menu and come back to the game.");
-            }
-            abilityChoice.Toggle();
-            upgrade.OnPointerExit(eventData);
-            upgrade.OnPointerEnter(eventData);
+            towerInfo.abilityChoice.Toggle();
+            towerInfo.UpdateIcon();
+            towerInfo.upgradeDetails.OnPointerExit(eventData);
+            towerInfo.upgradeDetails.OnPointerEnter(eventData);
         }
+        else if (__instance.gameObject.HasComponent(out HeroAbilityChoiceInfo heroInfo))
+        {
+            heroInfo.abilityChoice.Toggle();
+            heroInfo.UpdateIcon();
+            heroInfo.UpdateDescriptions();
+        }
+        else return;
+
+
+        if (InGame.instance != null)
+        {
+            PopupScreen.instance.ShowOkPopup(
+                "In order for this to take effect, you'll need to exit to the main menu and come back to the game.");
+        }
+
+        MenuManager.instance.buttonClickSound.Play("ClickSounds");
     }
 }

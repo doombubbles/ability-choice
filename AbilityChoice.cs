@@ -1,28 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
-using Il2CppAssets.Scripts.Unity;
-using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
-using BTD_Mod_Helper.Api;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Towers;
-using BTD_Mod_Helper.Extensions;
-using Il2CppNinjaKiwi.Common;
-using MelonLoader;
-using UnityEngine.UI;
 
 namespace AbilityChoice;
 
-public abstract class AbilityChoice : ModVanillaUpgrade
+public abstract class AbilityChoice : NamedModContent
 {
-    public static readonly Dictionary<string, AbilityChoice> Cache = new();
-
-    public abstract string Description1 { get; }
-    public virtual string Description2 => "";
+    protected MelonPreferences_Entry<int> setting;
 
     public virtual string AbilityName => Regex.Replace(
         Name,
@@ -31,68 +19,53 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         RegexOptions.Compiled).Trim();
 
 
-    protected TowerModel BaseTowerModel { get; private set; }
-
-    protected MelonPreferences_Entry<int> setting;
-
-    protected string DefaultDescription { get; private set; }
-
-    public sealed override bool ShouldApply => Enabled;
-
     public bool Enabled => setting?.Value is 1 or 2;
 
     protected bool Mode2 => setting?.Value == 2;
 
-    public override void Register()
+    public int Mode
     {
-        base.Register();
-        BaseTowerModel = GetAffected(Game.instance.model).First();
-        Cache[UpgradeId] = this;
-        setting = AbilityChoiceMod.AbilityChoiceSettings.CreateEntry(Id, 1);
-        DefaultDescription = LocalizationManager.Instance.textTable[UpgradeId + " Description"];
-        // MelonLogger.Msg($"Registered AbilityChoice {Name} for upgrade {UpgradeId} and value {setting.Value}");
+        get => setting?.Value ?? 0;
+        set
+        {
+            setting.Value = value;
+            if (setting.Value == 2 && !HasMode2)
+            {
+                setting.Value = 1;
+            }
+        }
     }
 
+    protected abstract bool HasMode2 { get; }
 
-    public string CurrentDescription => Mode2 && !string.IsNullOrEmpty(Description2) ? Description2 : Description1;
+    public override void Register()
+    {
+        setting = AbilityChoiceMod.AbilityChoiceSettings.CreateEntry(Id, 1);
+        // MelonLogger.Msg($"Registered AbilityChoice {Name} for upgrade {UpgradeId} and value {setting.Value}");
+    }
 
     public void Toggle()
     {
         setting.Value++;
-        if (setting.Value > 2 || Mode2 && string.IsNullOrEmpty(Description2))
+        if (setting.Value > 2 || Mode2 && !HasMode2)
         {
             setting.Value = 0;
         }
     }
 
-    public void SetMode(int i)
-    {
-        setting.Value = i;
-        if (setting.Value == 2 && string.IsNullOrEmpty(Description2))
-        {
-            setting.Value = 1;
-        }
-    }
-
-    public sealed override IEnumerable<ModContent> Load()
-    {
-        yield return this;
-        yield return new AbilityChoiceDescription(this);
-    }
-
-    public virtual void Apply1(TowerModel model)
+    protected virtual void Apply1(TowerModel model)
     {
     }
 
-    public virtual void Apply2(TowerModel model)
+    protected virtual void Apply2(TowerModel model)
     {
     }
 
-    public virtual void ApplyBoth(TowerModel model)
+    protected virtual void ApplyBoth(TowerModel model)
     {
     }
 
-    public sealed override void Apply(TowerModel towerModel)
+    public void Apply(TowerModel towerModel)
     {
         if (Mode2)
         {
@@ -108,59 +81,33 @@ public abstract class AbilityChoice : ModVanillaUpgrade
         RemoveAbility(towerModel);
     }
 
-    public override IEnumerable<TowerModel> GetAffected(GameModel gameModel)
-    {
-        return base.GetAffected(gameModel)
-            .Where(model => AbilityModel(model) != null)
-            .OrderBy(model => model.appliedUpgrades.Length);
-    }
-
-    public static void HandleIcon(UpgradeDetails upgradeDetails)
-    {
-        var abilityObject = upgradeDetails.abilityObject;
-        var circle = abilityObject.GetComponent<Image>();
-        if (upgradeDetails.AbilityChoice() is AbilityChoice abilityChoice)
-        {
-            abilityObject.SetActive(true);
-            circle.SetSprite(IconForMode(abilityChoice.setting.Value));
-        }
-        else
-        {
-            circle.SetSprite(VanillaSprites.NotificationYellow);
-        }
-    }
-
-    public static string IconForMode(int mode) => mode switch
-    {
-        1 => VanillaSprites.NotifyRed,
-        2 => VanillaSprites.NotifyBlue,
-        _ => VanillaSprites.NotificationYellow
-    };
-
-    public virtual AbilityModel AbilityModel(TowerModel model)
-    {
-        return model.GetBehaviors<AbilityModel>()
+    protected virtual AbilityModel AbilityModel(TowerModel model) =>
+        model.GetBehaviors<AbilityModel>()
             .FirstOrDefault(abilityModel => abilityModel.displayName == AbilityName);
-    }
 
-    public virtual void RemoveAbility(TowerModel model)
+    protected virtual void RemoveAbility(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         if (abilityModel != null)
         {
             model.RemoveBehavior(abilityModel);
         }
-        else
+        // MelonLogger.Warning($"Couldn't apply ModAbilityChoice {Name}");
+    }
+
+    public virtual bool AppliesTo(TowerModel towerModel) => AbilityModel(towerModel) != null;
+
+    public virtual void Apply(GameModel gameModel)
+    {
+        foreach (var towerModel in GetAffected(gameModel))
         {
-            // MelonLogger.Warning($"Couldn't apply ModAbilityChoice {Name}");
+            Apply(towerModel);
         }
     }
 
+    public abstract IEnumerable<TowerModel> GetAffected(GameModel gameModel);
 
-    protected float CalcAvgBonus(float uptime, float dpsMult)
-    {
-        return uptime * dpsMult + (1 - uptime);
-    }
+    protected float CalcAvgBonus(float uptime, float dpsMult) => uptime * dpsMult + (1 - uptime);
 
     protected void TechBotify(TowerModel model)
     {

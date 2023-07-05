@@ -1,8 +1,8 @@
-﻿using Il2CppAssets.Scripts.Models;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
@@ -14,11 +14,12 @@ public class SummonLordPhoenix : SummonPheonix
 
     public override string Description2 => "Wizard gains the attacks of both Phoenixes itself (non-globally).";
 
-    public override void Apply1(TowerModel model)
+    protected override void Apply1(TowerModel model)
     {
         var permaBehavior = model.GetBehavior<TowerCreateTowerModel>().Duplicate();
         var abilityModel = AbilityModel(model);
-        var uptime = abilityModel.GetDescendant<TowerModel>().GetBehavior<TowerExpireModel>().Lifespan / abilityModel.Cooldown;
+        var uptime = abilityModel.GetDescendant<TowerModel>().GetBehavior<TowerExpireModel>().Lifespan /
+                     abilityModel.Cooldown;
         var lordPhoenix = abilityModel.GetDescendant<TowerModel>();
 
         lordPhoenix.behaviors = lordPhoenix.behaviors.RemoveItemOfType<Model, TowerExpireModel>();
@@ -32,13 +33,13 @@ public class SummonLordPhoenix : SummonPheonix
         model.AddBehavior(permaBehavior);
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 
         var towerCreateTowerModel = model.GetBehavior<TowerCreateTowerModel>();
         model.RemoveBehavior(towerCreateTowerModel);
-            
+
         AddAttacksFromSubTower(model, towerCreateTowerModel.towerModel);
     }
 }

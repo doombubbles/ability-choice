@@ -1,12 +1,12 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
+﻿using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
 
 namespace AbilityChoice.AbilityChoices.Support;
 
-public class Overclock : AbilityChoice
+public class Overclock : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.Overclock;
 
@@ -16,13 +16,13 @@ public class Overclock : AbilityChoice
     public override string Description2 => "All towers in range have increased Attack Speed.";
 
     protected virtual float Multiplier => .8f;
-        
-    public override void Apply1(TowerModel model)
+
+    protected override void Apply1(TowerModel model)
     {
         // see OverclockHandler
     }
 
-    public override void Apply2(TowerModel model)
+    protected override void Apply2(TowerModel model)
     {
         var overclock = AbilityModel(model).GetBehavior<OverclockModel>();
 
@@ -32,11 +32,11 @@ public class Overclock : AbilityChoice
             appliesToOwningTower = true,
             showBuffIcon = true
         };
-            
+
         model.AddBehavior(rateSupport);
     }
 
-    public override void RemoveAbility(TowerModel model)
+    protected override void RemoveAbility(TowerModel model)
     {
         if (Mode2)
         {
