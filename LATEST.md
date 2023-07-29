@@ -1,2 +1,1 @@
-- Fixed for BTD6 v37.0
-- Fixed issue with Ninja Sabo blue effect
+- Fixed Elite Supply Drop for 38.1

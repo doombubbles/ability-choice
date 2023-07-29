@@ -2,8 +2,8 @@
 
 internal static class ModHelperData
 {
-    public const string WorksOnVersion = "37.0";
-    public const string Version = "2.2.1";
+    public const string WorksOnVersion = "38.1";
+    public const string Version = "2.2.2";
     public const string Name = "Ability Choice";
 
     public const string Description =
