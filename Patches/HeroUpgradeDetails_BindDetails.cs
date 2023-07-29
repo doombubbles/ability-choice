@@ -1,5 +1,4 @@
-﻿using AbilityChoice.Components;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 
 namespace AbilityChoice.Patches;

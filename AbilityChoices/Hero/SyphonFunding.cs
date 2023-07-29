@@ -11,7 +11,7 @@ public class SyphonFunding : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        { 10, "Every few bloons each round is downgraded by 1 rank and give double cash per pop." },
+        { 10, "Every few bloons each round is downgraded by 1 rank and gives double cash per pop." },
         { 20, "More Bloons get downgraded, and they now give triple cash per pop." }
     };
 

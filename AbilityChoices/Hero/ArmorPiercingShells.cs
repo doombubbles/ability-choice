@@ -70,6 +70,6 @@ public class ArmorPiercingShells : HeroAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        // TODO armor piercing shells 2
+        // TODO armor piercing shells 2 ?
     }
 }

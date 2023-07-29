@@ -1,13 +1,26 @@
 ﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Effects;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Utils;
 
 namespace AbilityChoice.AbilityChoices.Hero;
 
 public class RallyingRoar : HeroAbilityChoice
 {
+    private const int Factor = 3;
     public override string HeroId => TowerType.PatFusty;
 
     public override Dictionary<int, string> Descriptions1 => new()
@@ -15,7 +28,11 @@ public class RallyingRoar : HeroAbilityChoice
         { 3, "Occasionally lets out a roar, rallying nearby Monkeys to pop +1 layer for a short time." }
     };
 
-    private const int Factor = 3;
+    public override Dictionary<int, string> Descriptions2 => new()
+    {
+        { 3, "Occasionally lets out a roar, weakening nearby Bloons such that they take +1 damage for a short time." },
+        { 14, "Weakening Roar increased radius and duration and increased damage Bloons take." }
+    };
 
     protected override void Apply1(TowerModel model)
     {
@@ -33,11 +50,82 @@ public class RallyingRoar : HeroAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        // TODO rallying roar 2
+        var ability = AbilityModel(model);
+        var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
+        var buff = ability.GetBehavior<ActivateTowerDamageSupportZoneModel>();
+
+        model.AddBehavior(new AttackHelper("Roar")
+        {
+            Range = buff.range,
+            AttackThroughWalls = true,
+            Weapon = new WeaponHelper("Roar")
+            {
+                Animation = 3,
+                Rate = ability.Cooldown / Factor,
+                Behaviors = new WeaponBehaviorModel[]
+                {
+                    new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false, false,
+                        false, false)
+                },
+                Projectile = new ProjectileHelper("Roar")
+                {
+                    Radius = buff.range,
+                    Pierce = 1000,
+                    Behaviors = new Model[]
+                    {
+                        new AgeModel("", .05f, 0, false, null),
+                        new AddBonusDamagePerHitToBloonModel("", "WeakeningRoar", buff.lifespan / Factor,
+                            buff.damageIncrease, 99999, true, false, false)
+                    }
+                }
+            }
+        });
+
+        model.AddBehavior(new AttackModel("Roar", new[]
+        {
+            new WeaponModel("", 3, ability.Cooldown / Factor, new ProjectileModel(new PrefabReference { guidRef = "" },
+                "Roar", buff.range, 0, 99999, 0, new Model[]
+                {
+                    new ProjectileFilterModel("", new[]
+                    {
+                        new FilterInvisibleModel("", false, false)
+                    }),
+                    new AgeModel("", .05f, 0, false, null),
+                    new AddBonusDamagePerHitToBloonModel("", "WeakeningRoar", buff.lifespan / Factor,
+                        buff.damageIncrease, 99999, true, false, false),
+                    new DisplayModel("", new PrefabReference { guidRef = "" }, 0, DisplayCategory.Projectile)
+                }, filters: new[]
+                {
+                    new FilterInvisibleModel("", false, false)
+                }, collisionPasses: new[]
+                {
+                    0
+                }
+            ), behaviors: new[]
+            {
+                new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false, false,
+                    false, false)
+            }, emission: new SingleEmissionModel("", null))
+        }, buff.range, new[]
+        {
+            new AttackFilterModel("", new[]
+            {
+                new FilterInvisibleModel("", false, false)
+            })
+        }, null, 0, 0, 0, true, false, 0, false, 0));
+
+        model.RemoveBehavior<PatBuffIndicatorModel>();
     }
 
     protected override void RemoveAbility(TowerModel model)
     {
-        TechBotify(model);
+        if (Mode2)
+        {
+            base.RemoveAbility(model);
+        }
+        else
+        {
+            TechBotify(model);
+        }
     }
 }

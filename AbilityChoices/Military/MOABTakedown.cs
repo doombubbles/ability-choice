@@ -19,7 +19,7 @@ public class MOABTakedown : TowerAbilityChoice
         "Adds 2 new cannons to the ship and cannons attacks do more damage. Also gains a hook attack which can periodically take-down MOABs or DDTs.";
 
     public override string Description2 =>
-        "Adds 2 new cannons to the ship and cannons attacks do more damage, further increased against MOABs and Ceramics.";
+        "Adds 2 new cannons to the ship and cannons attacks do more damage. Damage bonuses to MOABs and Ceramics increased.";
 
     protected virtual bool FilterBFBs => true;
 
@@ -41,15 +41,22 @@ public class MOABTakedown : TowerAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        foreach (var projectileModel in model.GetDescendants<ProjectileModel>()
-                     .ToList()
-                     .Where(projectileModel => projectileModel.id == "Explosion"))
+        if (AbilityChoiceMod.MoreBalanced)
         {
-            projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f,
-                AbilityChoiceMod.MoreBalanced ? 10 : 20, false, false));
-            projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f,
-                AbilityChoiceMod.MoreBalanced ? 5 : 10, false, false));
-            projectileModel.hasDamageModifiers = true;
+            model.GetDescendants<DamageModifierForTagModel>().ForEach(modifier => modifier.damageAddative *= 2);
+        }
+        else
+        {
+            foreach (var projectileModel in model.GetDescendants<ProjectileModel>()
+                         .ToList()
+                         .Where(projectileModel => projectileModel.id == "Explosion"))
+            {
+                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f,
+                    20, false, false));
+                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f,
+                    10, false, false));
+                projectileModel.hasDamageModifiers = true;
+            }
         }
     }
 }

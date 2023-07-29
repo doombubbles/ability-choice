@@ -107,7 +107,7 @@ public class MOABBarrage : HeroAbilityChoice
                     new AddBehaviorToBloonModel("", moabBarrage.mutatorId, .05f, 1, null, null, new[]
                     {
                         dot
-                    }, "", true, false, true, false, 0, false, 0, null),
+                    }, "", true, false, true, false, 0, false, 0, null, false),
                     new ProjectileFilterModel("", new[]
                     {
                         new FilterAllExceptTargetModel("")

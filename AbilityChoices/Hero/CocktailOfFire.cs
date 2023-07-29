@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Utils;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace AbilityChoice.AbilityChoices.Hero;
@@ -23,18 +30,22 @@ public class CocktailOfFire : HeroAbilityChoice
         }
     };
 
-    /*public override Dictionary<int, string> Descriptions2 => new()
+    public override Dictionary<int, string> Descriptions2 => new()
     {
         {
-            3, ""
+            3, "Fire blasts leave behind pools of liquid fire on the track."
         },
         {
-            7, "Heat it up has increased radius, "
+            7,
+            "Heat it up has increased radius, pools of fire are more effective."
         },
         {
-            14, ""
+            14,
+            "Pools of Fire do extra damage and set MOAB class Bloons alight."
         }
-    };*/
+    };
+
+    private const int Factor = 2;
 
     protected override void Apply1(TowerModel model)
     {
@@ -48,12 +59,15 @@ public class CocktailOfFire : HeroAbilityChoice
 
         var uptime = ageModel.Lifespan / ability.Cooldown;
 
-        ageModel.Lifespan /= 2f;
+        ageModel.Lifespan /= Factor;
 
         weapon.Rate = ageModel.Lifespan / uptime;
 
+        var addBehavior = projectile.GetDescendant<AddBehaviorToBloonModel>();
+        addBehavior.lifespan /= Factor;
+        addBehavior.lifespanFrames /= Factor;
 
-        weapon.Rate /= 2;
+        weapon.Rate /= Factor;
         var filterModel = projectile.GetBehavior<ProjectileFilterModel>();
         if (filterModel == null)
         {
@@ -62,7 +76,7 @@ public class CocktailOfFire : HeroAbilityChoice
         }
 
         filterModel.filters = (filterModel.filters ?? new Il2CppReferenceArray<FilterModel>(0))
-            .AddTo(new FilterWithChanceModel("", 1 / 2f));
+            .AddTo(new FilterWithChanceModel("", 1f / Factor));
         projectile.UpdateCollisionPassList();
 
         model.AddBehavior(attack);
@@ -70,6 +84,38 @@ public class CocktailOfFire : HeroAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        // TODO cocktail of fire 2
+        var ability = AbilityModel(model);
+
+        var projectile = ability.GetDescendant<ProjectileModel>().GetDescendant<ProjectileModel>().Duplicate();
+
+        projectile.AddFilter(new FilterWithChanceModel("", .2f));
+        projectile.GetBehavior<AgeModel>().Lifespan /= 5f;
+        projectile.UpdateCollisionPassList();
+
+        var addBehavior = projectile.GetDescendant<AddBehaviorToBloonModel>();
+        if (addBehavior != null)
+        {
+            addBehavior.lifespan /= 5;
+            addBehavior.lifespanFrames /= 5;
+        }
+
+        var newAttack = model.GetAttackModel().Duplicate("PoolsOfFire");
+        var newWeapon = newAttack.GetChild<WeaponModel>();
+        var newProj = newWeapon.projectile;
+
+        newWeapon.Rate *= 10;
+        newWeapon.SetEmission(new SingleEmissionModel("", null));
+        newWeapon.RemoveBehavior<CreateSoundOnProjectileCreatedModel>();
+        newWeapon.RemoveBehavior<BonusProjectileAfterIntervalModel>();
+
+        newProj.display = newProj.GetBehavior<DisplayModel>().display = new PrefabReference { guidRef = "" };
+        newProj.pierce = 9999;
+        newProj.RemoveBehavior<DamageModel>();
+        newProj.RemoveBehavior<AddBehaviorToBloonModel>();
+
+        newProj.AddBehavior(new CreateProjectileOnExhaustPierceModel("", projectile, new SingleEmissionModel("", null),
+            1f, 5, 5, true, new PrefabReference { guidRef = "" }, 1, false));
+        
+        model.AddBehavior(newAttack);
     }
 }

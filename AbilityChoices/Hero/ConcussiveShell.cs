@@ -33,12 +33,13 @@ public class ConcussiveShell : HeroAbilityChoice
     protected override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
-        var attack = ability.GetDescendant<AttackModel>().Duplicate();
+        var attack = ability.GetDescendant<AttackModel>().Duplicate("ConcussiveShell");
         var weapon = attack.weapons[0];
 
         weapon.GetDescendants<DamageModel>().ForEach(damageModel => damageModel.damage /= Factor);
         weapon.GetDescendants<SlowModel>().ForEach(slowModel => slowModel.Lifespan /= Factor);
         weapon.GetDescendants<SlowModifierForTagModel>().ForEach(slowModel => slowModel.lifespanOverride /= Factor);
+        weapon.Rate = ability.Cooldown / Factor;
 
         model.AddBehavior(attack);
     }

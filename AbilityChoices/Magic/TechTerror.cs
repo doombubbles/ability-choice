@@ -26,10 +26,8 @@ public class TechTerror : TowerAbilityChoice
         var abilityWeapon = abilityAttack.weapons[0];
 
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
-        abilityWeapon.projectile.display = effect.assetId;
         var effectBehavior =
-            new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_Annihilation",
-                CreatePrefabReference(""), effect, 0,
+            new CreateEffectOnExhaustFractionModel("", CreatePrefabReference(""), effect, 0,
                 Fullscreen.No, 1.0f, -1f, false);
         abilityWeapon.projectile.AddBehavior(effectBehavior);
         abilityWeapon.projectile.GetDamageModel().damage /= Factor;
@@ -45,7 +43,7 @@ public class TechTerror : TowerAbilityChoice
     {
         model.GetDescendants<CritMultiplierModel>().ForEach(multiplierModel =>
         {
-            multiplierModel.damage *= AbilityChoiceMod.MoreBalanced ? 2 : 5;
+            multiplierModel.damage *= AbilityChoiceMod.MoreBalanced ? 1.5f : 5;
         });
 
         var retarget = Game.instance.model.GetTower(TowerType.BoomerangMonkey, 4)

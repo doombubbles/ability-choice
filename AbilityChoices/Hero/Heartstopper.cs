@@ -36,6 +36,6 @@ public class Heartstopper : HeroAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        // TODO heartstopper 2
+        // TODO heartstopper 2 ?
     }
 }

@@ -72,6 +72,6 @@ public class LongArmOfLight : HeroAbilityChoice
 
     protected override void Apply2(TowerModel model)
     {
-        // TODO long arm of light 2
+        // TODO long arm of light 2 ?
     }
 }

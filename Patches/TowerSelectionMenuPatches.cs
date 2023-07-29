@@ -3,6 +3,10 @@ using System.Reflection;
 using AbilityChoice.AbilityChoices.Hero;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu.TowerSelectionMenuThemes;
 
@@ -14,24 +18,36 @@ internal static class TowerSelectionMenu_UpdateTower
     [HarmonyPostfix]
     private static void Postfix(TowerSelectionMenu __instance)
     {
-        var themeManager = __instance.themeManager;
-        var currentTheme = themeManager.CurrentTheme;
         if (ModContent.GetInstance<BloodSacrifice>().Mode == 0) return;
 
-        if (currentTheme == null)
+        var themeManager = __instance.themeManager;
+        var currentTheme = themeManager.CurrentTheme;
+
+        if (currentTheme == null) return;
+
+        var ui = currentTheme.GetComponent<AdoraSacrificeUI>();
+        if (ui != null)
         {
-            TaskScheduler.ScheduleTask(() => Postfix(__instance), () => themeManager.CurrentTheme != null);
-            return;
+            ui.UpdateTower();
         }
+    }
+}
 
-        if (!currentTheme.Is(out TSMThemeDefault themeDefault)) return;
+[HarmonyPatch(typeof(MenuThemeManager), nameof(MenuThemeManager.SetTheme))]
+internal static class MenuThemeManager_SetTheme
+{
+    [HarmonyPostfix]
+    private static void Postfix(MenuThemeManager __instance, BaseTSMTheme newTheme)
+    {
+        if (ModContent.GetInstance<BloodSacrifice>().Mode == 0 ||
+            !__instance.selectionMenu.Is(out TowerSelectionMenu menu) ||
+            !newTheme.Is(out TSMThemeDefault theme)) return;
 
-        var ui = currentTheme.GetComponentInChildren<AdoraSacrificeUI>();
+        var ui = theme.GetComponent<AdoraSacrificeUI>();
         if (ui == null)
         {
-            ui = AdoraSacrificeUI.Create(__instance, themeDefault);
+            ui = AdoraSacrificeUI.Create(menu, theme);
+            ui.UpdateTower();
         }
-
-        ui.UpdateTower();
     }
 }

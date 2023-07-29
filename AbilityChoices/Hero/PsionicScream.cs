@@ -18,7 +18,7 @@ public class PsionicScream : HeroAbilityChoice
     public override Dictionary<int, string> Descriptions1 => new()
     {
         { 10, "Psi unleashes silent screams that throw some Bloons into utter chaos." },
-        { 20, "Psionic Scream holds and damages mores Bloons on screen. Psi can now target DDTs and ZOMGs." }
+        { 20, "Psionic Screams hold and damage mores Bloons on screen. Psi can now target DDTs and ZOMGs." }
     };
 
     private const float Factor = 6;

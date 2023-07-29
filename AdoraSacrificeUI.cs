@@ -69,9 +69,10 @@ public class AdoraSacrificeUI : MonoBehaviour
 
     public static AdoraSacrificeUI Create(TowerSelectionMenu menu, TSMThemeDefault theme)
     {
-        var panel = theme.gameObject.AddModHelperPanel(new Info("AdoraSacrificeUI", InfoPreset.FillParent));
+        var ui = theme.gameObject.AddComponent<AdoraSacrificeUI>();
+        
+        var panel = theme.gameObject.AddModHelperPanel(new Info("AdoraSacrificePanel", InfoPreset.FillParent));
 
-        var ui = panel.AddComponent<AdoraSacrificeUI>();
         ui.panel = panel;
 
         ui.panel.AddImage(new Info("Icon", 372, -75, 120), VanillaSprites.BloodSacrificeAA);

@@ -43,7 +43,6 @@ public class RocketStorm : TowerAbilityChoice
 
         var abilityWeapon = abilityAttack.weapons[0];
 
-
         var realWeapon = model.GetWeapon();
         var count = 1;
         if (abilityWeapon.emission.IsType(out RandomEmissionModel randomEmissionModel))
@@ -61,28 +60,9 @@ public class RocketStorm : TowerAbilityChoice
 
         abilityWeapon.emission = realWeapon.emission;
 
-        abilityWeapon.Rate /= uptime * count;
+        abilityWeapon.Rate /= uptime * count / 2;
 
-        if (!AbilityChoiceMod.MoreBalanced)
-        {
-            abilityWeapon.Rate /= 2;
-        }
-
-
-        if (abilityWeapon.projectile.GetBehavior<CreateProjectileOnContactModel>().projectile
-            .HasBehavior<SlowModel>())
-        {
-            abilityWeapon.projectile.GetBehavior<CreateProjectileOnContactModel>().projectile
-                .GetBehavior<SlowModel>().lifespan *= uptime;
-            abilityWeapon.projectile.GetBehavior<CreateProjectileOnContactModel>().projectile
-                .GetBehavior<SlowModel>()
-                .dontRefreshDuration = true;
-            abilityWeapon.projectile.GetBehavior<CreateProjectileOnBlockerCollideModel>().projectile
-                .GetBehavior<SlowModel>().lifespan *= uptime;
-            abilityWeapon.projectile.GetBehavior<CreateProjectileOnBlockerCollideModel>().projectile
-                .GetBehavior<SlowModel>()
-                .dontRefreshDuration = true;
-        }
+        abilityWeapon.GetDescendants<SlowModel>().ForEach(slowModel => slowModel.dontRefreshDuration = true);
 
         abilityWeapon.GetBehavior<EjectEffectModel>().effectModel.lifespan *= uptime;
 

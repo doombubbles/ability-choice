@@ -30,27 +30,27 @@ internal static class GenerateReadme
     private static void SaveMd(string text, string path) => File.WriteAllText(Path.Combine(FilePath, path), text);
 
     private static string GenerateCategory(string category) =>
-        $@"
-<h2>{category}</h2>
+        $@"""
+        <h2>{category}</h2>
 
-<table>{ModContent.GetContent<TowerAbilityChoice>().Where(abilityChoice => abilityChoice.GetType().Namespace!.Contains(category)).Select(GenerateEntry).Join(delimiter: "")}
-</table>
-        ";
-
+        <table>{ModContent.GetContent<TowerAbilityChoice>().Where(abilityChoice => abilityChoice.GetType().Namespace!.Contains(category)).Select(GenerateEntry).Join(delimiter: "")}
+        </table>
+        """;
 
     private static string GenerateEntry(TowerAbilityChoice abilityChoice) =>
-        $@"
-    <tr>
-        <td align='center'>
-            <h2>{abilityChoice.AbilityName}</h2>
-        </td>
-        <td>
-            {abilityChoice.Description1}
-        </td>{(string.IsNullOrWhiteSpace(abilityChoice.Description2) ? "" : $@"
-        <td>
-            {abilityChoice.Description2}
-        </td>")}
-    </tr>";
+        $@"""
+            <tr>
+                <td align='center'>
+                    <h2>{abilityChoice.AbilityName}</h2>
+                </td>
+                <td>
+                    {abilityChoice.Description1}
+                </td>{(string.IsNullOrWhiteSpace(abilityChoice.Description2) ? "" : $@"
+                <td>
+                    {abilityChoice.Description2}
+                </td>")}
+            </tr>
+        """;
 }
 
 #endif

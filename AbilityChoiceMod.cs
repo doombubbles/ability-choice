@@ -4,6 +4,8 @@ using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppAssets.Scripts;
 using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 [assembly: MelonInfo(typeof(AbilityChoiceMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -65,18 +67,18 @@ public class AbilityChoiceMod : BloonsTD6Mod
         ResetCaches();
     }
 
-    /*public override void OnUpdate()
+    public override void OnUpdate()
     {
         OverclockHandler.OnUpdate();
-    }*/
+    }
 
-    /*public override void OnFixedUpdate()
+    public override void OnFixedUpdate()
     {
         if (InGame.instance != null && AdoraSacrificeUI.Instance != null)
         {
             AdoraSacrificeUI.Instance.Process();
         }
-    }*/
+    }
 
     public void ResetCaches()
     {

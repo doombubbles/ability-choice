@@ -21,22 +21,26 @@ public class ZOMGTakedown : MOABTakedown
     protected override void Apply2(TowerModel model)
     {
         base.Apply2(model);
-        foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList())
+        
+        if (!AbilityChoiceMod.MoreBalanced)
         {
-            if (projectileModel.id == "Explosion")
+            foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList())
             {
-                foreach (var damageModifierForTagModel in projectileModel.GetBehaviors<DamageModifierForTagModel>())
+                if (projectileModel.id == "Explosion")
                 {
-                    damageModifierForTagModel.damageAddative *= 2;
+                    foreach (var damageModifierForTagModel in projectileModel.GetBehaviors<DamageModifierForTagModel>())
+                    {
+                        damageModifierForTagModel.damageAddative *= 2;
+                    }
                 }
-            }
-            else if (projectileModel.GetDamageModel() != null)
-            {
-                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f, 20, false,
-                    false));
-                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f, 5, false,
-                    false));
-                projectileModel.hasDamageModifiers = true;
+                else if (projectileModel.GetDamageModel() != null)
+                {
+                    projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f, 20, false,
+                        false));
+                    projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f, 5, false,
+                        false));
+                    projectileModel.hasDamageModifiers = true;
+                }
             }
         }
     }

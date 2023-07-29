@@ -5,7 +5,7 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AbilityChoice.Components;
+namespace AbilityChoice;
 
 [RegisterTypeInIl2Cpp(false)]
 public class TowerAbilityChoiceInfo : MonoBehaviour
@@ -39,7 +39,7 @@ public class TowerAbilityChoiceInfo : MonoBehaviour
     {
         foreach (var upgradeDetails in pathUpgrades)
         {
-            var info = upgradeDetails.GetComponent<TowerAbilityChoiceInfo>();
+            var info = upgradeDetails.GetButton().gameObject.GetComponent<TowerAbilityChoiceInfo>();
 
             if (info != null)
             {
@@ -50,7 +50,10 @@ public class TowerAbilityChoiceInfo : MonoBehaviour
 
             if (TowerAbilityChoice.Cache.TryGetValue(name, out var abilityChoice))
             {
-                info ??= upgradeDetails.GetButton().gameObject.AddComponent<TowerAbilityChoiceInfo>();
+                if (info == null)
+                {
+                    info = upgradeDetails.GetButton().gameObject.AddComponent<TowerAbilityChoiceInfo>();
+                }
 
                 info.abilityChoice = abilityChoice;
                 info.upgradeDetails = upgradeDetails;
