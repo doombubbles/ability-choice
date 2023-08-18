@@ -9,7 +9,6 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Simulation.Towers;
-using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Utils;
@@ -23,10 +22,10 @@ internal static class OverclockHandler
 
     public static readonly Dictionary<Tower, int> UltraBoostFixes = new();
 
-    public static BehaviorMutator GetMutator(TowerModel engineer, int tier, bool ultra)
+    public static BehaviorMutator GetMutator(TowerModel engineer, int tier)
     {
         var model = engineer.GetAbilities()[0].GetBehavior<OverclockModel>().Duplicate();
-        var cooldown = ultra ? .35f : .45f;
+        var cooldown = engineer.appliedUpgrades.Contains(UpgradeType.Ultraboost) ? .35f : .45f;
         model.rateModifier = cooldown / (cooldown + 2f / 3f * (1.05f - .15f * tier));
         return new OverclockModel.OverclockMutator(model);
     }
@@ -45,14 +44,14 @@ internal static class OverclockHandler
             tier = (tier - 1) / 4;
         }
 
-        to.AddMutator(GetMutator(from.towerModel, tier, from.towerModel.tier == 5));
+        to.AddMutator(GetMutator(from.towerModel, tier));
 
         AbilityChoiceMod.CurrentBoostIDs[from.Id] = to.Id;
     }
 
     public static void UltraBoostStack(Tower to, int stack = 1)
     {
-        var model = Game.instance.model.GetTower(TowerType.EngineerMonkey, 0, 5).GetAbilities()[0]
+        var model = InGame.Bridge.Model.GetTower(TowerType.EngineerMonkey, 0, 5).GetAbilities()[0]
             .GetBehavior<OverclockPermanentModel>().Duplicate();
         var mutator = to.GetMutatorById("Ultraboost");
         if (mutator != null)
@@ -95,7 +94,7 @@ internal static class OverclockHandler
         {
             if (TimeManager.fastForwardActive)
             {
-                ultraBoostTimer += (int) TimeManager.networkScale;
+                ultraBoostTimer += (int) TimeManager.timeScaleWithoutNetwork;
             }
             else
             {

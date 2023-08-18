@@ -31,7 +31,7 @@ public class PsychicBlast : HeroAbilityChoice
 
     private const int Factor = 4;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -57,7 +57,7 @@ public class PsychicBlast : HeroAbilityChoice
         model.AddBehavior(attack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

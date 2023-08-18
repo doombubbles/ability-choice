@@ -29,7 +29,7 @@ public class BigSqueeze : HeroAbilityChoice
         { 20, "Main attack slam now does AOE bonus % health damage to MOAB-class Bloons." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -64,7 +64,7 @@ public class BigSqueeze : HeroAbilityChoice
 
     private static readonly List<string> NonBADs = new() { BloonTag.Moab, BloonTag.Bfb, BloonTag.Zomg, BloonTag.Ddt, };
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

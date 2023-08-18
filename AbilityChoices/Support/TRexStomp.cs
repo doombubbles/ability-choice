@@ -25,7 +25,7 @@ public class TRexStomp : TowerAbilityChoice
 
     protected virtual float Factor => 5;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var tRex = model.GetBehavior<BeastHandlerLeashModel>().towerModel;
         var ability = AbilityModel(model);
@@ -56,7 +56,7 @@ public class TRexStomp : TowerAbilityChoice
         tRex.AddBehavior(attackModel);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var tRex = model.GetBehavior<BeastHandlerLeashModel>().towerModel;
         var ability = AbilityModel(model);

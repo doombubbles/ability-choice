@@ -35,7 +35,7 @@ public class StormOfArrows : HeroAbilityChoice
         }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -60,7 +60,7 @@ public class StormOfArrows : HeroAbilityChoice
         model.AddBehavior(attackModel);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var mult = model.tier >= 18 ? .3f : .15f;
         var buffIcon = GetInstance<BuffIconQuincy>();

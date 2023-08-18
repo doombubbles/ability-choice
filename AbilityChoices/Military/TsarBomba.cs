@@ -12,7 +12,7 @@ public class TsarBomba : GroundZero
     public override string Description1 => "Occasionally drops mini Tsar Bombs.";
     public override string Description2 => "Drops a continuous stream of larger, more powerful bombs that stun bloons.";
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 

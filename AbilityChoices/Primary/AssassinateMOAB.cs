@@ -21,7 +21,7 @@ public class AssassinateMOAB : TowerAbilityChoice
 
     public override string Description2 => "Main attacks do further increased MOAB damage with more range.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -40,7 +40,7 @@ public class AssassinateMOAB : TowerAbilityChoice
         model.AddBehavior(newAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var baseWeaponRate = BaseTowerModel.GetWeapon().Rate;

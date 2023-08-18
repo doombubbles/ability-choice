@@ -20,12 +20,12 @@ public class JunglesBounty : TowerAbilityChoice
 
     protected virtual float Income => 1.2f;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var village = Game.instance.model.GetTower(TowerType.MonkeyVillage, 0, 0, 4);
         var behavior = village.GetBehavior<MonkeyCityIncomeSupportModel>().Duplicate();

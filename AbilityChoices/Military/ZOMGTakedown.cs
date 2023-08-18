@@ -18,7 +18,7 @@ public class ZOMGTakedown : MOABTakedown
 
     protected override bool FilterBFBs => false;
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
         

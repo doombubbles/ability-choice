@@ -34,7 +34,7 @@ public class RallyingRoar : HeroAbilityChoice
         { 14, "Weakening Roar increased radius and duration and increased damage Bloons take." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -48,17 +48,18 @@ public class RallyingRoar : HeroAbilityChoice
         buff.lifespanFrames /= Factor;
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         var buff = ability.GetBehavior<ActivateTowerDamageSupportZoneModel>();
 
-        model.AddBehavior(new AttackHelper("Roar")
+        model.AddBehavior(new AttackHelper("WeakeningRoar")
         {
             Range = buff.range,
             AttackThroughWalls = true,
-            Weapon = new WeaponHelper("Roar")
+            CanSeeCamo = true,
+            Weapon = new WeaponHelper("WeakeningRoar")
             {
                 Animation = 3,
                 Rate = ability.Cooldown / Factor,
@@ -67,10 +68,11 @@ public class RallyingRoar : HeroAbilityChoice
                     new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false, false,
                         false, false)
                 },
-                Projectile = new ProjectileHelper("Roar")
+                Projectile = new ProjectileHelper("WeakeningRoar")
                 {
                     Radius = buff.range,
                     Pierce = 1000,
+                    CanHitCamo = true,
                     Behaviors = new Model[]
                     {
                         new AgeModel("", .05f, 0, false, null),
@@ -81,7 +83,7 @@ public class RallyingRoar : HeroAbilityChoice
             }
         });
 
-        model.AddBehavior(new AttackModel("Roar", new[]
+        /*model.AddBehavior(new AttackModel("Roar", new[]
         {
             new WeaponModel("", 3, ability.Cooldown / Factor, new ProjectileModel(new PrefabReference { guidRef = "" },
                 "Roar", buff.range, 0, 99999, 0, new Model[]
@@ -113,6 +115,7 @@ public class RallyingRoar : HeroAbilityChoice
                 new FilterInvisibleModel("", false, false)
             })
         }, null, 0, 0, 0, true, false, 0, false, 0));
+        */
 
         model.RemoveBehavior<PatBuffIndicatorModel>();
     }

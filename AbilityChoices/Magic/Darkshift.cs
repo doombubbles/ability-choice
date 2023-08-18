@@ -11,7 +11,7 @@ public class Darkshift : TowerAbilityChoice
     public override string Description1 =>
         "Dark blades increase knockback and pierce and deal extra damage to MOAB-class Bloons. Increased range.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         model.IncreaseRange(10);
     }

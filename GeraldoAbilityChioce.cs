@@ -38,11 +38,11 @@ public abstract class GeraldoAbilityChioce : HeroAbilityChoice
         }
     }
 
-    protected sealed override void Apply1(TowerModel model)
+    public sealed override void Apply1(TowerModel model)
     {
     }
 
-    protected sealed override void Apply2(TowerModel model)
+    public sealed override void Apply2(TowerModel model)
     {
     }
 

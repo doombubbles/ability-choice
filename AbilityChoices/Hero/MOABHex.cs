@@ -30,7 +30,7 @@ public class MOABHex : HeroAbilityChoice
 
     private const int Factor = 5;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         ability.RemoveBehaviors<CreateEffectOnAbilityModel>();
@@ -54,7 +54,7 @@ public class MOABHex : HeroAbilityChoice
 
     private static readonly List<string> NonBADs = new() { BloonTag.Moab, BloonTag.Bfb, BloonTag.Zomg, BloonTag.Ddt, };
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

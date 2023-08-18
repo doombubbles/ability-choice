@@ -15,7 +15,7 @@ public class Sabotage : TowerAbilityChoice
     public override string Description1 => "All Bloons move at partially reduced speed.";
     public override string Description2 => "Ninja’s attacks have more range and slow Bloons to half speed.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var slow = abilityModel.GetDescendant<SlowMinusAbilityDurationModel>();
@@ -33,7 +33,7 @@ public class Sabotage : TowerAbilityChoice
         model.AddBehavior(slowAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.IncreaseRange(10);
         var ability = AbilityModel(model);

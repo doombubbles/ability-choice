@@ -13,7 +13,7 @@ public class BombBlitz : TowerAbilityChoice
     public override string UpgradeId => UpgradeType.BombBlitz;
     public override string Description1 => "Deals even further increased damage.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var baseWeaponRate = BaseTowerModel.GetWeapon().Rate;

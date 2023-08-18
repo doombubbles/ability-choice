@@ -19,7 +19,7 @@ public class BladeMaelstrom : TowerAbilityChoice
     protected virtual int Pierce => 6;
     protected virtual float Lifespan => 4;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -34,7 +34,7 @@ public class BladeMaelstrom : TowerAbilityChoice
         model.AddBehavior(newAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.range += 9;
         model.GetAttackModel().range += 9;

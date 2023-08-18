@@ -41,7 +41,7 @@ public class MOABBarrage : HeroAbilityChoice
         { 20, "MOAB Barrage shells and Main Gun do massively increased damage per hit, and barrages fire even faster." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -83,7 +83,7 @@ public class MOABBarrage : HeroAbilityChoice
     // Red is better against 5-10 Moabs, Blue is better for < 5
     private const float Factor = .5f;
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

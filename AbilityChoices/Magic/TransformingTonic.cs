@@ -14,7 +14,7 @@ public class TransformingTonic : TowerAbilityChoice
 
     public override string Description2 => "Gains a monstrous laser beam attack (with the looks to match it).";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var activateAttackModel = ability.GetBehavior<ActivateAttackModel>();
@@ -31,7 +31,7 @@ public class TransformingTonic : TowerAbilityChoice
         model.IncreaseRange(ability.GetBehavior<IncreaseRangeModel>().addative * uptime);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         Apply1(model);
 

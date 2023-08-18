@@ -19,7 +19,7 @@ public class GrandSabotage : Sabotage
     public override string Description2 =>
         "Ninja's attack have further increased range and pierce, and do more damage to stronger Bloon types. Permanent Shinobi buff.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         base.Apply1(model);
         var abilityModel = AbilityModel(model);
@@ -33,7 +33,7 @@ public class GrandSabotage : Sabotage
         });
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
         model.IncreaseRange(10);

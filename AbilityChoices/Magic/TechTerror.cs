@@ -19,7 +19,7 @@ public class TechTerror : TowerAbilityChoice
     public override string Description1 => "Frequently annihilates nearby Bloons.";
     public override string Description2 => "Nanobot plasma seeks out and destroys Bloons with strong Crits";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var abilityAttack = ability.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate();
@@ -39,7 +39,7 @@ public class TechTerror : TowerAbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.GetDescendants<CritMultiplierModel>().ForEach(multiplierModel =>
         {

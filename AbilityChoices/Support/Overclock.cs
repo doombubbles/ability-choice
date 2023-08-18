@@ -17,12 +17,12 @@ public class Overclock : TowerAbilityChoice
 
     protected virtual float Multiplier => .8f;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         // see OverclockHandler
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var overclock = AbilityModel(model).GetBehavior<OverclockModel>();
 

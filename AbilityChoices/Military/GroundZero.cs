@@ -22,7 +22,7 @@ public class GroundZero : TowerAbilityChoice
     public override string Description2 =>
         "Bomb damage increased significantly. Shoots a continuous stream of bombs.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var pineapple = model.GetAttackModel("Pineapple");
         var ability = AbilityModel(model);
@@ -65,7 +65,7 @@ public class GroundZero : TowerAbilityChoice
         model.AddBehavior(newAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var pineapple = model.GetAttackModel("Pineapple");
         var emissionOverTime = pineapple.GetDescendant<EmissionOverTimeModel>();

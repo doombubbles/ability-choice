@@ -15,7 +15,7 @@ public class SuperMaelstrom : BladeMaelstrom
     protected override int Pierce => 9;
     protected override float Lifespan => 16;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         base.Apply1(model);
 

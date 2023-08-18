@@ -18,12 +18,12 @@ public class SupportDrop : TowerAbilityChoice
     public override string Description2 =>
         "Downdraft attack is stronger and damages Moab class bloons. Can pick up and redeploy most Monkey types.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var downDraft = model.GetAttackModel("Downdraft")!;
         var projectileModel = downDraft.GetDescendant<ProjectileModel>();

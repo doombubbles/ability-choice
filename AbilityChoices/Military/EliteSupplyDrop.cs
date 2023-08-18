@@ -15,7 +15,7 @@ public class EliteSupplyDrop : SupplyDrop
     public override string Description2 =>
         "Bullets bounce even more, and can bounce back to the same target. Grants Elite targeting prio and faster reload to all snipers.";
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
         var projectileModel = model.GetWeapon().projectile;

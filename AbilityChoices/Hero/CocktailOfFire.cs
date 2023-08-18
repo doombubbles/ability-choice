@@ -47,7 +47,7 @@ public class CocktailOfFire : HeroAbilityChoice
 
     private const int Factor = 2;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -82,7 +82,7 @@ public class CocktailOfFire : HeroAbilityChoice
         model.AddBehavior(attack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

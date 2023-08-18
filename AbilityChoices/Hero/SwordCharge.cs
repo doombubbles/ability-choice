@@ -31,7 +31,7 @@ public class SwordCharge : HeroAbilityChoice
 
     public const float Factor = 5;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var swordCharge = ability.GetBehavior<SwordChargeModel>();
@@ -61,7 +61,7 @@ public class SwordCharge : HeroAbilityChoice
         swordCharge.iterations = 1;
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var swordCharge = ability.GetBehavior<SwordChargeModel>();

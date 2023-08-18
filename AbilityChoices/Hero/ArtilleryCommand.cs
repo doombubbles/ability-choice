@@ -28,7 +28,7 @@ public class ArtilleryCommand : HeroAbilityChoice
     };
 
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         model.AddBehavior(new AbilityCooldownScaleSupportModel("", false, 2.0f, false, true,
             Filters, "ArtilleryCommanderBuff", "BuffIconStrikerJones", true));
@@ -39,7 +39,7 @@ public class ArtilleryCommand : HeroAbilityChoice
         new FilterInBaseTowerIdModel("", new[] { TowerType.BombShooter, TowerType.MortarMonkey })
     };
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.AddBehavior(new DamageModifierSupportModel("", true, Name + "StunDamage", Filters, true,
             new DamageModifierForBloonStateModel("", "Stun", 1.25f, 0, false, false, false)));

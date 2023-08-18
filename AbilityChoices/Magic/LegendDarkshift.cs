@@ -11,7 +11,7 @@ public class LegendDarkshift : TowerAbilityChoice
 
     public override string Description1 => "We turn to him, when all hope is lost... and he's got a bit more range";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         model.IncreaseRange(30);
     }

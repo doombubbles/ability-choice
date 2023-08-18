@@ -15,12 +15,12 @@ public class SupplyDrop : TowerAbilityChoice
         "Bullets can bounce twice as much. Regular attack also damages Lead Bloons and increases Shrapnel popping power.";
 
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.GetWeapon().projectile.pierce *= 2;
     }

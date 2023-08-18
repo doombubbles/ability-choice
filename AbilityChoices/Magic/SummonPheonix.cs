@@ -16,7 +16,7 @@ public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
 
     public override string Description2 => "Wizard gains the attacks of the Phoenix itself (non-globally).";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var uptime = abilityModel.GetDescendant<TowerModel>().GetBehavior<TowerExpireModel>().Lifespan /
@@ -30,7 +30,7 @@ public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
         model.AddBehavior(permaBehavior);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.range = model.GetBehaviors<AttackModel>().Max(attackModel => attackModel.range);
 

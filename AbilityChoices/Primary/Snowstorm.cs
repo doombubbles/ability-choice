@@ -18,7 +18,7 @@ public class Snowstorm : TowerAbilityChoice
 
     protected virtual int Factor => 6;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -33,7 +33,7 @@ public class Snowstorm : TowerAbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var realSlow = model.GetBehavior<SlowBloonsZoneModel>();
 

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using BTD_Mod_Helper.Extensions;
-using Il2Cpp;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
@@ -20,10 +18,10 @@ public class LongArmOfLight : HeroAbilityChoice
     public override Dictionary<int, string> Descriptions1 => new()
     {
         { 3, "Further increased attack range. Everything third shot has bonus power & damages all Bloon types." },
-        { 16, "Long Arm of Light projectile becomes even more deadly, and now happens every other attack." }
+        { 16, "Long Arm of Light projectiles becomes even more deadly, and now happen every other attack." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -68,10 +66,5 @@ public class LongArmOfLight : HeroAbilityChoice
         var alt = new AlternateProjectileModel("", proj, null, interval);
 
         weapon.AddBehavior(alt);
-    }
-
-    protected override void Apply2(TowerModel model)
-    {
-        // TODO long arm of light 2 ?
     }
 }

@@ -29,7 +29,7 @@ public class LeapingSwordAttack : HeroAbilityChoice
 
     private const int Factor = 5;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var leapingSword = ability.GetBehavior<LeapingSwordModel>();
@@ -73,7 +73,7 @@ public class LeapingSwordAttack : HeroAbilityChoice
         model.AddBehavior(attack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var leapingSword = ability.GetBehavior<LeapingSwordModel>();

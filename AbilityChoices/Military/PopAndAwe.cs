@@ -18,7 +18,7 @@ public class PopAndAwe : TowerAbilityChoice
     public override string Description2 =>
         "Main attack gains additional bonus damage to stunned Bloons, and has turbo attack speed permanently";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var realWeapon = model.GetWeapon();
         var ability = AbilityModel(model);
@@ -56,7 +56,7 @@ public class PopAndAwe : TowerAbilityChoice
         model.GetAttackModels()[0].AddWeapon(newWeapon);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var multiplier = Game.instance.model.GetTower(TowerType.MortarMonkey, 0, 4).GetDescendant<TurboModel>()
             .multiplier;

@@ -37,7 +37,7 @@ public class Firestorm : HeroAbilityChoice
 
     private const int Factor = 6;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -70,7 +70,7 @@ public class Firestorm : HeroAbilityChoice
         });
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var heatItUp = model.GetDescendant<BonusProjectileAfterIntervalModel>();

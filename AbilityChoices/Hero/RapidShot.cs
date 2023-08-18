@@ -24,7 +24,7 @@ public class RapidShot : HeroAbilityChoice
         { 15, "Further increased attack speed." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -35,7 +35,7 @@ public class RapidShot : HeroAbilityChoice
         model.GetDescendants<WeaponModel>().ForEach(weaponModel => weaponModel.Rate /= bonus);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

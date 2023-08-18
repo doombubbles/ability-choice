@@ -21,7 +21,7 @@ public class BloodSacrifice : HeroAbilityChoice
         }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 

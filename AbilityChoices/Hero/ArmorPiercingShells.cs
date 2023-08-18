@@ -32,7 +32,7 @@ public class ArmorPiercingShells : HeroAbilityChoice
     };
 
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -66,10 +66,5 @@ public class ArmorPiercingShells : HeroAbilityChoice
         var alt = new AlternateProjectileModel("", projectile, null, interval);
 
         weapon.AddBehavior(alt);
-    }
-
-    protected override void Apply2(TowerModel model)
-    {
-        // TODO armor piercing shells 2 ?
     }
 }

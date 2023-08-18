@@ -16,7 +16,7 @@ public class Heartstopper : HeroAbilityChoice
         { 12, "Deals increased damage to MOABs. Purple Bloons are fully susceptible to all damage." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -32,10 +32,5 @@ public class Heartstopper : HeroAbilityChoice
         model.AddBehavior(
             new AddBehaviorToBloonInZoneModel("Purple", 999999, "HeartstopperBreakPurple", true, new[] { immune },
                 null, ""));
-    }
-
-    protected override void Apply2(TowerModel model)
-    {
-        // TODO heartstopper 2 ?
     }
 }

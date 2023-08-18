@@ -17,7 +17,7 @@ public class TotalTransformingTonic : TransformingTonic
     public override string Description2 =>
         "Transforms just itself permanently into an even more powerful monster!";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         base.Apply1(model);
 
@@ -47,7 +47,7 @@ public class TotalTransformingTonic : TransformingTonic
             interval));
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
         var abilityAttack = ability.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate();

@@ -13,12 +13,12 @@ public class MonkeyNomics : TowerAbilityChoice
     public override string Description1 => "For when you're too big to fail... such that you periodically get $10,000.";
     public override string Description2 => "For when you're too big to fail... such that Bank Capacity becomes $27,500";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.GetBehavior<BankModel>().capacity += 17500;
     }

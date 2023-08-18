@@ -12,7 +12,7 @@ public class ChampionDarkshift : TowerAbilityChoice
     public override string Description1 =>
         "Champion's dark blades excel at puncturing and ruining all Bloon types. Further increased range.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         model.IncreaseRange(20);
     }

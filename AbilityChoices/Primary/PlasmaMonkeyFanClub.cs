@@ -19,7 +19,7 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
 
     protected override float SuperMonkeyAttackSpeed => .03f;
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 

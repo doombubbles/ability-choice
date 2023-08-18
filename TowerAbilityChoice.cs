@@ -19,7 +19,7 @@ public abstract class TowerAbilityChoice : AbilityChoice
     protected string DefaultDescription { get; private set; }
     protected TowerModel BaseTowerModel { get; private set; }
 
-    protected sealed override bool HasMode2 => !string.IsNullOrEmpty(Description1);
+    protected sealed override bool HasMode2 => !string.IsNullOrEmpty(Description2);
 
     public sealed override IEnumerable<ModContent> Load()
     {

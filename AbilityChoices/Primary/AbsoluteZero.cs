@@ -20,7 +20,7 @@ public class AbsoluteZero : Snowstorm
 
     protected override int Factor => 5;
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 

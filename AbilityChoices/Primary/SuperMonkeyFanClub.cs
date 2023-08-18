@@ -20,7 +20,7 @@ public class SuperMonkeyFanClub : TowerAbilityChoice
 
     protected virtual float SuperMonkeyAttackSpeed => .06f;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         // abilityModel.enabled = false;
@@ -48,7 +48,7 @@ public class SuperMonkeyFanClub : TowerAbilityChoice
             interval));
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var baseRate = BaseTowerModel.GetWeapon().Rate;
         model.GetWeapon().rate *= SuperMonkeyAttackSpeed / baseRate;

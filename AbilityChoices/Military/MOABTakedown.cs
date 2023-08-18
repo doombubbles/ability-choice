@@ -23,7 +23,7 @@ public class MOABTakedown : TowerAbilityChoice
 
     protected virtual bool FilterBFBs => true;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var hookAttack = abilityModel.GetDescendant<AttackModel>().Duplicate();
@@ -39,7 +39,7 @@ public class MOABTakedown : TowerAbilityChoice
         model.AddBehavior(hookAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         if (AbilityChoiceMod.MoreBalanced)
         {

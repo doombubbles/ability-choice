@@ -14,7 +14,7 @@ public class GlueStorm : GlueStrike
 
     protected override float Factor => 7.5f;
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
         model.range *= 1.5f;

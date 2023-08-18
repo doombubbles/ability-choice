@@ -20,7 +20,7 @@ public class GlueStrike : TowerAbilityChoice
 
     protected virtual float Factor => 5;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -37,7 +37,7 @@ public class GlueStrike : TowerAbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var damageBoost = abilityModel.GetDescendant<AddBonusDamagePerHitToBloonModel>();

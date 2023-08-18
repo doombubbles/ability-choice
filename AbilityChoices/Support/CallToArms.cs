@@ -21,7 +21,7 @@ public class CallToArms : TowerAbilityChoice
 
     protected virtual bool IsGlobal => true;
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -50,7 +50,7 @@ public class CallToArms : TowerAbilityChoice
         model.AddBehavior(buff2);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

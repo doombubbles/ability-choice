@@ -29,7 +29,7 @@ public class WallOfTrees : HeroAbilityChoice
         { 20, "Obyn sends out 6 Wolf Spirits at a time with increased cash per pop." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var attack = ability.GetDescendant<AttackModel>().Duplicate();
@@ -44,7 +44,7 @@ public class WallOfTrees : HeroAbilityChoice
         model.AddBehavior(attack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         model.GetAttackModel().GetChild<WeaponModel>()
             .SetEmission(new ArcEmissionModel("", model.tier < 20 ? 3 : 6, -25, 50, null, false, false));

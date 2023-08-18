@@ -16,7 +16,7 @@ public class Bombardment : TowerAbilityChoice
     public override string Description2 =>
         "Main attack upgrades to 3+ barrels for incredibly fast attacks with expanded radius.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();
@@ -25,7 +25,7 @@ public class Bombardment : TowerAbilityChoice
         model.GetWeapon().Rate /= bonus;
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();

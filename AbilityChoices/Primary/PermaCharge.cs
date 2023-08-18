@@ -18,7 +18,7 @@ public class PermaCharge : TowerAbilityChoice
     public override string Description2 =>
         "Perma Charge has permanent super fast attack speed, and an even more powerful shock effect.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var damageUp = abilityModel.GetBehavior<DamageUpModel>();
@@ -30,7 +30,7 @@ public class PermaCharge : TowerAbilityChoice
         damageModel.damage += bonus;
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var damageUp = abilityModel.GetBehavior<DamageUpModel>();

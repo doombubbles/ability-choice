@@ -20,7 +20,7 @@ public class FirstStrikeCapability : TowerAbilityChoice
         "Ballistic missiles do more damage, further increased against MOABs and Ceramics";
 
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 
@@ -47,7 +47,7 @@ public class FirstStrikeCapability : TowerAbilityChoice
         model.AddBehavior(abilityAttack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
 

@@ -39,7 +39,7 @@ public class MegaMine : HeroAbilityChoice
         { 20, "Sea Mines have more pierce, stun for longer, and their Moab damage is massively increased." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -94,7 +94,7 @@ public class MegaMine : HeroAbilityChoice
         model.UpdateTargetProviders();
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

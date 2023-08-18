@@ -30,7 +30,7 @@ public class ConcussiveShell : HeroAbilityChoice
     private const int Factor2 = 10;
 
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var attack = ability.GetDescendant<AttackModel>().Duplicate("ConcussiveShell");
@@ -44,7 +44,7 @@ public class ConcussiveShell : HeroAbilityChoice
         model.AddBehavior(attack);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 

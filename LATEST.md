@@ -1,5 +1,3 @@
-- Added permanent passive versions (Red Mode) for all Hero abilities and applicable Geraldo Items
-- Added alternate versions (Blue Mode) for many Hero abilities
-  - More Blue Mode versions will continue being added in future updates
+- Added ability choices for all Hero abilities and applicable Geraldo Items
 - These can be toggled by right clicking the corresponding icon in the Hero Screen upgrades list
 - Fixed issue with changing Tower Ability choice settings after switching screens

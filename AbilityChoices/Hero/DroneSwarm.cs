@@ -26,7 +26,7 @@ public class DroneSwarm : HeroAbilityChoice
         }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
         var droneSupport = model.GetBehavior<DroneSupportModel>();
@@ -63,10 +63,5 @@ public class DroneSwarm : HeroAbilityChoice
             attack.AddBehavior(new TargetDivideAndConquerModel("", true, false));
             model.UpdateTargetProviders();
         }
-    }
-
-    protected override void Apply2(TowerModel model)
-    {
-        // TODO drone swarm 2
     }
 }

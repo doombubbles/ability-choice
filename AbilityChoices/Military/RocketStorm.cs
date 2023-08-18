@@ -19,7 +19,7 @@ public class RocketStorm : TowerAbilityChoice
     public override string Description2 =>
         "Shoots a single stream of Rocket Storm missiles with the same accuracy of its main attack.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var activateAttackModel = abilityModel.GetBehavior<ActivateAttackModel>();
@@ -34,7 +34,7 @@ public class RocketStorm : TowerAbilityChoice
         model.GetAttackModels()[0].AddWeapon(abilityWeapon);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var activateAttackModel = abilityModel.GetBehavior<ActivateAttackModel>();

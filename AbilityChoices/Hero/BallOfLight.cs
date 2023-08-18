@@ -17,7 +17,7 @@ public class BallOfLight : HeroAbilityChoice
         { 10, "Brings forth a powerful ball of energy to strike down the Bloons." }
     };
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
 

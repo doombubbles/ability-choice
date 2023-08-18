@@ -14,7 +14,7 @@ public class SummonLordPhoenix : SummonPheonix
 
     public override string Description2 => "Wizard gains the attacks of both Phoenixes itself (non-globally).";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var permaBehavior = model.GetBehavior<TowerCreateTowerModel>().Duplicate();
         var abilityModel = AbilityModel(model);
@@ -33,7 +33,7 @@ public class SummonLordPhoenix : SummonPheonix
         model.AddBehavior(permaBehavior);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         base.Apply2(model);
 

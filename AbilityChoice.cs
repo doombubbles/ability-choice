@@ -53,11 +53,11 @@ public abstract class AbilityChoice : NamedModContent
         }
     }
 
-    protected virtual void Apply1(TowerModel model)
+    public virtual void Apply1(TowerModel model)
     {
     }
 
-    protected virtual void Apply2(TowerModel model)
+    public virtual void Apply2(TowerModel model)
     {
     }
 

@@ -16,7 +16,7 @@ public class TurboCharge : TowerAbilityChoice
 
     public override string Description2 => "Moderate attack speed increase, and boomerangs shock Bloons.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();
@@ -27,7 +27,7 @@ public class TurboCharge : TowerAbilityChoice
         model.GetWeapon().Rate /= bonus;
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
         var turbo = abilityModel.GetBehavior<TurboModel>();

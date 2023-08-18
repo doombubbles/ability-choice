@@ -18,12 +18,12 @@ public class SpecialPoperations : TowerAbilityChoice
 
     public override string Description2 => "A Monkey Marine attacks from inside the Heli with a machine gun.";
 
-    protected override void Apply1(TowerModel model)
+    public override void Apply1(TowerModel model)
     {
         TechBotify(model);
     }
 
-    protected override void Apply2(TowerModel model)
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 
