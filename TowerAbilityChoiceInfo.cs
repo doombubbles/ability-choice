@@ -39,6 +39,8 @@ public class TowerAbilityChoiceInfo : MonoBehaviour
     {
         foreach (var upgradeDetails in pathUpgrades)
         {
+            if (!upgradeDetails.isActiveAndEnabled) return;
+            
             var info = upgradeDetails.GetButton().gameObject.GetComponent<TowerAbilityChoiceInfo>();
 
             if (info != null)

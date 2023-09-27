@@ -64,8 +64,11 @@ public class CocktailOfFire : HeroAbilityChoice
         weapon.Rate = ageModel.Lifespan / uptime;
 
         var addBehavior = projectile.GetDescendant<AddBehaviorToBloonModel>();
-        addBehavior.lifespan /= Factor;
-        addBehavior.lifespanFrames /= Factor;
+        if (addBehavior != null)
+        {
+            addBehavior.lifespan /= Factor;
+            addBehavior.lifespanFrames /= Factor;
+        }
 
         weapon.Rate /= Factor;
         var filterModel = projectile.GetBehavior<ProjectileFilterModel>();

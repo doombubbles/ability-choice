@@ -91,6 +91,7 @@ public class SwordCharge : HeroAbilityChoice
         model.AddBehavior(new AttackHelper(Name)
         {
             Range = 9999,
+            AddToSharedGrid = false,
             CanSeeCamo = true,
             Behaviors = new Model[]
             {
