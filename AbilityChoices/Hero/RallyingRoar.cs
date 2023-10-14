@@ -77,7 +77,7 @@ public class RallyingRoar : HeroAbilityChoice
                     {
                         new AgeModel("", .05f, 0, false, null),
                         new AddBonusDamagePerHitToBloonModel("", "WeakeningRoar", buff.lifespan / Factor,
-                            buff.damageIncrease, 99999, true, false, false)
+                            buff.damageIncrease, 99999, true, false, false, "")
                     }
                 }
             }
