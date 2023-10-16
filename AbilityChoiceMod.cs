@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
@@ -99,7 +100,14 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         foreach (var abilityChoice in ModContent.GetContent<AbilityChoice>().Where(choice => choice.Enabled))
         {
-            abilityChoice.Apply(gameModel);
+            try
+            {
+                abilityChoice.Apply(gameModel);
+            }
+            catch (Exception e)
+            {
+                ModHelper.Error<AbilityChoiceMod>(e);
+            }
         }
     }
 

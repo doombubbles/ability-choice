@@ -1,2 +1,2 @@
-- Fixed for BTD6 v39
-- Added an Ability Choice for the new Target Focus ability to make Mortar Monkeys constantly have increased accuracy
+- Fixed issue with Assassinate Moab ability choice not working without specific Monkey Knowledge
+- Improved error handling for ability choices

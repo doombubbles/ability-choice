@@ -46,12 +46,13 @@ public class AssassinateMOAB : TowerAbilityChoice
         var baseWeaponRate = BaseTowerModel.GetWeapon().Rate;
 
         var proj = model.GetWeapon().GetDescendant<CreateProjectileOnContactModel>().projectile;
-        var moabDamage = proj.GetBehaviors<DamageModifierForTagModel>().First(m => m.tag == "Moabs");
-
 
         var abilityDamage = abilityModel.GetDescendant<WeaponModel>().projectile.GetDamageModel();
         var addedMoabDps = abilityDamage.damage / abilityModel.Cooldown;
-        moabDamage.damageAddative += addedMoabDps * baseWeaponRate / ExpectedPierce;
+        foreach (var moabDamage in model.FindDescendants<DamageModifierForTagModel>(tag => tag.tag == BloonTag.Moabs))
+        {
+            moabDamage.damageAddative += addedMoabDps * baseWeaponRate / ExpectedPierce;
+        }
 
         var splash = abilityModel.GetDescendant<CreateProjectileOnContactModel>().projectile;
         var addedSplashDps = splash.pierce * splash.GetDamageModel().damage / abilityModel.Cooldown;
