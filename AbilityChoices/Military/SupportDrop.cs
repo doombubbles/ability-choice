@@ -30,7 +30,7 @@ public class SupportDrop : TowerAbilityChoice
         var windModel = projectileModel.GetBehavior<WindModel>();
         windModel.distanceMin = windModel.distanceMax;
         projectileModel.AddBehavior(new DamageModel("DamageModel_", 1, 0, true, false, true,
-            BloonProperties.None, BloonProperties.None));
+            BloonProperties.None, BloonProperties.None, false));
         projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_", "Moabs", 1, 9,
             false, true));
         projectileModel.hasDamageModifiers = true;

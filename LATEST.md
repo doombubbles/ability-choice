@@ -1,2 +1,2 @@
-- Fixed issue with Assassinate Moab ability choice not working without specific Monkey Knowledge
-- Improved error handling for ability choices
+- Fixed for v40.0
+- Will add Ability Choices for the new hero in a subsequent update
