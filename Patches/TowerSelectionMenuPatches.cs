@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using AbilityChoice.AbilityChoices.Hero;
+﻿using AbilityChoice.AbilityChoices.Hero;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
-using Il2CppAssets.Scripts.Simulation;
-using Il2CppAssets.Scripts.Simulation.Towers;
-using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu.TowerSelectionMenuThemes;

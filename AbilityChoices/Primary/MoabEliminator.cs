@@ -1,7 +1,4 @@
-﻿using AbilityChoice.Displays;
-using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+﻿using BTD_Mod_Helper.Api.Enums;
 
 namespace AbilityChoice.AbilityChoices.Primary;
 

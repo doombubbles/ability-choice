@@ -1,2 +1,2 @@
-- Fixed for v40.0
-- Will add Ability Choices for the new hero in a subsequent update
+- Fixed for v42.0
+- Reduced stun duration for Striker Jones Concussive Shell choices

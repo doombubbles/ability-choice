@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
@@ -10,9 +9,8 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Towers.Weapons.Behaviors;
-using Il2CppAssets.Scripts.Utils;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace AbilityChoice.AbilityChoices.Hero;
 

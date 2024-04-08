@@ -5,7 +5,6 @@ using BTD_Mod_Helper.Extensions;
 using Il2Cpp;
 using Il2CppAssets.Scripts.Models.SimulationBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.SimulationBehaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;

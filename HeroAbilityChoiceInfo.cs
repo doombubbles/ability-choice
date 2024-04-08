@@ -32,7 +32,7 @@ public class HeroAbilityChoiceInfo : MonoBehaviour
             button.abilityIconContainer.SetActive(true);
             if (abilityChoice is GeraldoAbilityChioce geraldoAbilityChioce)
             {
-                button.abillityIcon.SetSprite(geraldoAbilityChioce.GeraldoItem().icon);
+                button.abillityIcon.SetSprite(geraldoAbilityChioce.GeraldoItem().defaultIcon);
             }
         }
     }

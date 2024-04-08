@@ -5,8 +5,8 @@ using Il2Cpp;
 using Il2CppAssets.Scripts.Data;
 using Il2CppAssets.Scripts.Data.Bloons;
 using Il2CppAssets.Scripts.Unity.Display;
-using Il2CppAssets.Scripts.Utils;
 using Il2CppNinjaKiwi.Common;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 using UnityEngine;
 
 namespace AbilityChoice.Displays;
