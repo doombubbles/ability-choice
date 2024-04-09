@@ -1,2 +1,1 @@
-- Fixed for v42.0
-- Reduced stun duration for Striker Jones Concussive Shell choices
+- Fixed potential crash with Pat Fusty Level 10 and MIB

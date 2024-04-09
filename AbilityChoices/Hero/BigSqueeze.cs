@@ -8,6 +8,7 @@ using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace AbilityChoice.AbilityChoices.Hero;
 
@@ -35,7 +36,7 @@ public class BigSqueeze : HeroAbilityChoice
 
         var attack = ability.GetDescendant<AttackModel>();
 
-        var filter = new FilterOutTagModel(BloonTag.Zomg, BloonTag.Zomg, null);
+        var filter = new FilterOutTagModel(BloonTag.Zomg, BloonTag.Zomg, new Il2CppStringArray(0));
 
         var attackFilter = attack.GetBehavior<AttackFilterModel>();
         if (model.tier < 20)

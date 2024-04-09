@@ -3,7 +3,7 @@
 internal static class ModHelperData
 {
     public const string WorksOnVersion = "42.0";
-    public const string Version = "3.0.4";
+    public const string Version = "3.0.5";
     public const string Name = "Ability Choice";
 
     public const string Description =
