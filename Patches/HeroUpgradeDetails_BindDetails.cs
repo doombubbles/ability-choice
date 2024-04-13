@@ -9,6 +9,6 @@ internal static class HeroUpgradeDetails_BindDetails
     [HarmonyPostfix]
     private static void Postfix(HeroUpgradeDetails __instance)
     {
-        HeroAbilityChoiceInfo.Setup(__instance.selectedHeroId, __instance.heroUpgrades);
+        HeroAbilityChoiceInfo.Setup(__instance.SelectedHeroId, __instance.heroUpgrades);
     }
 }

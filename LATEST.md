@@ -1,1 +1,1 @@
-- Fixed potential crash with Pat Fusty Level 10 and MIB
+- Fixed a patch for BTD6 v42.1
