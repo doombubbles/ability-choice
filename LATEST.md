@@ -1,1 +1,1 @@
-- Fixed a patch for BTD6 v42.1
+- Fixed Elite Supply Drop for BTD6 42.2
