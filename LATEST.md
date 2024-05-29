@@ -1,1 +1,1 @@
-- Fixed Elite Supply Drop for BTD6 42.2
+- Fixes for BTD6 v43.0

@@ -112,7 +112,7 @@ public class MOABBarrage : HeroAbilityChoice
                     {
                         new FilterAllExceptTargetModel("")
                     }),
-                    new InstantModel("", false),
+                    new InstantModel("", false, false),
                     new AgeModel("", .05f, 0, false, null),
                     new DisplayModel("", CreatePrefabReference(null), 0, DisplayCategory.Projectile)
                 }, filters: new[]

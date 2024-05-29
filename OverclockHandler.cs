@@ -92,7 +92,7 @@ internal static class OverclockHandler
 
         if (!TimeManager.inBetweenRounds)
         {
-            if (TimeManager.fastForwardActive)
+            if (TimeManager.FastForwardActive)
             {
                 ultraBoostTimer += (int) TimeManager.timeScaleWithoutNetwork;
             }
