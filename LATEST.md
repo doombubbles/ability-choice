@@ -1,1 +1,1 @@
-- Fixes for BTD6 v43.0
+- Fixes for BTD6 v44.0

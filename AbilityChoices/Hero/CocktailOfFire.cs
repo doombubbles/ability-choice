@@ -109,14 +109,14 @@ public class CocktailOfFire : HeroAbilityChoice
         newWeapon.RemoveBehavior<CreateSoundOnProjectileCreatedModel>();
         newWeapon.RemoveBehavior<BonusProjectileAfterIntervalModel>();
 
-        newProj.display = newProj.GetBehavior<DisplayModel>().display = new PrefabReference { guidRef = "" };
+        newProj.display = newProj.GetBehavior<DisplayModel>().display = new PrefabReference {guidRef = ""};
         newProj.pierce = 9999;
         newProj.RemoveBehavior<DamageModel>();
         newProj.RemoveBehavior<AddBehaviorToBloonModel>();
 
         newProj.AddBehavior(new CreateProjectileOnExhaustPierceModel("", projectile, new SingleEmissionModel("", null),
-            1f, 5, 5, true, new PrefabReference { guidRef = "" }, 1, false));
-        
+            1f, 5, 5, true, new PrefabReference {guidRef = ""}, 1, false, false));
+
         model.AddBehavior(newAttack);
     }
 }
