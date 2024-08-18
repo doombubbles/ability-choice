@@ -21,16 +21,16 @@ public abstract class HeroAbilityChoice : AbilityChoice
     {
         yield return this;
 
-        foreach (var (level, description) in Descriptions1)
+        foreach (var level in Descriptions1.Keys)
         {
-            yield return new HeroAbilityChoiceDescription(this, level, 1, description);
+            yield return new HeroAbilityChoiceDescription(this, level, 1, $"[{Id} Description1 {level}]");
         }
 
         if (HasMode2)
         {
-            foreach (var (level, description) in Descriptions2)
+            foreach (var level in Descriptions2.Keys)
             {
-                yield return new HeroAbilityChoiceDescription(this, level, 2, description);
+                yield return new HeroAbilityChoiceDescription(this, level, 2, $"[{Id} Description2 {level}]");
             }
         }
     }
@@ -52,4 +52,22 @@ public abstract class HeroAbilityChoice : AbilityChoice
         2 => VanillaSprites.BlueBtnSquare,
         _ => VanillaSprites.YellowBtnSquare
     };
+
+    public override void RegisterText(Il2CppSystem.Collections.Generic.Dictionary<string, string> textTable)
+    {
+        textTable[Id] = DisplayName;
+
+        foreach (var (level, description) in Descriptions1)
+        {
+            textTable[$"{Id} Description1 {level}"] = description;
+        }
+
+        if (HasMode2)
+        {
+            foreach (var (level, description) in Descriptions2)
+            {
+                textTable[$"{Id} Description2 {level}"] = description;
+            }
+        }
+    }
 }

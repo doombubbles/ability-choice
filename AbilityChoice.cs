@@ -18,6 +18,7 @@ public abstract class AbilityChoice : NamedModContent
         " $1",
         RegexOptions.Compiled).Trim();
 
+    public override string DisplayName => $"[{AbilityName} Ability]";
 
     public bool Enabled => setting?.Value is 1 or 2;
 

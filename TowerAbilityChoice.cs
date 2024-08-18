@@ -24,11 +24,11 @@ public abstract class TowerAbilityChoice : AbilityChoice
     public sealed override IEnumerable<ModContent> Load()
     {
         yield return this;
-        yield return new TowerAbilityChoiceDescription(this, 1, Description1);
+        yield return new TowerAbilityChoiceDescription(this, 1, $"[{Id} Description1]");
 
         if (HasMode2)
         {
-            yield return new TowerAbilityChoiceDescription(this, 2, Description2);
+            yield return new TowerAbilityChoiceDescription(this, 2, $"[{Id} Description2]");
         }
     }
 
@@ -52,4 +52,11 @@ public abstract class TowerAbilityChoice : AbilityChoice
         2 => VanillaSprites.NotifyBlue,
         _ => VanillaSprites.NotificationYellow
     };
+
+    public override void RegisterText(Il2CppSystem.Collections.Generic.Dictionary<string, string> textTable)
+    {
+        if (!string.IsNullOrEmpty(DisplayName)) textTable[Id] = DisplayName;
+        if (!string.IsNullOrEmpty(Description1)) textTable[Id + " Description1"] = Description1;
+        if (!string.IsNullOrEmpty(Description2)) textTable[Id + " Description2"] = Description2;
+    }
 }
