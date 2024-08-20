@@ -1,1 +1,4 @@
-- Fixes for BTD6 v44.0
+- Added Red Ability Choices for Rosalia
+- Added Red Ability Choices for Mermonkey
+- Internally reworked Overclock/Ultraboost Red Ability Choices, they should work very robustly now
+- Fixed a bug with Ezili's Moab Hex Blue Ability Choice

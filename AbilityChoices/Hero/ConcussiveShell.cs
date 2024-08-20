@@ -28,8 +28,6 @@ public class ConcussiveShell : HeroAbilityChoice
     private const int Factor = 2;
     private const int Factor2 = 10;
 
-    private const int SlowFactor = 2;
-
 
     public override void Apply1(TowerModel model)
     {
@@ -38,8 +36,12 @@ public class ConcussiveShell : HeroAbilityChoice
         var weapon = attack.weapons[0];
 
         weapon.GetDescendants<DamageModel>().ForEach(damageModel => damageModel.damage /= Factor);
-        weapon.GetDescendants<SlowModel>().ForEach(slowModel => slowModel.Lifespan /= Factor * SlowFactor);
-        weapon.GetDescendants<SlowModifierForTagModel>().ForEach(slowModel => slowModel.lifespanOverride /= Factor * SlowFactor);
+        weapon.GetDescendants<SlowModel>().ForEach(slowModel =>
+        {
+            slowModel.Lifespan /= Factor;
+            slowModel.dontRefreshDuration = true;
+        });
+        weapon.GetDescendants<SlowModifierForTagModel>().ForEach(slowModel => slowModel.lifespanOverride /= Factor);
         weapon.Rate = ability.Cooldown / Factor;
 
         model.AddBehavior(attack);
@@ -55,12 +57,13 @@ public class ConcussiveShell : HeroAbilityChoice
         var projectile = model.GetAttackModel().GetDescendants<ProjectileModel>().ToList()
             .First(projectileModel => projectileModel.GetDamageModel() != null);
 
-        slow.Lifespan /= Factor2 * SlowFactor;
+        slow.Lifespan /= Factor2;
+        slow.dontRefreshDuration = true;
         projectile.AddBehavior(slow);
 
         foreach (var slowModifier in slowModifiers)
         {
-            slowModifier.lifespanOverride /= Factor2 * SlowFactor;
+            slowModifier.lifespanOverride /= Factor2;
             projectile.AddBehavior(slowModifier);
         }
 

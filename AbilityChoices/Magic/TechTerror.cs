@@ -13,7 +13,7 @@ namespace AbilityChoice.AbilityChoices.Magic;
 
 public class TechTerror : TowerAbilityChoice
 {
-    private const int Factor = 20;
+    private const int Factor = 10;
     public override string UpgradeId => UpgradeType.TechTerror;
 
     public override string Description1 => "Frequently annihilates nearby Bloons.";

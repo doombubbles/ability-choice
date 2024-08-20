@@ -49,7 +49,7 @@ public class MOABHex : HeroAbilityChoice
         ability.Cooldown /= Factor;
     }
 
-    private static readonly List<string> NonBADs = new() { BloonTag.Moab, BloonTag.Bfb, BloonTag.Zomg, BloonTag.Ddt, };
+    private static readonly List<string> NonBADs = [BloonTag.Moab, BloonTag.Bfb, BloonTag.Zomg, BloonTag.Ddt];
 
     public override void Apply2(TowerModel model)
     {
@@ -58,8 +58,8 @@ public class MOABHex : HeroAbilityChoice
         var hex = model.GetDescendant<HexModel>();
         var uptime = hex.totalDuration / ability.Cooldown;
 
-        // Also add some to the main single target attack
-        var proj = model.GetDescendant<CreateProjectileOnContactModel>().projectile;
+        // Add to the main single target attack
+        var proj = model.GetAttackModel().weapons[0].projectile;
 
         var percent = hex.damagePercentOfMax * uptime;
 
@@ -69,11 +69,11 @@ public class MOABHex : HeroAbilityChoice
             {
                 proj.AddBehavior(new DamagePercentOfMaxModel(tag, percent, new[]
                 {
-                    tag
+                    tag 
                 }, false));
             }
 
-            model.range += 20;
+            model.range += 10;
         }
         else
         {
@@ -82,7 +82,7 @@ public class MOABHex : HeroAbilityChoice
                 BloonTag.Moabs
             }, false));
 
-            model.range += 10;
+            model.range += 20;
         }
 
         proj.hasDamageModifiers = true;

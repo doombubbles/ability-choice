@@ -43,7 +43,13 @@ public class MOABTakedown : TowerAbilityChoice
     {
         if (AbilityChoiceMod.MoreBalanced)
         {
-            model.GetDescendants<DamageModifierForTagModel>().ForEach(modifier => modifier.damageAddative *= 2);
+            model.GetDescendants<DamageModifierForTagModel>().ForEach(modifier =>
+            {
+                if (modifier.tag == BloonTag.Moabs)
+                {
+                    modifier.damageAddative *= 2;
+                }
+            });
         }
         else
         {
