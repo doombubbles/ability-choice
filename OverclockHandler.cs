@@ -1,43 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using AbilityChoice.AbilityChoices.Support;
-using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts;
 using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Unity.Bridge;
-using Il2CppAssets.Scripts.Unity.UI_New.InGame;
-using Il2CppAssets.Scripts.Utils;
-using UnityEngine;
+using Il2CppSystem.IO;
 
 namespace AbilityChoice;
 
 internal static class OverclockHandler
 {
-    private static int ultraBoostTimer;
+    public const string Enabled = "AbilityChoiceEnabled";
 
-    public static readonly Dictionary<Tower, int> UltraBoostFixes = new();
+    private const string OverclockId = "Overclock";
 
     public static BehaviorMutator GetMutator(TowerModel engineer, int tier)
     {
-        var model = engineer.GetAbilities()[0].GetBehavior<OverclockModel>().Duplicate();
-        var cooldown = engineer.appliedUpgrades.Contains(UpgradeType.Ultraboost) ? .35f : .45f;
-        model.rateModifier = cooldown / (cooldown + 2f / 3f * (1.05f - .15f * tier));
-        return new OverclockModel.OverclockMutator(model);
+        var ability = engineer.GetAbilities()[0];
+        var overclock = ability.GetBehavior<OverclockModel>().Duplicate();
+        var uptime = overclock.tierBasedDurationMultiplier[tier] * overclock.lifespanFrames / ability.cooldownFrames;
+
+        overclock.rateModifier = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / overclock.rateModifier);
+        overclock.villageRangeModifier = AbilityChoice.CalcAvgBonus(uptime, overclock.villageRangeModifier);
+
+        return new OverclockModel.OverclockMutator(overclock);
     }
 
-    public static void AddBoost(Tower from, Tower to)
+    public static void ApplyOverclock(Tower from, Tower to)
     {
-        if (AbilityChoiceMod.CurrentBoostIDs.TryGetValue(from.Id, out var id))
+        if (from.Sim.factory.GetUncast<Overclock>().ToArray().Count(o => o.selectedTowerId == to.Id) <= 1)
         {
-            RemoveBoostOn(id);
+            to.RemoveMutatorsById(OverclockId);
         }
-
-        to.RemoveMutatorsById("Overclock");
         var tier = to.towerModel.tier;
         if (to.towerModel.IsHero())
         {
@@ -45,154 +45,171 @@ internal static class OverclockHandler
         }
 
         to.AddMutator(GetMutator(from.towerModel, tier));
-
-        AbilityChoiceMod.CurrentBoostIDs[from.Id] = to.Id;
     }
 
-    public static void UltraBoostStack(Tower to, int stack = 1)
+    private static bool OverclockAbilityChoice(this Overclock overclock) =>
+        overclock.overclockModel.OverclockAbilityChoice();
+
+    private static bool OverclockAbilityChoice(this AbilityModel abilityModel) =>
+        abilityModel.HasDescendant(out OverclockModel overclockModel) && overclockModel.OverclockAbilityChoice();
+
+    private static bool OverclockAbilityChoice(this OverclockModel overclockModel) =>
+        overclockModel.name.Contains(Enabled);
+
+
+    /// <summary>
+    /// Override Overclock application
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.Activate))]
+    internal static class Overclock_Activate
     {
-        var model = InGame.Bridge.Model.GetTower(TowerType.EngineerMonkey, 0, 5).GetAbilities()[0]
-            .GetBehavior<OverclockPermanentModel>().Duplicate();
-        var mutator = to.GetMutatorById("Ultraboost");
-        if (mutator != null)
+        [HarmonyPostfix]
+        internal static void Postfix(Overclock __instance)
         {
-            var stacks = mutator.mutator.Cast<OverclockPermanentModel.OverclockPermanentMutator>().stacks;
-            if (stacks < model.maxStacks)
-            {
-                var newMutator = model.MutatorByStack(Math.Min(stacks + stack, model.maxStacks));
-                to.RemoveMutatorsById("Ultraboost");
-                to.AddMutator(newMutator);
-            }
-        }
-        else
-        {
-            var newMutator = model.MutatorByStack(Math.Min(model.maxStacks, stack));
-            to.AddMutator(newMutator);
+            if (!__instance.OverclockAbilityChoice() ||
+                __instance.selectedTower == null ||
+                __instance.IsBanned(__instance.selectedTower)) return;
+
+            ApplyOverclock(__instance.ability.tower, __instance.selectedTower);
         }
     }
 
-    public static void RemoveBoostOn(ObjectId id)
+    /// <summary>
+    /// Ultraboost auto stacking
+    /// </summary>
+    [HarmonyPatch(typeof(Ability), nameof(Ability.Process))]
+    internal static class Ability_Process
     {
-        var otherTower = InGame.instance.GetTowerManager().GetTowerById(id);
-        otherTower?.RemoveMutatorsById("Overclock");
-    }
-
-    public static void OnUpdate()
-    {
-        if (!InGame.instance) return;
-
-        foreach (var tower in UltraBoostFixes.Keys)
+        [HarmonyPostfix]
+        internal static void Postfix(Ability __instance)
         {
-            var stacks = UltraBoostFixes[tower];
-            tower.RemoveMutatorsById("Ultraboost");
-            UltraBoostStack(tower, stacks);
-        }
-
-        UltraBoostFixes.Clear();
-
-        if (!TimeManager.inBetweenRounds)
-        {
-            if (TimeManager.FastForwardActive)
+            if (__instance.CooldownRemaining == 0 &&
+                __instance.abilityModel.OverclockAbilityChoice() &&
+                __instance.abilityModel.GetBehavior<OverclockPermanentModel>().Is(out var overclockPermanentModel) &&
+                __instance.entity.GetBehaviorInDependants<Overclock>().Is(out var overclock) &&
+                overclock.selectedTower != null &&
+                !(overclock.selectedTower.GetMutatorById(OverclockPermanentModel.MutatorId).Is(out var timedMutator) &&
+                  timedMutator.mutator.Is(out OverclockPermanentModel.OverclockPermanentMutator ultraBoost) &&
+                  ultraBoost.stacks >= overclockPermanentModel.maxStacks))
             {
-                ultraBoostTimer += (int) TimeManager.timeScaleWithoutNetwork;
+                __instance.Activate();
             }
-            else
-            {
-                ultraBoostTimer += 1;
-            }
-        }
-
-        if (ultraBoostTimer >= 45 * 60)
-        {
-            foreach (var boostingKey in AbilityChoiceMod.CurrentBoostIDs.Keys)
-            {
-                var engi = InGame.instance.GetTowerManager().GetTowerById(boostingKey);
-                if (engi.towerModel.tier != 5) continue;
-
-                var tower = InGame.instance.GetTowerManager()
-                    .GetTowerById(AbilityChoiceMod.CurrentBoostIDs[boostingKey]);
-                if (tower != null)
-                {
-                    UltraBoostStack(tower);
-                }
-            }
-
-            ultraBoostTimer = 0;
         }
     }
 
-
-    [HarmonyPatch(typeof(InGame), nameof(InGame.SellTower))]
-    internal static class InGame_SellTower
+    /// <summary>
+    /// Ensure don't Ultraboost too fast
+    /// </summary>
+    [HarmonyPatch(typeof(OverclockPermanent), nameof(OverclockPermanent.ApplyToTower))]
+    internal static class OverclockPermanent_ApplyToTower
     {
         [HarmonyPrefix]
-        internal static void Prefix(TowerToSimulation tower)
+        internal static bool Prefix(OverclockPermanent __instance)
         {
-            if (tower.tower != null && AbilityChoiceMod.CurrentBoostIDs.ContainsKey(tower.tower.Id))
-            {
-                RemoveBoostOn(AbilityChoiceMod.CurrentBoostIDs[tower.tower.Id]);
-                AbilityChoiceMod.CurrentBoostIDs.Remove(tower.tower.Id);
-            }
+            if (!__instance.ability.abilityModel.OverclockAbilityChoice()) return true;
+
+            return __instance.ability.CooldownRemaining == 0;
         }
     }
 
-    [HarmonyPatch(typeof(InGame), nameof(InGame.TowerUpgraded))]
-    internal static class InGame_TowerUpgraded
+    /// <summary>
+    /// For clarity, don't allow re-overclocking the same tower
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.GetCustomInputData))]
+    internal static class Overclock_GetCustomInputData
     {
         [HarmonyPostfix]
-        internal static void Postfix(TowerToSimulation tower)
+        internal static void Postfix(Overclock __instance, ref Il2CppSystem.Object __result)
         {
-            if (tower.tower == null) return;
-
-            foreach (var boostingKey in AbilityChoiceMod.CurrentBoostIDs.Keys.Where(boostingKey =>
-                         AbilityChoiceMod.CurrentBoostIDs[boostingKey] == tower.Id))
-            {
-                RemoveBoostOn(tower.Id);
-                var engi = InGame.instance.GetTowerManager().GetTowerById(boostingKey);
-                AddBoost(engi, tower.tower);
-                return;
-            }
+            if (!__instance.OverclockAbilityChoice() || !__result.Is(out OverclockCIData data)) return;
+            
+            data.validTowerIds.RemoveAll(new Func<ObjectId, bool>(id => id == __instance.selectedTowerId));
         }
     }
 
-
-    [HarmonyPatch(typeof(OverclockInput), nameof(OverclockInput.CursorUp))]
-    internal static class OverclockInput_CursorUp
+    /// <summary>
+    /// Reapply when a tower gets upgraded because the tier may change the mutator
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.OnTowerUpgraded))]
+    internal static class Overclock_OnTowerUpgraded
     {
         [HarmonyPostfix]
-        internal static void Postfix(OverclockInput __instance, Vector2 cursorPosWorld, bool isCursorInWorld)
+        internal static void Postfix(Overclock __instance, Tower tower)
         {
-            var abilityName = __instance.ability.model.displayName;
-            var enabled = abilityName == UpgradeType.Ultraboost && ModContent.GetInstance<Ultraboost>().Enabled ||
-                          abilityName == UpgradeType.Overclock && ModContent.GetInstance<Overclock>().Enabled;
+            if (!__instance.OverclockAbilityChoice()) return;
 
-            if (!enabled || !isCursorInWorld) return;
-
-            var selected = InGame.instance.bridge.GetSelection(cursorPosWorld, 20);
-
-            if (!selected.Is(out TowerToSimulation tower)) return;
-
-            var engi = __instance.tower.tower;
-            AddBoost(engi, tower.tower);
-
-            if (engi.towerModel.tier == 5)
+            if (tower.Id == __instance.selectedTowerId && !__instance.IsBanned(tower))
             {
-                ultraBoostTimer = 0;
+                ApplyOverclock(__instance.ability.tower, tower);
+            }
+
+            if (tower.Id == __instance.ability.tower.Id &&
+                __instance.selectedTower != null &&
+                __instance.ability.entity.GetBehavior<OverclockPermanent>() != null &&
+                __instance.selectedTower.GetMutatorById(OverclockPermanentModel.MutatorId) == null)
+            {
+                __instance.ability.ClearCooldown();
+                __instance.ability.Activate();
             }
         }
     }
 
+    /// <summary>
+    /// Remove mutators from selected tower when destroyed
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.OnDestroy))]
+    internal static class Overclock_OnDestroy
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Overclock __instance)
+        {
+            if (!__instance.OverclockAbilityChoice() || __instance.selectedTower == null) return;
+
+            __instance.selectedTower.RemoveMutatorsById(OverclockId);
+        }
+    }
+
+    /// <summary>
+    /// Remove from original tower when a new tower is boosted
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.ApplyCustomInputData))]
+    internal static class Overclock_ApplyCustomInputData
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Overclock __instance, AbilityBehavior.CustomInputData data)
+        {
+            if (__instance.selectedTower != null && __instance.selectedTowerId != data.objectIdValue)
+            {
+                __instance.selectedTower.RemoveMutatorsById(OverclockId);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Can switch Overclocks without cooldown
+    /// </summary>
+    [HarmonyPatch(typeof(Ability), nameof(Ability.IsReady))]
+    internal static class Ability_IsReady
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Ability __instance, ref bool ignoreCooldown)
+        {
+            if (!__instance.abilityModel.OverclockAbilityChoice()) return;
+
+            ignoreCooldown = true;
+        }
+    }
+
+    /// <summary>
+    /// Hide abilities from bar
+    /// </summary>
     [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.GetAllAbilities))]
     internal static class UnityToSimulation_GetAllAbilities
     {
         [HarmonyPostfix]
         internal static void Postfix(ref Il2CppSystem.Collections.Generic.List<AbilityToSimulation> __result)
         {
-            __result = __result?.Where(a2s => a2s != null &&
-                                              !(a2s.model.displayName == "Overclock" &&
-                                                ModContent.GetInstance<Overclock>().Enabled ||
-                                                a2s.model.displayName == "Ultraboost" &&
-                                                ModContent.GetInstance<Ultraboost>().Enabled));
+            __result = __result?.Where(a => a?.model.OverclockAbilityChoice() != true);
         }
     }
 }

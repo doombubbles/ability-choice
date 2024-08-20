@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
-using Il2CppAssets.Scripts;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
@@ -44,32 +42,20 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
     public static readonly ModSettingBool MoreBalanced = new(false)
     {
-        description = "While none of the effects is meant to be completely imbalanced, this settings makes things err" +
-                      "more on the cautious side, at the risk of the effects not being as exciting to use."
+        description =
+            "While none of the effects is meant to be completely imbalanced, this settings makes things err " +
+            "more on the cautious side, at the risk of the effects not being as exciting to use."
     };
 
 #if DEBUG
     public static readonly ModSettingButton CreateMds = new(GenerateReadme.Generate);
 #endif
 
-    public static readonly Dictionary<ObjectId, ObjectId> CurrentBoostIDs = new();
-
     public static MelonPreferences_Category AbilityChoiceSettings { get; private set; }
 
     public override void OnMainMenu()
     {
-        ResetCaches();
         AbilityChoiceSettings.SaveToFile(false);
-    }
-
-    public override void OnRestart()
-    {
-        ResetCaches();
-    }
-
-    public override void OnUpdate()
-    {
-        OverclockHandler.OnUpdate();
     }
 
     public override void OnFixedUpdate()
@@ -79,15 +65,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
             AdoraSacrificeUI.Instance.Process();
         }
     }
-
-    public void ResetCaches()
-    {
-        if (InGame.instance == null || !InGame.instance.quitting)
-        {
-            CurrentBoostIDs.Clear();
-        }
-    }
-
+    
     public override void OnApplicationStart()
     {
         AbilityChoiceSettings = MelonPreferences.CreateCategory("AbilityChoiceSettings");

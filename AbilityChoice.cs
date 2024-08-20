@@ -108,7 +108,7 @@ public abstract class AbilityChoice : NamedModContent
 
     public abstract IEnumerable<TowerModel> GetAffected(GameModel gameModel);
 
-    protected float CalcAvgBonus(float uptime, float dpsMult) => uptime * dpsMult + (1 - uptime);
+    public static float CalcAvgBonus(float uptime, float dpsMult) => uptime * dpsMult + (1 - uptime);
 
     protected void TechBotify(TowerModel model)
     {

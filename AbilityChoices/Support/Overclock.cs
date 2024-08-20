@@ -20,6 +20,7 @@ public class Overclock : TowerAbilityChoice
     public override void Apply1(TowerModel model)
     {
         // see OverclockHandler
+        model.GetDescendant<OverclockModel>().name += OverclockHandler.Enabled;
     }
 
     public override void Apply2(TowerModel model)
