@@ -3,14 +3,15 @@ using BTD_Mod_Helper.Api.Components;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using Il2Cpp;
-using Il2CppAssets.Scripts.Models.SimulationBehaviors;
+using Il2CppAssets.Scripts;
 using Il2CppAssets.Scripts.Models.Towers;
-using Il2CppAssets.Scripts.Simulation.SimulationBehaviors;
+using Il2CppAssets.Scripts.Simulation;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu.TowerSelectionMenuThemes;
+using Il2CppSystem.Collections.Generic;
 using Il2CppTMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -103,20 +104,27 @@ public class AdoraSacrificeUI : MonoBehaviour
         return ui;
     }
 
-    private int counter;
+    internal static Dictionary<ObjectId, int> NextSacrificeTimes = new();
 
     public void Process()
     {
         var bridge = InGame.Bridge;
         var sim = bridge.Simulation;
 
-        if (!bridge.AreRoundsActive() || counter++ % 20 != 0 || SacrificeAmount == 0) return;
-
         var adoras = sim.towerManager.GetTowersByBaseId(TowerType.Adora).ToList()
             .Where(tower => tower.owner == bridge.MyPlayerNumber);
 
         foreach (var adora in adoras)
         {
+            if (!NextSacrificeTimes.TryGetValue(adora.Id, out var nextSacrifice))
+            {
+                nextSacrifice = 0;
+            }
+            
+            if (sim.roundTime.elapsed < nextSacrifice) continue;
+            
+            NextSacrificeTimes[adora.Id] = sim.roundTime.elapsed + 60;
+            
             var bloodSacrifice = adora.entity.GetBehavior<BloodSacrifice>();
 
             if (bloodSacrifice == null) continue;
@@ -139,8 +147,11 @@ public class AdoraSacrificeUI : MonoBehaviour
                 sunGuy.AddMutatorIncludeSubTowers(mutator, 66);
             }
 
+            var amount = Math.Min(SacrificeAmount, bridge.GetCash());
+            
+            sim.RemoveCash(amount, Simulation.CashType.Normal, adora.owner, Simulation.CashSource.TowerSold);
 
-            sim.AddBehavior<ImfLoanCollection>(new ImfLoanCollectionModel("BloodSacrifice", .5f, SacrificeAmount));
+            // sim.AddBehavior<ImfLoanCollection>(new ImfLoanCollectionModel("BloodSacrifice", .5f, SacrificeAmount));
         }
     }
 }

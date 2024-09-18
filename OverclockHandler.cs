@@ -9,7 +9,10 @@ using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
+using Il2CppSystem.Collections.Generic;
 using Il2CppSystem.IO;
 
 namespace AbilityChoice;
@@ -38,6 +41,7 @@ internal static class OverclockHandler
         {
             to.RemoveMutatorsById(OverclockId);
         }
+
         var tier = to.towerModel.tier;
         if (to.towerModel.IsHero())
         {
@@ -74,8 +78,36 @@ internal static class OverclockHandler
         }
     }
 
+    internal static readonly Dictionary<ObjectId, List<Entity>> Dots = new();
+
+    private static TechBotLink GetFakeTechBotLink(Ability __instance)
+    {
+        var oc = __instance.entity.GetBehaviorInDependants<Overclock>();
+        
+        if (!Dots.TryGetValue(__instance.tower.Id, out var dots))
+        {
+            dots = Dots[__instance.tower.Id] = new List<Entity>();
+        }
+                
+        var model = Game.instance.model.GetPowerWithName(TowerType.TechBot).tower
+            .GetDescendant<TechBotLinkModel>();
+        
+        return new TechBotLink
+        {
+            ability = __instance,
+            drawDots = true,
+            entity = __instance.entity,
+            Sim = __instance.Sim,
+            selectedTowerId = oc.selectedTowerId,
+            linkedTower = oc.selectedTower,
+            model = model,
+            techBotLinkModel = model,
+            lineDotDisplays = dots
+        };
+    }
+
     /// <summary>
-    /// Ultraboost auto stacking
+    /// Ultraboost auto stacking, link display
     /// </summary>
     [HarmonyPatch(typeof(Ability), nameof(Ability.Process))]
     internal static class Ability_Process
@@ -94,9 +126,40 @@ internal static class OverclockHandler
             {
                 __instance.Activate();
             }
+
+            if (__instance.abilityModel.OverclockAbilityChoice() &&
+                __instance.entity.GetBehaviorInDependants<Overclock>().Is(out var oc))
+            {
+                var fakeTechBotLink = GetFakeTechBotLink(__instance);
+                
+                if (oc.selectedTower != null && TowerSelectionMenu.instance.selectedTower?.Id == __instance.tower.Id)
+                {
+                    fakeTechBotLink.PlotPointsToLinkedTower();
+                }
+                else
+                {
+                    fakeTechBotLink.RemoveDots();
+                }
+            }
         }
     }
 
+    /// <summary>
+    /// Ensure link display removed
+    /// </summary>
+    [HarmonyPatch(typeof(Ability), nameof(Ability.OnDestroy))]
+    internal static class Ability_OnDestroy
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Ability __instance)
+        {
+            if (!__instance.abilityModel.OverclockAbilityChoice()) return;
+            
+            var fakeTechBotLink = GetFakeTechBotLink(__instance);
+            fakeTechBotLink.RemoveDots();
+        }
+    }
+    
     /// <summary>
     /// Ensure don't Ultraboost too fast
     /// </summary>
@@ -122,7 +185,7 @@ internal static class OverclockHandler
         internal static void Postfix(Overclock __instance, ref Il2CppSystem.Object __result)
         {
             if (!__instance.OverclockAbilityChoice() || !__result.Is(out OverclockCIData data)) return;
-            
+
             data.validTowerIds.RemoveAll(new Func<ObjectId, bool>(id => id == __instance.selectedTowerId));
         }
     }
