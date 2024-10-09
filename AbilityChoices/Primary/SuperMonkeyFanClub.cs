@@ -52,10 +52,10 @@ public class SuperMonkeyFanClub : TowerAbilityChoice
     {
         var baseRate = BaseTowerModel.GetWeapon().Rate;
         model.GetWeapon().rate *= SuperMonkeyAttackSpeed / baseRate;
-        model.range += 10;
-        model.GetAttackModels()[0].range += 10;
+        model.range += 8;
+        model.GetAttackModels()[0].range += 8;
         foreach (var projectileModel in model.GetDescendants<ProjectileModel>().ToList()
-                     .Where(projectileModel => !string.IsNullOrEmpty(projectileModel.display.GUID)))
+                     .Where(projectileModel => !string.IsNullOrEmpty(projectileModel.display.AssetGUID)))
         {
             projectileModel.GetBehavior<TravelStraitModel>().lifespan *= 2f;
             projectileModel.GetBehavior<TravelStraitModel>().lifespanFrames *= 2;

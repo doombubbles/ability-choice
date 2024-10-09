@@ -5,6 +5,7 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace AbilityChoice;
 
@@ -17,6 +18,8 @@ public abstract class AbilityChoice : NamedModContent
         "(?<!^)([A-Z][a-z]|(?<=[a-z])[A-Z])",
         " $1",
         RegexOptions.Compiled).Trim();
+
+    public virtual string BackUpAbilityName => null;
 
     public override string DisplayName => $"[{AbilityName} Ability]";
 
@@ -84,7 +87,7 @@ public abstract class AbilityChoice : NamedModContent
 
     protected virtual AbilityModel AbilityModel(TowerModel model) =>
         model.GetBehaviors<AbilityModel>()
-            .FirstOrDefault(abilityModel => abilityModel.displayName == AbilityName);
+            .FirstOrDefault(abilityModel => abilityModel.displayName == AbilityName || abilityModel.displayName == BackUpAbilityName);
 
     protected virtual void RemoveAbility(TowerModel model)
     {
@@ -127,4 +130,9 @@ public abstract class AbilityChoice : NamedModContent
             model.AddBehavior(new ActivateAbilityAfterIntervalModel(name, ability, ability.Cooldown));
         }
     }
+
+    /// <summary>
+    /// If the icon needs to be manually set
+    /// </summary>
+    public virtual SpriteReference Icon => null;
 }

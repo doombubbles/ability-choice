@@ -33,6 +33,8 @@ public class IceJetBig : IceJet
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         var sound = abilityModel.GetBehavior<CreateSoundOnAbilityModel>();
 
+        effect.useCenterPosition = true;
+
         global.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false,
             false, false, false));
 

@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.GeraldoItems;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace AbilityChoice;
 
@@ -55,4 +56,6 @@ public abstract class GeraldoAbilityChioce : HeroAbilityChoice
     }
 
     protected abstract void Apply(GeraldoItemModel geraldoItem);
+
+    public override SpriteReference Icon => GeraldoItem().defaultIcon;
 }

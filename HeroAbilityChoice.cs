@@ -11,6 +11,8 @@ public abstract class HeroAbilityChoice : AbilityChoice
 
     public abstract string HeroId { get; }
 
+    public sealed override string Description => base.Description;
+
     public abstract Dictionary<int, string> Descriptions1 { get; }
 
     public virtual Dictionary<int, string> Descriptions2 { get; }

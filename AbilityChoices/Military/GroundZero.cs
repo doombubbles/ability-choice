@@ -40,7 +40,7 @@ public class GroundZero : TowerAbilityChoice
         weapon.emission = abilityWeapon.emission;
 
         weapon.Rate = ability.Cooldown / Factor;
-        abilityWeapon.projectile.GetDamageModel().damage /= Factor;
+        abilityWeapon.projectile.GetDescendant<DamageModel>().damage /= Factor;
         abilityWeapon.projectile.radius = 100;
         if (abilityWeapon.projectile.HasBehavior(out SlowModel slowModel))
         {
@@ -48,7 +48,7 @@ public class GroundZero : TowerAbilityChoice
         }
 
         weapon.ejectY = 0;
-        weapon.AddBehavior(new EjectEffectModel("EjectEffectModel_", CreatePrefabReference(""), effectModel, -1,
+        weapon.AddBehavior(new EjectEffectModel("", CreatePrefabReference(""), effectModel, -1,
             Fullscreen.No, false,
             true, false, false));
 
@@ -58,9 +58,7 @@ public class GroundZero : TowerAbilityChoice
         projectile.RemoveBehavior<CreateEffectOnExhaustFractionModel>();
         projectile.GetBehavior<DisplayModel>().display = CreatePrefabReference("");
 
-        weapon.AddBehavior(new CreateSoundOnProjectileCreatedModel(
-            "CreateSoundOnProjectileCreatedModel_", sound, sound,
-            sound, sound, sound, ""));
+        weapon.AddBehavior(new CreateSoundOnProjectileCreatedModel("", sound, sound, sound, sound, sound, ""));
 
         model.AddBehavior(newAttack);
     }

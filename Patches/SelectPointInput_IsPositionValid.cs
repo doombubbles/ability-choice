@@ -14,7 +14,7 @@ internal static class SelectPointInput_IsPositionValid
     {
         var selectTargetCiData = __instance.cii;
 
-        if (selectTargetCiData.targetInvalidImageId?.GUID == ModContent.GetDisplayGUID<MegaMineInvalid>())
+        if (selectTargetCiData.targetInvalidImageId?.AssetGUID == ModContent.GetDisplayGUID<MegaMineInvalid>())
         {
             var point = new Il2CppAssets.Scripts.Simulation.SMath.Vector2(cursorPosWorld);
             __result &= InGame.instance.bridge.Simulation.Map.GetAreaAtPoint(point)?.areaModel?.type == AreaType.water;

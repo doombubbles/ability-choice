@@ -4,18 +4,26 @@ using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppNinjaKiwi.Common;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace AbilityChoice;
 
 [RegisterTypeInIl2Cpp(false)]
 public class HeroAbilityChoiceInfo : MonoBehaviour
 {
-    public HeroUpgradeButton button;
-
     public HeroAbilityChoice abilityChoice;
     public Il2CppReferenceArray<HeroUpgradeButton> buttons;
+
+    public GameObject container;
+
+    public Image abilityIcon;
+    public Image background;
+
+    public int index;
 
     /// <inheritdoc />
     public HeroAbilityChoiceInfo(IntPtr ptr) : base(ptr)
@@ -24,15 +32,14 @@ public class HeroAbilityChoiceInfo : MonoBehaviour
 
     public void UpdateIcon()
     {
-        var background = button.abilityIconContainer.GetComponentInChildrenByName<Image>("Bg");
         background.SetSprite(HeroAbilityChoice.IconForMode(abilityChoice?.Mode ?? 0));
 
         if (abilityChoice != null)
         {
-            button.abilityIconContainer.SetActive(true);
-            if (abilityChoice is GeraldoAbilityChioce geraldoAbilityChioce)
+            container.SetActive(true);
+            if (abilityChoice.Icon is { } icon)
             {
-                button.abillityIcon.SetSprite(geraldoAbilityChioce.GeraldoItem().defaultIcon);
+                abilityIcon.SetSprite(icon);
             }
         }
     }
@@ -61,9 +68,13 @@ public class HeroAbilityChoiceInfo : MonoBehaviour
 
         foreach (var button in buttons)
         {
-            if (button.gameObject.HasComponent(out HeroAbilityChoiceInfo info))
+            foreach (var info in button.transform.GetComponentsInChildren<HeroAbilityChoiceInfo>(true))
             {
                 info.abilityChoice = null;
+                if (info.index > 0)
+                {
+                    info.container.SetActive(false);
+                }
             }
         }
 
@@ -73,18 +84,39 @@ public class HeroAbilityChoiceInfo : MonoBehaviour
 
             var button = buttons.First(upgradeButton => upgradeButton.HeroIndex == towerModel.tier);
 
-            var info = button.GetComponent<HeroAbilityChoiceInfo>() ??
-                       button.gameObject.AddComponent<HeroAbilityChoiceInfo>();
+            var info = button.abilityIconContainer.GetComponentOrAdd<HeroAbilityChoiceInfo>();
 
+            if (info.abilityChoice != null)
+            {
+                var infos = button.transform.GetComponentsInChildren<HeroAbilityChoiceInfo>(true);
+                if (!infos.FirstOrDefault(i => i.abilityChoice == null).Is(out info))
+                {
+                    var index = infos.Length;
+                    var container = Instantiate(button.abilityIconContainer,
+                        button.abilityIconContainer.transform.parent);
+                    container.name = container.name.Replace("(Clone)", index.ToString());
+                    info = container.GetComponent<HeroAbilityChoiceInfo>();
+                    info.container = container;
+                    info.index = index;
+                }
+            }
+            else
+            {
+                info.container = button.abilityIconContainer;
+            }
+
+            info.container.SetActive(true);
             info.abilityChoice = abilityChoice;
-            info.button = button;
             info.buttons = buttons;
+            info.abilityIcon = info.gameObject.GetComponentInChildrenByName<Image>("Icon");
+            info.background = info.gameObject.GetComponentInChildrenByName<Image>("Bg");
+            info.container.GetComponentOrAdd<Text>();
         }
 
 
         foreach (var button in buttons)
         {
-            if (button.gameObject.HasComponent(out HeroAbilityChoiceInfo info))
+            foreach (var info in button.transform.GetComponentsInChildren<HeroAbilityChoiceInfo>())
             {
                 info.UpdateIcon();
             }

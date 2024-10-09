@@ -62,7 +62,7 @@ public class ElectricShock : ModDisplay
     /// </summary>
     public override IEnumerable<ModContent> Load() /* => Enum.GetValues(typeof(BloonOverlayClass))
         .Cast<BloonOverlayClass>()
-        .Select(bc => new ElectricShock(bc));*/ => Enumerable.Empty<ModContent>();
+        .Select(bc => new ElectricShock(bc));*/ => [];
 
     /// <summary>
     /// Setup the BloonOverlayScriptable over the course of each instance registering
@@ -70,6 +70,10 @@ public class ElectricShock : ModDisplay
     public override void Register()
     {
         base.Register();
+        
+        // TODO re-enable after MelonLoader bug fix
+        return;
+        
         BloonOverlayScriptable electricShock;
         // attempting to use TryGetValue here throws an error lol
         if (!OverlayTypes.ContainsKey(nameof(ElectricShock)))

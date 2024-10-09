@@ -22,8 +22,6 @@ public class CreepyIdol : GeraldoAbilityChioce
 
     protected override int CostMult => 15;
 
-    public override bool AppliesTo(TowerModel towerModel) => towerModel.tier == 2;
-
 
     protected override void Apply(GeraldoItemModel geraldoItem)
     {

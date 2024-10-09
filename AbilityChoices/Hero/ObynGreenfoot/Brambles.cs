@@ -32,6 +32,7 @@ public class Brambles : HeroAbilityChoice
         var weapon = attack.weapons[0];
 
         weapon.Rate = ability.Cooldown;
+        weapon.fireBetweenRounds = false;
 
         model.AddBehavior(attack);
     }
@@ -44,15 +45,11 @@ public class Brambles : HeroAbilityChoice
         var projectile = weapon.projectile;
 
         weapon.Rate = ability.Cooldown / Factor;
+        weapon.fireBetweenRounds = false;
         projectile.pierce /= Factor;
         projectile.scale = .7f;
         projectile.RemoveBehavior<CreateEffectOnExhaustedModel>();
 
         model.AddBehavior(attack);
-    }
-
-    protected override void ApplyBoth(TowerModel model)
-    {
-        AbilityModel(model).GetDescendant<WeaponModel>().fireBetweenRounds = false;
     }
 }

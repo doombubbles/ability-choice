@@ -34,7 +34,7 @@ public class BigSqueeze : HeroAbilityChoice
     {
         var ability = AbilityModel(model);
 
-        var attack = ability.GetDescendant<AttackModel>();
+        var attack = ability.GetDescendant<AttackModel>().Duplicate();
 
         var filter = new FilterOutTagModel(BloonTag.Zomg, BloonTag.Zomg, new Il2CppStringArray(0));
 

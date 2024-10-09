@@ -1,4 +1,27 @@
-- Added Red Ability Choices for Rosalia
-- Added Red Ability Choices for Mermonkey
-- Internally reworked Overclock/Ultraboost Red Ability Choices, they should work very robustly now
-- Fixed a bug with Ezili's Moab Hex Blue Ability Choice
+- Fixed for BTD6 v45
+- Temporarily disabled the custom bloon overlay displays for MelonLoader 0.6.5 support
+- Adjusted the Adora Sacrifice ability choice to just cost money instead of accruing debt
+- Fixed some lag with Sabo Ninja Red Choice when it got large attack speed buffs
+- Fixed The Anti-Bloon Ability Choices not applying properly for every crosspath
+  - Also fixed interaction with Tech Terror and Anti Bloon Red ability choice crits / knockback
+- Added Blue Ability Choice for Rosalia Level 3: Like Red Choice but firing fewer missiles with higher damage.
+- Added Ability Choices for Corvus
+  - Soul Harvest Red Choice - Corvus periodically harvests nearby Bloons in an instant
+  - Spirit Walk Red Choice - Corvus gains increased range.
+  - Dark Ritual Red Choice - Performs Dark Rituals that harvest a huge number of Bloons near Corvus.
+  - Dark Ritual Blue Choice - Constantly performs a Dark Ritual that harvests Bloons near Corvus.
+  - Continuous Spells (Spear, Aggression, Malevolence, Storm)
+    - No longer have an upfront mana cost
+    - When disabled due to not enough mana, will automatically reenable when enough mana is regained
+    - Red Choice - Full power of effect, but increased recurring mana cost to compensate for no upfront cost
+    - Blue Choice - Same recurring mana cost, but reduced power of effect to compensate for no upfront cost 
+  - Instant Spells (Repel, Echo, Haste, Trample, Frostbound, Ember, Ancestral Might, Overload, Nourishment, Vision)
+    - Now behave like Continuous Spells (also auto re-enable and have no upfront cost)
+    - Red Choice - Full power of effect, increased recurring mana cost to compensate for 100% uptime potential
+    - Blue Choice - Same recurring mana cost, but reduce power of effect to compensate for 100% uptime potential
+  - Special Behaviors
+    - Trample summons horses that follow the spirit rather than sending them and the spirit along the track
+    - Overload no longer makes the spirit disappear, but makes less powerful explosions to compensate (red choice does medium explosions every 10 seconds, blue does small explosions every second)
+    - Nourishment just has a Red choice for passively sacrificing 13 mana per second
+    - Vision's blue choice does not strip camo but still gives sight
+    - Soul Barrier functions normally, but it's one red choice will make it automatically be used if a leak happens

@@ -1,11 +1,19 @@
 ﻿using System;
+using AbilityChoice.AbilityChoices.Hero.Corvus;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Simulation.Corvus.TowerManager;
 using Il2CppAssets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Unity.Menu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 [assembly: MelonInfo(typeof(AbilityChoiceMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -60,14 +68,60 @@ public class AbilityChoiceMod : BloonsTD6Mod
         AbilityChoiceSettings.SaveToFile(false);
     }
 
-    public override void OnUpdate()
+    public override void OnFixedUpdate()
     {
         if (InGame.instance != null && InGame.Bridge != null && AdoraSacrificeUI.Instance != null)
         {
             AdoraSacrificeUI.Instance.Process();
         }
     }
-    
+
+    public override void PreCleanProfile(ProfileModel profile)
+    {
+        base.PreCleanProfile(profile);
+    }
+
+    public override void OnUpdate()
+    {
+        if (Input.GetMouseButtonUp((int) PointerEventData.InputButton.Right))
+        {
+            var raycastResults = new Il2CppSystem.Collections.Generic.List<RaycastResult>();
+            var data = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            EventSystem.current.RaycastAll(data, raycastResults);
+
+            foreach (var raycastResult in raycastResults)
+            {
+                if (raycastResult.gameObject.HasComponent(out TowerAbilityChoiceInfo towerInfo))
+                {
+                    towerInfo.abilityChoice.Toggle();
+                    towerInfo.UpdateIcon();
+                    towerInfo.upgradeDetails.OnPointerExit(data);
+                    towerInfo.upgradeDetails.OnPointerEnter(data);
+                }
+                else if (raycastResult.gameObject.HasComponent(out HeroAbilityChoiceInfo heroInfo))
+                {
+                    heroInfo.abilityChoice.Toggle();
+                    heroInfo.UpdateIcon();
+                    heroInfo.UpdateDescriptions();
+                }
+                else continue;
+
+                if (InGame.instance != null)
+                {
+                    PopupScreen.instance.ShowOkPopup(
+                        "In order for this to take effect, you'll need to exit to the main menu and come back to the game.");
+                }
+                else
+                {
+                    MenuManager.instance.buttonClickSound.Play("ClickSounds");
+                }
+            }
+        }
+    }
+
     public override void OnApplicationStart()
     {
         AbilityChoiceSettings = MelonPreferences.CreateCategory("AbilityChoiceSettings");
@@ -97,6 +151,22 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         OverclockHandler.Dots.Clear();
         AdoraSacrificeUI.NextSacrificeTimes.Clear();
+        CorvusHandler.SpellsToReactivate.Clear();
+    }
+
+    public override bool PreBloonLeaked(Bloon bloon)
+    {
+        if (bloon.Sim.GetCorvusManagerExists(InGame.Bridge.MyPlayerNumber))
+        {
+            var corvus = bloon.Sim.GetCorvusManager(InGame.Bridge.MyPlayerNumber);
+
+            if (corvus.CanSpellBeCast(CorvusSpellType.SoulBarrier) && CorvusAbilityChoice.EnabledForSpell(CorvusSpellType.SoulBarrier))
+            {
+                corvus.CastSpell(CorvusSpellType.SoulBarrier);
+            }
+        }
+
+        return true;
     }
 
     public override void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)

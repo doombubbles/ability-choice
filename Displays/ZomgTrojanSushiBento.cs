@@ -14,6 +14,10 @@ public class ZomgTrojanSushiBento : ModDisplay
     public override void Register()
     {
         base.Register();
+        
+        // TODO re-enable after MelonLoader bug fix
+        return;
+        
         GameData.Instance.bloonOverlays.overlayTypes["BenjaminTrojanSushiBento"].assets[BloonOverlayClass.Zomg] =
             CreatePrefabReference<ZomgTrojanSushiBento>();
     }

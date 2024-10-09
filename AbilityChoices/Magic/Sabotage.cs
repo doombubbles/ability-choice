@@ -5,6 +5,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 
 namespace AbilityChoice.AbilityChoices.Magic;
 
@@ -22,12 +23,16 @@ public class Sabotage : TowerAbilityChoice
 
         var mult = CalcAvgBonus(slow.Lifespan / abilityModel.Cooldown, slow.multiplier);
 
-        var slowBehavior = new SlowModel("Sabotage", mult, 2f, slow.mutationId, 999, "", true, false, null,
-            false, false, false);
-
         var slowAttack = abilityModel.GetDescendant<AttackModel>().Duplicate();
+        var slowWeapon = slowAttack.weapons[0];
+        slowWeapon.fireBetweenRounds = false;
+        slowWeapon.AddBehavior(new WeaponRateMinModel("", 2));
         var slowingProjectile = slowAttack.weapons[0].projectile;
         slowingProjectile.RemoveBehavior<SlowMinusAbilityDurationModel>();
+        slowingProjectile.GetBehavior<AgeModel>().Lifespan = 2;
+
+        var slowBehavior = new SlowModel("Sabotage", mult, 2, slow.mutationId, 999, "", true,
+            false, null, false, false, false);
         slowingProjectile.AddBehavior(slowBehavior);
 
         model.AddBehavior(slowAttack);
@@ -44,7 +49,7 @@ public class Sabotage : TowerAbilityChoice
         var dontSlowBadBehavior = abilityWeapon.projectile.GetBehavior<SlowModifierForTagModel>();
 
         var slowBehavior = new SlowModel("Sabotage", 0.5f, 2f, slowMutator.mutationId, 999, "", true, false, null,
-            false, false, false) { mutator = slowMutator };
+            false, false, false) {mutator = slowMutator};
 
 
         foreach (var weaponModel in model.GetWeapons())

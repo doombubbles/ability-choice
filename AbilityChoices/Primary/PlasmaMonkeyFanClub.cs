@@ -13,7 +13,7 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
     public override string UpgradeId => UpgradeType.PlasmaMonkeyFanClub;
 
     public override string Description1 =>
-        "Up to 6 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
+        "Up to 5 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
 
     public override string Description2 => "Permanently shoots powerful plasma blasts itself.";
 
@@ -28,13 +28,14 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
             var plasmaModel = Game.instance.model.GetTower(TowerType.SuperMonkey, 2).GetWeapon().projectile;
 
             foreach (var weaponProjectile in model.GetDescendants<ProjectileModel>().ToList()
-                         .Where(weaponProjectile => !string.IsNullOrEmpty(weaponProjectile.display.GUID)))
+                         .Where(weaponProjectile => !string.IsNullOrEmpty(weaponProjectile.display.AssetGUID)))
             {
                 weaponProjectile.display = plasmaModel.display;
                 weaponProjectile.GetBehavior<DisplayModel>().display = plasmaModel.display;
-                weaponProjectile.GetDamageModel().damage += AbilityChoiceMod.MoreBalanced ? 2 : 1;
+                weaponProjectile.GetDamageModel().damage += 2;
                 weaponProjectile.GetDamageModel().immuneBloonProperties = BloonProperties.Purple;
-                weaponProjectile.pierce += AbilityChoiceMod.MoreBalanced ? 3 : 5;
+                weaponProjectile.GetDamageModel().immuneBloonPropertiesOriginal = BloonProperties.Purple;
+                weaponProjectile.pierce += 5;
             }
         }
     }

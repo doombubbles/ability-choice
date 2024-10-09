@@ -83,15 +83,15 @@ internal static class OverclockHandler
     private static TechBotLink GetFakeTechBotLink(Ability __instance)
     {
         var oc = __instance.entity.GetBehaviorInDependants<Overclock>();
-        
+
         if (!Dots.TryGetValue(__instance.tower.Id, out var dots))
         {
             dots = Dots[__instance.tower.Id] = new List<Entity>();
         }
-                
+
         var model = Game.instance.model.GetPowerWithName(TowerType.TechBot).tower
             .GetDescendant<TechBotLinkModel>();
-        
+
         return new TechBotLink
         {
             ability = __instance,
@@ -131,7 +131,7 @@ internal static class OverclockHandler
                 __instance.entity.GetBehaviorInDependants<Overclock>().Is(out var oc))
             {
                 var fakeTechBotLink = GetFakeTechBotLink(__instance);
-                
+
                 if (oc.selectedTower != null && TowerSelectionMenu.instance.selectedTower?.Id == __instance.tower.Id)
                 {
                     fakeTechBotLink.PlotPointsToLinkedTower();
@@ -154,12 +154,12 @@ internal static class OverclockHandler
         internal static void Prefix(Ability __instance)
         {
             if (!__instance.abilityModel.OverclockAbilityChoice()) return;
-            
+
             var fakeTechBotLink = GetFakeTechBotLink(__instance);
             fakeTechBotLink.RemoveDots();
         }
     }
-    
+
     /// <summary>
     /// Ensure don't Ultraboost too fast
     /// </summary>
@@ -239,7 +239,8 @@ internal static class OverclockHandler
     internal static class Overclock_ApplyCustomInputData
     {
         [HarmonyPrefix]
-        internal static void Prefix(Overclock __instance, AbilityBehavior.CustomInputData data)
+        internal static void Prefix(Overclock __instance,
+            Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.CustomInputData data)
         {
             if (__instance.selectedTower != null && __instance.selectedTowerId != data.objectIdValue)
             {

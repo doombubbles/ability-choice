@@ -33,6 +33,15 @@ public class TechTerror : TowerAbilityChoice
         abilityWeapon.projectile.GetDamageModel().damage /= Factor;
         abilityWeapon.rate = ability.Cooldown / Factor;
 
+        abilityWeapon.GetDescendant<CritMultiplierModel>().damage /= Factor;
+
+        if (abilityWeapon.HasDescendant(out KnockbackModel knockbackModel))
+        {
+            knockbackModel.lightMultiplier /= Factor;
+            knockbackModel.heavyMultiplier /= Factor;
+            knockbackModel.moabMultiplier /= Factor;
+        }
+
         abilityAttack.range = abilityWeapon.projectile.radius - 10;
         abilityAttack.fireWithoutTarget = false;
 

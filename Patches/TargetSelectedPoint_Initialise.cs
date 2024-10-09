@@ -13,7 +13,7 @@ internal static class TargetSelectedPoint_Initialise
     [HarmonyPostfix]
     private static void Postfix(TargetSelectedPoint __instance, Entity target)
     {
-        if (__instance.targetSelectedPointModel.displayInvalid?.GUID != ModContent.GetDisplayGUID<MegaMineInvalid>())
+        if (__instance.targetSelectedPointModel.displayInvalid?.AssetGUID != ModContent.GetDisplayGUID<MegaMineInvalid>())
             return;
 
         var tower = InGame.instance.bridge.Simulation.towerManager.GetTowers().ToList()

@@ -121,7 +121,7 @@ public class AdoraSacrificeUI : MonoBehaviour
                 nextSacrifice = 0;
             }
             
-            if (sim.roundTime.elapsed < nextSacrifice) continue;
+            if (sim.roundTime.elapsed < nextSacrifice || SacrificeAmount == 0) continue;
             
             NextSacrificeTimes[adora.Id] = sim.roundTime.elapsed + 60;
             
@@ -131,11 +131,13 @@ public class AdoraSacrificeUI : MonoBehaviour
 
             var model = bloodSacrifice.bloodSacrificeModel;
 
-            adora.entity.GetBehavior<Hero>().AddXp(SacrificeAmount * model.xpMultiplier);
+            var amount = (float) Math.Min(SacrificeAmount, bridge.GetCash());
+
+            adora.entity.GetBehavior<Hero>().AddXp(amount * model.xpMultiplier);
 
             var factor = model.bonusSacrificeAmount / model.buffDuration;
 
-            var mutator = model.GetMutator((int) Math.Round(SacrificeAmount / factor), "");
+            var mutator = model.GetMutator((int) Math.Round(amount / factor), "");
 
             adora.AddMutator(mutator, 66);
 
@@ -146,8 +148,6 @@ public class AdoraSacrificeUI : MonoBehaviour
             {
                 sunGuy.AddMutatorIncludeSubTowers(mutator, 66);
             }
-
-            var amount = Math.Min(SacrificeAmount, bridge.GetCash());
             
             sim.RemoveCash(amount, Simulation.CashType.Normal, adora.owner, Simulation.CashSource.TowerSold);
 
