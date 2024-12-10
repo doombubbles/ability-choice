@@ -61,6 +61,8 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public static readonly ModSettingButton CreateMds = new(GenerateReadme.Generate);
 #endif
 
+    public static readonly string DontShowAbilityKeyword = " DONT SHOW";
+
     public static MelonPreferences_Category AbilityChoiceSettings { get; private set; }
 
     public override void OnMainMenu()

@@ -87,7 +87,8 @@ public abstract class AbilityChoice : NamedModContent
 
     protected virtual AbilityModel AbilityModel(TowerModel model) =>
         model.GetBehaviors<AbilityModel>()
-            .FirstOrDefault(abilityModel => abilityModel.displayName == AbilityName || abilityModel.displayName == BackUpAbilityName);
+            .FirstOrDefault(abilityModel =>
+                abilityModel.displayName == AbilityName || abilityModel.displayName == BackUpAbilityName);
 
     protected virtual void RemoveAbility(TowerModel model)
     {
@@ -118,7 +119,11 @@ public abstract class AbilityChoice : NamedModContent
         var ability = AbilityModel(model);
 
         // ability.enabled = false;
-        ability.CooldownSpeedScale = -1;
+        if (!ability.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword))
+        {
+            ability.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
+        }
+
         var name = $"ActivateAbilityAfterIntervalModel_{AbilityName.Replace(" ", "")}";
         if (model.behaviors.FirstOrDefault(a => a.name == name).Is<ActivateAbilityAfterIntervalModel>(out var m))
         {

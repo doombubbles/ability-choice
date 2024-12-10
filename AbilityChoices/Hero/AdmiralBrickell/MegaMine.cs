@@ -83,7 +83,7 @@ public class MegaMine : HeroAbilityChoice
 
 
         var effectAtTower = placeProjectile.effectAtTowerModel;
-        weapon.AddBehavior(new EjectEffectModel("", effectAtTower.assetId, effectAtTower, effectAtTower.lifespan,
+        weapon.AddBehavior(new EjectEffectModel("", effectAtTower, effectAtTower.lifespan,
             Fullscreen.No, false, false, false, false));
 
 

@@ -9,7 +9,7 @@ internal static class AbilityModel_IsPassive
     [HarmonyPrefix]
     private static bool Prefix(AbilityModel __instance, ref bool __result)
     {
-        if (__instance.CooldownSpeedScale < 0)
+        if (__instance.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword))
         {
             __result = true;
             return false;

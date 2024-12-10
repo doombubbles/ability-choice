@@ -48,9 +48,8 @@ public class GroundZero : TowerAbilityChoice
         }
 
         weapon.ejectY = 0;
-        weapon.AddBehavior(new EjectEffectModel("", CreatePrefabReference(""), effectModel, -1,
-            Fullscreen.No, false,
-            true, false, false));
+        weapon.AddBehavior(new EjectEffectModel("", effectModel, -1,
+            Fullscreen.No, false, true, false, false));
 
         var projectile = weapon.projectile;
 

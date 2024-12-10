@@ -16,18 +16,24 @@ public class ScatterMissile : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        {3, "Rosalia's Workshop periodically launches a missile that scatters into many somewhat destructive explosions."},
-        {9, "Scatter Missile releases more mini-missiles when fired."},
-        {16, "More frequent Kinetic Charge and Scatter Missile."}
+        {
+            3,
+            "Rosalia's Workshop periodically launches a missile that scatters into many somewhat destructive explosions."
+        },
+        { 9, "Scatter Missile releases more mini-missiles when fired." },
+        { 16, "More frequent Kinetic Charge and Scatter Missile." }
     };
-    
+
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        {3, "Rosalia's Workshop periodically launches a missile that scatters into a few highly destructive explosions."},
-        {9, "Scatter Missile releases more mini-missiles when fired."},
-        {16, "More frequent Kinetic Charge and Scatter Missile."}
+        {
+            3,
+            "Rosalia's Workshop periodically launches a missile that scatters into a few highly destructive explosions."
+        },
+        { 9, "Scatter Missile releases more mini-missiles when fired." },
+        { 16, "More frequent Kinetic Charge and Scatter Missile." }
     };
-    
+
     public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
@@ -42,14 +48,15 @@ public class ScatterMissile : HeroAbilityChoice
 
         abilityWeapon.GetDescendants<DamageModel>().ForEach(damageModel => damageModel.damage /= Factor);
         abilityWeapon.GetDescendants<SlowModel>().ForEach(slowModel => slowModel.Lifespan /= Factor);
-        abilityWeapon.GetDescendants<DamageModifierForTagModel>().ForEach(tagModel => tagModel.damageAddative /= Factor);
+        abilityWeapon.GetDescendants<DamageModifierForTagModel>()
+            .ForEach(tagModel => tagModel.damageAddative /= Factor);
 
 
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen,
+        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
             false, false, false, false));
-        
+
 
         model.AddBehavior(abilityAttack);
     }
@@ -67,15 +74,14 @@ public class ScatterMissile : HeroAbilityChoice
         abilityWeapon.rate = abilityModel.Cooldown / Factor;
 
         var area = abilityWeapon.GetDescendant<CreateProjectilesInAreaModel>();
-        
+
         area.maxProjectileCount /= Factor;
 
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen,
+        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
             false, false, false, false));
-        
+
         model.AddBehavior(abilityAttack);
     }
-
 }

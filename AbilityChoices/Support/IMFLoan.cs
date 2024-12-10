@@ -11,7 +11,7 @@ public class IMFLoan : TowerAbilityChoice
     public override string AbilityName => UpgradeId;
 
     public override string Description1 => "Periodically gives you $10,000 that has to be paid back over time.";
-    public override string Description2 => "Bank capacity is increased to a base of $17,500";
+    public override string Description2 => "Bank capacity is increased to ~$20,000";
 
     public override void Apply1(TowerModel model)
     {

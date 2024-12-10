@@ -47,7 +47,7 @@ public class PsionicScream : HeroAbilityChoice
         var effect = ability.GetBehaviors<CreateEffectOnAbilityModel>()
             .Select(e => e.effectModel)
             .First(e => e.fullscreen == Fullscreen.No);
-        weapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false,
+        weapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false,
             false, false, false));
 
         var projectile = weapon.projectile;

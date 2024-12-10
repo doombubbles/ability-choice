@@ -24,7 +24,7 @@ public class SuperMonkeyFanClub : TowerAbilityChoice
     {
         var abilityModel = AbilityModel(model);
         // abilityModel.enabled = false;
-        abilityModel.CooldownSpeedScale = -1;
+        abilityModel.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
 
         var monkeyFanClubModel = abilityModel.GetBehavior<MonkeyFanClubModel>();
 

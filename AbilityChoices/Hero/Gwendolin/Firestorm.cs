@@ -61,7 +61,7 @@ public class Firestorm : HeroAbilityChoice
             var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
             effect.scale = .6f;
 
-            weapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, Fullscreen.No, false,
+            weapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, Fullscreen.No, false,
                 false, false, false));
 
             attack.name += "Firestorm";

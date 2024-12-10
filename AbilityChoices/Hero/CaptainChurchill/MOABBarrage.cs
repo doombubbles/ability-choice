@@ -62,7 +62,7 @@ public class MOABBarrage : HeroAbilityChoice
 
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         effect.lifespan = .2f;
-        weapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, .2f, Fullscreen.No, false, false, false,
+        weapon.AddBehavior(new EjectEffectModel("", effect, .2f, Fullscreen.No, false, false, false,
             false));
 
         var projectile = weapon.projectile;
@@ -122,7 +122,7 @@ public class MOABBarrage : HeroAbilityChoice
                 emission: new SingleEmissionModel("", null),
                 behaviors: new[]
                 {
-                    new EjectEffectModel("", effect.assetId, effect, .2f, Fullscreen.No, false, false, false, false)
+                    new EjectEffectModel("", effect, .2f, Fullscreen.No, false, false, false, false)
                 })
         }, 9999, new Model[]
         {

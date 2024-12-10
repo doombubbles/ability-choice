@@ -14,12 +14,12 @@ public class ZomgTrojan : ModDisplay
     public override void Register()
     {
         base.Register();
-        
-        // TODO re-enable after MelonLoader bug fix
-        return;
-        
-        GameData.Instance.bloonOverlays.overlayTypes["BenjaminTrojan"].assets[BloonOverlayClass.Zomg] =
-            CreatePrefabReference<ZomgTrojan>();
+
+        if (ModBloonOverlay.WorksOnCurrentMelonLoader)
+        {
+            GameData.Instance.bloonOverlays.overlayTypes["BenjaminTrojan"].assets[BloonOverlayClass.Zomg] =
+                CreatePrefabReference<ZomgTrojan>();
+        }
     }
 
     public override void ModifyDisplayNode(UnityDisplayNode node)

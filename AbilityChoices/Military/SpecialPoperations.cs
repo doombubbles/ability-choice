@@ -1,5 +1,6 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
@@ -34,16 +35,15 @@ public class SpecialPoperations : TowerAbilityChoice
         var weapon = marine.GetAttackModels()[0].weapons[0].Duplicate();
 
         var airBehavior = model.GetAttackModels()[0].weapons[0].GetBehavior<FireFromAirUnitModel>();
-        weapon.behaviors = new Il2CppReferenceArray<WeaponBehaviorModel>(new WeaponBehaviorModel[] { airBehavior });
+        weapon.behaviors = new Model[] { airBehavior };
 
         weapon.ejectX = weapon.ejectY = weapon.ejectZ = 0;
 
         weapon.emission = model.GetWeapon().emission.Duplicate();
         weapon.emission.Cast<EmissionWithOffsetsModel>().throwMarkerOffsetModels =
-            new Il2CppReferenceArray<ThrowMarkerOffsetModel>(new[]
-            {
+            new Il2CppReferenceArray<ThrowMarkerOffsetModel>([
                 weapon.emission.Cast<EmissionWithOffsetsModel>().throwMarkerOffsetModels[0]
-            });
+            ]);
         weapon.emission.Cast<EmissionWithOffsetsModel>().throwMarkerOffsetModels[0].ejectX = 0;
         weapon.emission.Cast<EmissionWithOffsetsModel>().projectileCount = 1;
 

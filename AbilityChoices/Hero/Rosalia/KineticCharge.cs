@@ -13,12 +13,15 @@ public class KineticCharge : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        {10, "Workshop emits Kinetic Charges that attach to Bloons, harnessing energy when the target takes damage. They then release the accumulated energy in a huge detonation."},
-        {16, "More frequent Kinetic Charge and Scatter Missile."}
+        {
+            10,
+            "Workshop emits Kinetic Charges that attach to Bloons, harnessing energy when the target takes damage. They then release the accumulated energy in a huge detonation."
+        },
+        { 16, "More frequent Kinetic Charge and Scatter Missile." }
     };
 
     private const int Factor = 5;
-    
+
     public override void Apply1(TowerModel model)
     {
         var abilityModel = AbilityModel(model);
@@ -45,7 +48,7 @@ public class KineticCharge : HeroAbilityChoice
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         var sound = abilityModel.GetBehavior<CreateSoundOnAbilityModel>();
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen,
+        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
             false, false, false, false));
 
         abilityWeapon.AddBehavior(new CreateSoundOnProjectileCreatedModel("", sound.sound, sound.sound, sound.sound,

@@ -17,6 +17,6 @@ public class CarpetOfSpikes : SpikeStorm
     protected override void ApplyBoth(TowerModel model)
     {
         var ability = AbilityModel(model);
-        ability.CooldownSpeedScale = -1;
+        ability.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
     }
 }

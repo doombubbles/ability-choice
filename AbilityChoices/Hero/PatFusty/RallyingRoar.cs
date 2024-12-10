@@ -58,7 +58,7 @@ public class RallyingRoar : HeroAbilityChoice
                 Rate = ability.Cooldown / Factor,
                 Behaviors = new WeaponBehaviorModel[]
                 {
-                    new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false, false,
+                    new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false, false,
                         false, false)
                 },
                 Projectile = new ProjectileHelper("WeakeningRoar")

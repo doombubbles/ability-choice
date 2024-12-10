@@ -23,7 +23,7 @@ public class TotalTransformingTonic : TransformingTonic
 
         var abilityModel = AbilityModel(model);
         // abilityModel.enabled = false;
-        abilityModel.CooldownSpeedScale = -1;
+        abilityModel.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
         var morphTowerModel = abilityModel.GetBehavior<MorphTowerModel>();
 
         morphTowerModel.maxTowers = 2;

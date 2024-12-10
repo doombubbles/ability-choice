@@ -1,6 +1,8 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 
@@ -11,12 +13,21 @@ public class ZOMGTakedown : MOABTakedown
     public override string UpgradeId => UpgradeType.PirateLord;
 
     public override string Description1 =>
-        "Greatly increased attack speed for all attacks, and hook attack is faster, and can also pull in BFBs.";
+        "Greatly improved power and can shoot many grappling hooks at once, plundering extra cash from each MOAB-class Bloon taken down..";
 
     public override string Description2 =>
-        "Greatly increased attack speed for all attacks, with further increased MOAB and Ceramic damage.";
+        "Greatly increased attack speed for all attacks, with further increased MOAB damage.";
 
-    protected override bool FilterBFBs => false;
+    public override void Apply1(TowerModel model)
+    {
+        var abilityModel = AbilityModel(model);
+        var hookAttack = abilityModel.GetDescendant<AttackModel>().Duplicate();
+        hookAttack.weapons[0]!.Rate = abilityModel.Cooldown / 2;
+
+        hookAttack.GetDescendants<TargetGrapplableModel>().ForEach(grapplableModel => grapplableModel.hooks /= 2);
+        
+        model.AddBehavior(hookAttack);
+    }
 
     public override void Apply2(TowerModel model)
     {

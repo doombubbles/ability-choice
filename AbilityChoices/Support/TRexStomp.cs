@@ -49,8 +49,7 @@ public class TRexStomp : TowerAbilityChoice
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel.Duplicate();
         var effectBehavior =
             new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_",
-                CreatePrefabReference(""), effect, 0,
-                Fullscreen.No, 1.0f, -1f, false);
+                effect, 0, Fullscreen.No, 1.0f, -1f, false);
         proj.AddBehavior(effectBehavior);
 
         tRex.AddBehavior(attackModel);

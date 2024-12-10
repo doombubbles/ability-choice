@@ -44,15 +44,15 @@ public class PermaCharge : TowerAbilityChoice
         var dart = dartling.GetWeapon().projectile;
 
         var addBehaviorToBloonModel = dart.GetBehavior<AddBehaviorToBloonModel>().Duplicate();
-        addBehaviorToBloonModel.overlayType = ElectricShock.OverlayType;
+        addBehaviorToBloonModel.ApplyOverlay<ElectricShock>();
         addBehaviorToBloonModel.mutationId = nameof(ElectricShock);
         addBehaviorToBloonModel.lifespan = 5;
         projectile.AddBehavior(addBehaviorToBloonModel);
         var damageModifierForBloonStateModel = dart.GetBehavior<DamageModifierForBloonStateModel>().Duplicate();
         damageModifierForBloonStateModel.bloonState = nameof(ElectricShock);
-        damageModifierForBloonStateModel.bloonStates = new[] { nameof(ElectricShock) };
+        damageModifierForBloonStateModel.bloonStates = new[] {nameof(ElectricShock)};
         damageModifierForBloonStateModel.damageAdditive += bonus - 1;
         projectile.AddBehavior(damageModifierForBloonStateModel);
-        projectile.collisionPasses = new[] { 0, 1 };
+        projectile.collisionPasses = new[] {0, 1};
     }
 }

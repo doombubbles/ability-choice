@@ -48,7 +48,7 @@ public class TurboCharge : TowerAbilityChoice
         var dart = dartling.GetWeapon().projectile;
 
         var addBehaviorToBloonModel = dart.GetBehavior<AddBehaviorToBloonModel>().Duplicate();
-        addBehaviorToBloonModel.overlayType = ElectricShock.OverlayType;
+        addBehaviorToBloonModel.ApplyOverlay<ElectricShock>();
         addBehaviorToBloonModel.mutationId = nameof(ElectricShock);
         projectile.AddBehavior(addBehaviorToBloonModel);
         var damageModifierForBloonStateModel = dart.GetBehavior<DamageModifierForBloonStateModel>().Duplicate();
