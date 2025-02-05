@@ -1,1 +1,3 @@
-- Fixed for BTD6 v46
+- Fixed for BTD6 v47
+- Fixed a number of tooltip inconsistencies
+- Fixes bugs with Tack Shooter and Druid ability choices

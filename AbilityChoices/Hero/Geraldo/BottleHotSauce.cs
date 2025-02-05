@@ -13,6 +13,10 @@ public class BottleHotSauce : GeraldoAbilityChioce
         {
             8,
             "New Item! Bottle of 'Gerry's Fire' - 2.8 million Bloonville units of pure hot sauce fire! Gives a Monkey, Hero, or minion a fiery attack permanently."
+        },
+        {
+            16,
+            "Stack of Old Nails becomes a Nail Mine, Jar of Pickles grants additional bonus damage vs. Fortified Bloons, and Gerry's Fire gains bonus burny damage."
         }
     };
 

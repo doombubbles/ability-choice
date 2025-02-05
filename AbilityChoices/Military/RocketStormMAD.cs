@@ -6,8 +6,6 @@ public class RocketStormMAD : RocketStorm
 {
     public override string UpgradeId => UpgradeType.MAD;
 
-    public override string AbilityName => Name;
-
     public override string Description1 => "Occasionally shoots a wave of MAD Rocket Storm missiles.";
 
     public override string Description2 =>

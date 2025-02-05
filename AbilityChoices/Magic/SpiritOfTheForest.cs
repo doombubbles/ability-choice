@@ -19,6 +19,8 @@ public class SpiritOfTheForest : JunglesBounty
     
     protected override float Income => 1.3f;
 
+    protected override int Order => -1;
+
     protected override void ApplyBoth(TowerModel model)
     {
         var vineRupture = model.GetBehaviors<AbilityModel>()

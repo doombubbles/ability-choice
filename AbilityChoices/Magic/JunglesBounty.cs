@@ -12,11 +12,9 @@ public class JunglesBounty : TowerAbilityChoice
 
     public override string AbilityName => "Jungle's Bounty";
 
-    public override string Description1 =>
-        "Periodically generates cash, plus extra per Banana Farm near the Druid. Can also grab two Bloons with vines at once.";
+    public override string Description1 => "Vines create stronger thorn piles. Periodically generates cash, plus extra per Banana Farm near the Druid.";
 
-    public override string Description2 =>
-        "Nearby income generation is increased by 20%. Can also grab two Bloons with vines at once.";
+    public override string Description2 => "Vines create stronger thorn piles. Nearby income generation is increased by 20%.";
 
     protected virtual float Income => 1.2f;
 

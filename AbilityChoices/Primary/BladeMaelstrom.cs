@@ -40,11 +40,7 @@ public class BladeMaelstrom : TowerAbilityChoice
         model.GetAttackModel().range += 9;
 
         var neva = Game.instance.model.GetTower(TowerType.MonkeyAce, 0, 0, 3);
-        var behavior = neva.GetDescendant<TrackTargetModel>().Duplicate();
-
-        behavior.TurnRate *= 3;
-        behavior.constantlyAquireNewTarget = true;
-        behavior.useLifetimeAsDistance = true;
+        var behavior = neva.GetDescendant<AdoraTrackTargetModel>().Duplicate();
 
         var weaponProjectile = model.GetWeapon().projectile;
         weaponProjectile.AddBehavior(behavior);

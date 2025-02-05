@@ -32,7 +32,7 @@ public class Sabotage : TowerAbilityChoice
         slowingProjectile.GetBehavior<AgeModel>().Lifespan = 2;
 
         var slowBehavior = new SlowModel("Sabotage", mult, 2, slow.mutationId, 999, "", true,
-            false, null, false, false, false);
+            false, null, false, false, false, 0);
         slowingProjectile.AddBehavior(slowBehavior);
 
         model.AddBehavior(slowAttack);
@@ -49,7 +49,7 @@ public class Sabotage : TowerAbilityChoice
         var dontSlowBadBehavior = abilityWeapon.projectile.GetBehavior<SlowModifierForTagModel>();
 
         var slowBehavior = new SlowModel("Sabotage", 0.5f, 2f, slowMutator.mutationId, 999, "", true, false, null,
-            false, false, false) {mutator = slowMutator};
+            false, false, false, 0) {mutator = slowMutator};
 
 
         foreach (var weaponModel in model.GetWeapons())

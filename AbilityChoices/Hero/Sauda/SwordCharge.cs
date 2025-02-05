@@ -15,18 +15,19 @@ public class SwordCharge : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        { 10, "Sauda sends mirages of herself along the track, devastating Bloons as she goes." },
-        { 20, "Sword Charge and Leaping Sword power greatly increased." }
+        {10, "Sauda sends mirages of herself along the track, devastating Bloons as she goes."},
+        {14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!"},
+        {20, "Sword Charge and Leaping Sword power greatly increased."}
     };
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        { 10, "Sauda sends mirages of herself forward towards Bloons." },
-        { 20, "Sword Charge and Leaping Sword power greatly increased." }
+        {10, "Sauda sends mirages of herself forward towards Bloons."},
+        {14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!"},
+        {20, "Sword Charge and Leaping Sword power greatly increased."}
     };
 
     public const float Factor = 5;
-
     public override void Apply1(TowerModel model)
     {
         var ability = AbilityModel(model);
@@ -56,7 +57,6 @@ public class SwordCharge : HeroAbilityChoice
 
         swordCharge.iterations = 1;
     }
-
     public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
@@ -113,7 +113,6 @@ public class SwordCharge : HeroAbilityChoice
             new RotateToTargetModel("", true, false, false, 0, true, false)
         }, null, 0, 0, 0, true, false, 0, false, 0));*/
     }
-
     protected override void RemoveAbility(TowerModel model)
     {
         if (Mode2)

@@ -14,14 +14,16 @@ public class RapidShot : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        { 3, "Increased attack speed." },
-        { 15, "Further increased attack speed." }
+        {3, "Increased attack speed."},
+        {13, "Small range and attack speed increase increase."},
+        {15, "Further increased attack speed."}
     };
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        { 3, "Quincy's attacks now ACTUALLY never miss. Slightly increased attack speed." },
-        { 15, "Further increased attack speed." }
+        {3, "Quincy's attacks now ACTUALLY never miss. Slightly increased attack speed."},
+        {13, "Small range and attack speed increase increase."},
+        {15, "Further increased attack speed."}
     };
 
     public override void Apply1(TowerModel model)
