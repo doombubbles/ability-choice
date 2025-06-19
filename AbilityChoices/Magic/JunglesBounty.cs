@@ -29,7 +29,6 @@ public class JunglesBounty : TowerAbilityChoice
         var behavior = village.GetBehavior<MonkeyCityIncomeSupportModel>().Duplicate();
         behavior.incomeModifier = Income;
         behavior.appliesToOwningTower = false;
-        behavior.isUnique = true;
         behavior.maxStackSize = 0;
         behavior.showBuffIcon = false;
         model.AddBehavior(behavior);

@@ -1,4 +1,5 @@
-﻿using Il2CppAssets.Scripts.Models.Towers;
+﻿using Il2CppAssets.Scripts.Models.CorvusSpells;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
 namespace AbilityChoice.AbilityChoices.Hero.Corvus;
@@ -16,12 +17,12 @@ public class Storm : CorvusAbilityChoice
 
     public override void Apply2(TowerModel model)
     {
-        var spell = ContinuousSpell(model);
+        var spell = ContinuousSpell(model).Cast<StormModel>();
 
         var factor = (spell.ongoingManaCost + spell.initialManaCost / (float) ContinuousFactor) / spell.ongoingManaCost;
 
         spell.initialManaCost = spell.ongoingManaCost;
 
-        spell.GetDescendant<WeaponModel>().Rate *= factor;
+        spell.attack.weapons[0]!.Rate *= factor;
     }
 }

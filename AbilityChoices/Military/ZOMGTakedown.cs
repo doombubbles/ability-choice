@@ -13,7 +13,7 @@ public class ZOMGTakedown : MOABTakedown
     public override string UpgradeId => UpgradeType.PirateLord;
 
     public override string Description1 =>
-        "Greatly improved power and can shoot many grappling hooks at once, plundering extra cash from each MOAB-class Bloon taken down..";
+        "Greatly improved power and can shoot many grappling hooks at once, plundering extra cash from each MOAB-class Bloon taken down.";
 
     public override string Description2 =>
         "Greatly increased attack speed for all attacks, with further increased MOAB damage.";

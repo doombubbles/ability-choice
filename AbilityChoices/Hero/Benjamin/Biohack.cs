@@ -58,10 +58,10 @@ public class Biohack : HeroAbilityChoice
     {
         var ability = AbilityModel(model);
 
-        ability.Cooldown = 5;
 
         var biohack = ability.GetDescendant<BiohackModel>();
 
+        ability.Cooldown = biohack.lifespan;
         biohack.affectedCount = 1;
 
         ability.GetDescendants<DelayedShutoffModel>().ForEach(shutoffModel =>

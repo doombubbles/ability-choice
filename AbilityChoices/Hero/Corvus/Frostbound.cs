@@ -1,4 +1,5 @@
 ﻿using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.CorvusSpells.Instant;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
@@ -21,7 +22,7 @@ public class Frostbound : CorvusAbilityChoice
 
     public override void Apply2(TowerModel model)
     {
-        var spell = InstantSpell(model);
+        var spell = InstantSpell(model).Cast<FrostboundModel>();
 
         var factor = spell.duration / (spell.duration + spell.cooldown);
 
@@ -30,11 +31,11 @@ public class Frostbound : CorvusAbilityChoice
         spell.duration = 1;
         spell.cooldown = 0;
 
-        var clear = spell.GetDescendant<ClearHitBloonsModel>();
+        var clear = spell.projectile.GetDescendant<ClearHitBloonsModel>();
         clear.interval /= factor;
         clear.intervalFrames = (int) (clear.intervalFrames / factor);
 
-        var refresh = spell.GetDescendant<RefreshPierceModel>();
+        var refresh = spell.projectile.GetDescendant<RefreshPierceModel>();
         refresh.interval /= factor;
         refresh.intervalFrames = (int) (refresh.intervalFrames / factor);
     }

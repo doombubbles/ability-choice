@@ -57,7 +57,7 @@ public class LeapingSwordAttack : HeroAbilityChoice
 
         dot.GetBehavior<AgeModel>().Lifespan /= Factor;
 
-        impact.AddBehavior(new CreateProjectileOnExpireModel("", dot, new SingleEmissionModel("", null), true));
+        impact.AddBehavior(new CreateProjectileOnExpireModel("", dot, new SingleEmissionModel("", null), true, false));
 
         var melee = model.GetAttackModel();
 

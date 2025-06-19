@@ -61,23 +61,6 @@ internal static class OverclockHandler
         overclockModel.name.Contains(Enabled);
 
 
-    /// <summary>
-    /// Override Overclock application
-    /// </summary>
-    [HarmonyPatch(typeof(Overclock), nameof(Overclock.Activate))]
-    internal static class Overclock_Activate
-    {
-        [HarmonyPostfix]
-        internal static void Postfix(Overclock __instance)
-        {
-            if (!__instance.OverclockAbilityChoice() ||
-                __instance.selectedTower == null ||
-                __instance.IsBanned(__instance.selectedTower)) return;
-
-            ApplyOverclock(__instance.ability.tower, __instance.selectedTower);
-        }
-    }
-
     internal static readonly Dictionary<ObjectId, List<Entity>> Dots = new();
 
     private static TechBotLink GetFakeTechBotLink(Ability __instance)
@@ -104,6 +87,23 @@ internal static class OverclockHandler
             techBotLinkModel = model,
             lineDotDisplays = dots
         };
+    }
+
+    /// <summary>
+    /// Override Overclock application
+    /// </summary>
+    [HarmonyPatch(typeof(Overclock), nameof(Overclock.Activate))]
+    internal static class Overclock_Activate
+    {
+        [HarmonyPostfix]
+        internal static void Postfix(Overclock __instance)
+        {
+            if (!__instance.OverclockAbilityChoice() ||
+                __instance.selectedTower == null ||
+                __instance.IsBanned(__instance.selectedTower)) return;
+
+            ApplyOverclock(__instance.ability.tower, __instance.selectedTower);
+        }
     }
 
     /// <summary>
@@ -254,6 +254,21 @@ internal static class OverclockHandler
     /// </summary>
     [HarmonyPatch(typeof(Ability), nameof(Ability.IsReady))]
     internal static class Ability_IsReady
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Ability __instance, ref bool ignoreCooldown)
+        {
+            if (!__instance.abilityModel.OverclockAbilityChoice()) return;
+
+            ignoreCooldown = true;
+        }
+    }
+
+    /// <summary>
+    /// Can switch Overclocks without cooldown
+    /// </summary>
+    [HarmonyPatch(typeof(Ability), nameof(Ability.Activate))]
+    internal static class Ability_Activate
     {
         [HarmonyPrefix]
         internal static void Prefix(Ability __instance, ref bool ignoreCooldown)

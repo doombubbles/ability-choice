@@ -1,5 +1,6 @@
 ﻿using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.CorvusSpells;
+using Il2CppAssets.Scripts.Models.CorvusSpells.Continuous;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
@@ -18,12 +19,12 @@ public class Malevolence : CorvusAbilityChoice
 
     public override void Apply2(TowerModel model)
     {
-        var spell = ContinuousSpell(model);
+        var spell = ContinuousSpell(model).Cast<MalevolenceModel>();
 
         var factor = (spell.ongoingManaCost + spell.initialManaCost / (float) ContinuousFactor) / spell.ongoingManaCost;
 
         spell.initialManaCost = spell.ongoingManaCost;
 
-        spell.GetDescendant<WeaponModel>().Rate *= factor;
+        spell.attack.weapons[0]!.Rate *= factor;
     }
 }

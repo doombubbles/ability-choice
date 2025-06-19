@@ -1,4 +1,5 @@
 ﻿using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Models.CorvusSpells;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
@@ -23,7 +24,7 @@ public class Echo : CorvusAbilityChoice
 
     public override void Apply2(TowerModel model)
     {
-        var spell = InstantSpell(model);
+        var spell = InstantSpell(model).Cast<EchoModel>();
 
         var factor = spell.duration / (spell.duration + spell.cooldown);
 
@@ -32,7 +33,7 @@ public class Echo : CorvusAbilityChoice
         spell.duration = 1;
         spell.cooldown = 0;
 
-        var tower = spell.GetDescendant<TowerModel>();
+        var tower = spell.duplicateSpiritModel;
 
         tower.GetDescendants<WeaponModel>().ForEach(weaponModel => weaponModel.Rate /= factor);
     }
