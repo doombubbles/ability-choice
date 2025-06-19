@@ -178,30 +178,30 @@ internal static class OverclockHandler
     /// <summary>
     /// For clarity, don't allow re-overclocking the same tower
     /// </summary>
-    [HarmonyPatch(typeof(Overclock), nameof(Overclock.GetCustomInputData))]
-    internal static class Overclock_GetCustomInputData
+    [HarmonyPatch(typeof(TapTowerAbilityBehavior), nameof(TapTowerAbilityBehavior.GetCustomInputData))]
+    internal static class TapTowerAbilityBehavior_GetCustomInputData
     {
         [HarmonyPostfix]
-        internal static void Postfix(Overclock __instance, ref Il2CppSystem.Object __result)
+        internal static void Postfix(TapTowerAbilityBehavior __instance, ref Il2CppSystem.Object __result)
         {
-            if (!__instance.OverclockAbilityChoice() || !__result.Is(out OverclockCIData data)) return;
+            if (!__instance.Is(out Overclock overclock) || !overclock.OverclockAbilityChoice() || !__result.Is(out OverclockCIData data)) return;
 
-            data.validTowerIds.RemoveAll(new Func<ObjectId, bool>(id => id == __instance.selectedTowerId));
+            data.validTowerIds.RemoveAll(new Func<ObjectId, bool>(id => id == overclock.selectedTowerId));
         }
     }
 
     /// <summary>
     /// Reapply when a tower gets upgraded because the tier may change the mutator
     /// </summary>
-    [HarmonyPatch(typeof(Overclock), nameof(Overclock.OnTowerUpgraded))]
-    internal static class Overclock_OnTowerUpgraded
+    [HarmonyPatch(typeof(TapTowerAbilityBehavior), nameof(TapTowerAbilityBehavior.OnTowerUpgraded))]
+    internal static class TapTowerAbilityBehavior_OnTowerUpgraded
     {
         [HarmonyPostfix]
-        internal static void Postfix(Overclock __instance, Tower tower)
+        internal static void Postfix(TapTowerAbilityBehavior __instance, Tower tower)
         {
-            if (!__instance.OverclockAbilityChoice()) return;
+            if (!__instance.Is(out Overclock overclock) || !overclock.OverclockAbilityChoice()) return;
 
-            if (tower.Id == __instance.selectedTowerId && !__instance.IsBanned(tower))
+            if (tower.Id == overclock.selectedTowerId && !__instance.IsBanned(tower))
             {
                 ApplyOverclock(__instance.ability.tower, tower);
             }

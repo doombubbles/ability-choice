@@ -139,7 +139,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         GetRelevantArtifactEfffects(out var boosts, out var towerSetChanges, out var abilityStackings);
 
-        if (InGameData.CurrentGame.rogueData != null && LegendsManager.instance?.RogueSaveData != null)
+        if (InGameData.CurrentGame.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
             ProcessBoosts(gameModel, boosts, towerSetChanges, abilityStackings, false);
         }
@@ -156,7 +156,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
             }
         }
 
-        if (InGameData.CurrentGame.rogueData != null && LegendsManager.instance?.RogueSaveData != null)
+        if (InGameData.CurrentGame.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
             ProcessBoosts(gameModel, boosts, towerSetChanges, abilityStackings, true);
         }
@@ -170,9 +170,9 @@ public class AbilityChoiceMod : BloonsTD6Mod
         towerSetChanges = [];
         abilityStackings = [];
 
-        if (InGameData.CurrentGame.rogueData == null || LegendsManager.instance?.RogueSaveData == null) return;
+        if (InGameData.CurrentGame.rogueData == null || RogueLegendsManager.instance?.RogueSaveData == null) return;
 
-        foreach (var artifact in LegendsManager.instance.RogueSaveData.artifactsInventory)
+        foreach (var artifact in RogueLegendsManager.instance.RogueSaveData.artifactsInventory)
         {
             var artifactModel = GameData.Instance.artifactsData
                 .GetArtifactData(artifact.artifactName)

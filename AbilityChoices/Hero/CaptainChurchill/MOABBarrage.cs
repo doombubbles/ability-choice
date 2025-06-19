@@ -37,8 +37,8 @@ public class MOABBarrage : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        { 10, "Constantly barrages the strongest MOAB-class Bloon on screen with shells that deal massive damage." },
-        { 20, "MOAB Barrage shells and Main Gun do massively increased damage per hit, and barrages fire even faster." }
+        {10, "Constantly barrages the strongest MOAB-class Bloon on screen with shells that deal massive damage."},
+        {20, "MOAB Barrage shells and Main Gun do massively increased damage per hit, and barrages fire even faster."}
     };
 
     public override void Apply1(TowerModel model)
@@ -54,7 +54,7 @@ public class MOABBarrage : HeroAbilityChoice
         var attack = Game.instance.model.GetHeroWithNameAndLevel(TowerType.Gwendolin, 10).GetAbility(1)
             .GetDescendant<ActivateAttackModel>().attacks[1].Duplicate();
         attack.fireWithoutTarget = false;
-        attack.AddBehavior(new AttackFilterModel("", new[] { new FilterWithTagModel("", BloonTag.Moabs, false) }));
+        attack.AddBehavior(new AttackFilterModel("", new[] {new FilterWithTagModel("", BloonTag.Moabs, false)}));
 
         var weapon = attack.GetChild<WeaponModel>();
         weapon.Rate = ability.Cooldown / dot.numOfMissiles;
@@ -74,7 +74,7 @@ public class MOABBarrage : HeroAbilityChoice
         var addBehavior = projectile.GetBehavior<AddBehaviorToBloonModel>();
         addBehavior.mutationId = moabBarrage.mutatorId;
         addBehavior.overlayType = "";
-        addBehavior.behaviors = new[] { newDot };
+        addBehavior.behaviors = new[] {newDot};
 
 
         model.AddBehavior(attack);
@@ -107,18 +107,18 @@ public class MOABBarrage : HeroAbilityChoice
                     new AddBehaviorToBloonModel("", moabBarrage.mutatorId, .05f, 1, null, null, new[]
                     {
                         dot
-                    }, "", true, false, true, false, 0, false, 0, null, false, 0),
+                    }, "", true, false, true, false, 0, false, 0, null, false, 0, false),
                     new ProjectileFilterModel("", new[]
                     {
-                        new FilterAllExceptTargetModel("")
+                        new FilterAllExceptTargetModel("", false)
                     }),
                     new InstantModel("", false, false, false),
                     new AgeModel("", .05f, 0, false, null),
                     new DisplayModel("", CreatePrefabReference(null), 0, DisplayCategory.Projectile)
                 }, filters: new[]
                 {
-                    new FilterAllExceptTargetModel("")
-                }, maxPierce: 1, collisionPasses: new[] { -1, 0, 1 }),
+                    new FilterAllExceptTargetModel("", false)
+                }, maxPierce: 1, collisionPasses: new[] {-1, 0, 1}),
                 emission: new SingleEmissionModel("", null),
                 behaviors: new[]
                 {
@@ -131,6 +131,6 @@ public class MOABBarrage : HeroAbilityChoice
                 new FilterMoabModel("", false)
             }),
             new TargetStrongModel("", false, false)
-        }, null, 0, 0, 0, true, false, 0, false, 0));
+        }, null, 0, 0, 0, true, false, 0, false, 0, false));
     }
 }

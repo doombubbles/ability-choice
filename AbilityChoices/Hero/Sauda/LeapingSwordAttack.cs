@@ -67,7 +67,7 @@ public class LeapingSwordAttack : HeroAbilityChoice
             {
                 new EmissionRotationZeroModel("")
             }), ejectZ: 9999)
-        }, 9999, melee.behaviors, null, 0, 0, 0, true, false, 0, true, 0);
+        }, 9999, melee.behaviors, null, 0, 0, 0, true, false, 0, true, 0, false);
 
 
         model.AddBehavior(attack);
@@ -111,6 +111,6 @@ public class LeapingSwordAttack : HeroAbilityChoice
             {
                 new FilterInvisibleModel("", false, false)
             })
-        }, null, 0, 0, 0, false, false, 0, false, 0));
+        }, null, 0, 0, 0, false, false, 0, false, 0, false));
     }
 }
