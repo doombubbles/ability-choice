@@ -1,6 +1,5 @@
 ﻿using BTD_Mod_Helper.Api.Data;
-
-namespace AbilityChoice;
+namespace AbilityChoice.Descriptions;
 
 public abstract class AbilityChoiceDescription<T> : ModTextOverride where T : AbilityChoice
 {

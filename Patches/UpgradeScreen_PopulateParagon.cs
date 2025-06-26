@@ -1,7 +1,5 @@
 ﻿using HarmonyLib;
-using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace AbilityChoice.Patches;
 

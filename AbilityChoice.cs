@@ -5,7 +5,6 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
-using Il2CppAssets.Scripts.Unity.UI_New.Legends;
 using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace AbilityChoice;

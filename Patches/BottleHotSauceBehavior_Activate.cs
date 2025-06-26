@@ -1,5 +1,4 @@
-﻿using AbilityChoice.AbilityChoices.Hero;
-using AbilityChoice.AbilityChoices.Hero.Geraldo;
+﻿using AbilityChoice.AbilityChoices.Hero.Geraldo;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Models.Towers;

@@ -1,5 +1,4 @@
-﻿using AbilityChoice.AbilityChoices.Hero;
-using AbilityChoice.AbilityChoices.Hero.Geraldo;
+﻿using AbilityChoice.AbilityChoices.Hero.Geraldo;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Simulation.GeraldoItems;
 using Il2CppAssets.Scripts.Simulation.Objects;

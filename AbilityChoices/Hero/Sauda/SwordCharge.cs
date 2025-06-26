@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;

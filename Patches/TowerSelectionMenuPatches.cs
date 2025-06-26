@@ -1,5 +1,4 @@
-﻿using AbilityChoice.AbilityChoices.Hero;
-using AbilityChoice.AbilityChoices.Hero.AdmiralBrickell;
+﻿using AbilityChoice.AbilityChoices.Hero.AdmiralBrickell;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;

@@ -1,4 +1,5 @@
-﻿namespace AbilityChoice;
+﻿using AbilityChoice.Descriptions;
+namespace AbilityChoice;
 
 public class TowerAbilityChoiceDescription : AbilityChoiceDescription<TowerAbilityChoice>
 {

@@ -1,6 +1,5 @@
 ﻿using Il2CppAssets.Scripts.Models.CorvusSpells;
 using Il2CppAssets.Scripts.Models.Towers;
-using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
 namespace AbilityChoice.AbilityChoices.Hero.Corvus;
 

@@ -4,11 +4,8 @@ using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppNinjaKiwi.Common;
-using Il2CppNinjaKiwi.Common.ResourceUtils;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace AbilityChoice;
 

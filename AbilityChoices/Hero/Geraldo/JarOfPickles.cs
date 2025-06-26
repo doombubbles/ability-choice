@@ -9,7 +9,7 @@ public class JarOfPickles : GeraldoAbilityChioce
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        { 0, "Try these pickles on one of your Monkey Towers and it will hit harder, but shoot slower, permanently." },
+        {0, "Try these pickles on one of your Monkey Towers and it will hit harder, but shoot slower, permanently."},
         {
             11,
             "Try these pickles on one of your Monkey Towers and it will hit harder, but shoot slower, permanently. Now with increased damage to Fortified Bloons!"

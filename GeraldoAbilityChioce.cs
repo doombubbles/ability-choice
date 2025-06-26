@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AbilityChoice.Descriptions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.GeraldoItems;
 using Il2CppAssets.Scripts.Models.Towers;

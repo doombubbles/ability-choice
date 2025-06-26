@@ -1,4 +1,4 @@
-﻿namespace AbilityChoice;
+﻿namespace AbilityChoice.Descriptions;
 
 public class GeraldoAbilityChoiceDescription : AbilityChoiceDescription<GeraldoAbilityChioce>
 {

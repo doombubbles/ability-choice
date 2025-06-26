@@ -1,8 +1,6 @@
-﻿using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.CorvusSpells.Instant;
+﻿using Il2CppAssets.Scripts.Models.CorvusSpells.Instant;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
 namespace AbilityChoice.AbilityChoices.Hero.Corvus;
 

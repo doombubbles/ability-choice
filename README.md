@@ -12,8 +12,8 @@ Ability Choice
 BTD6 Abilities are fun and interactive, definitely, but sometimes you just don't feel like using them. This mod gives
 you a choice: use the ability of a tower like normal, or give it up to instead give the base tower new effects.
 
-Adds in 1-2 new choices for towers and hero abilities that you can pick instead of having an active ability, now selected in
-the Upgrades menu for the tower by Right-Clicking on the Upgrade.
+Adds in 1-2 new choices for towers and hero abilities that you can pick instead of having an active ability, selected in
+the Upgrades menu for the tower by **Right-Clicking on the Upgrade**.
 
 Yellow Icon: Default Effect
 

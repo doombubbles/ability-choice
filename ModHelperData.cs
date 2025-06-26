@@ -8,7 +8,7 @@ internal static class ModHelperData
 
     public const string Description =
         """
-        Adds in new choices for towers with abilities that you can pick instead of having an active ability. Now selected in the Upgrades menu for the tower by Right-Clicking on the Upgrade to switch.
+        Adds in new choices for towers with abilities that you can pick instead of having an active ability. Selected in the Upgrades menu for the tower by Right-Clicking on the Upgrade to switch.
 
         Yellow Icon: Default Effect
         Red Icon: Permanent but weaker effect of the ability

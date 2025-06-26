@@ -17,7 +17,6 @@ using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.Bridge;
-using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
 using Il2CppAssets.Scripts.Utils;
 using Il2CppSystem.Collections.Generic;

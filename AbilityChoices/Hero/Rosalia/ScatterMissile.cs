@@ -4,7 +4,6 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 
 namespace AbilityChoice.AbilityChoices.Hero.Rosalia;
 

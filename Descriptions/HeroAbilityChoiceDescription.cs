@@ -1,4 +1,4 @@
-﻿namespace AbilityChoice;
+﻿namespace AbilityChoice.Descriptions;
 
 public class HeroAbilityChoiceDescription : AbilityChoiceDescription<HeroAbilityChoice>
 {

@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities;
-using UnityEngine;
 
 namespace AbilityChoice.Patches;
 

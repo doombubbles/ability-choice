@@ -26,7 +26,7 @@ internal static class MagusPerfectusManager
 
                 if (__instance.ParagonNecroData is { } necroData)
                 {
-                    __result = necroData.RbePool() / AbilityChoices.Paragon.ArcaneMetamorphosis.Factor;
+                    __result = necroData.RbePool() / AbilityChoices.Magic.WizardMonkey.ArcaneMetamorphosis.Factor;
 
                     if (necroData.RbePool() - __result < 1000)
                     {
@@ -82,12 +82,12 @@ internal static class MagusPerfectusManager
             var zomg = __instance.behaviourModel.projectileZOMG;
 
             __instance.behaviourModel.projectileZOMG = __instance.behaviourModel.projectileBFB;
-            __instance.behaviourModel.manaPerZombieZOMG /= AbilityChoices.Paragon.ArcaneMetamorphosis.Factor;
+            __instance.behaviourModel.manaPerZombieZOMG /= AbilityChoices.Magic.WizardMonkey.ArcaneMetamorphosis.Factor;
 
             __instance.SpawnZombieZOMGs(leftover);
 
             __instance.behaviourModel.projectileZOMG = zomg;
-            __instance.behaviourModel.manaPerZombieZOMG *= AbilityChoices.Paragon.ArcaneMetamorphosis.Factor;
+            __instance.behaviourModel.manaPerZombieZOMG *= AbilityChoices.Magic.WizardMonkey.ArcaneMetamorphosis.Factor;
 
             spawningBfbs = false;
         }
@@ -149,7 +149,7 @@ internal static class MagusPerfectusManager
         [HarmonyPrefix]
         internal static void Prefix(ArcaneMetamorphosis __instance)
         {
-            if (ModContent.GetInstance<AbilityChoices.Paragon.ArcaneMetamorphosis>().Mode == 1)
+            if (ModContent.GetInstance<AbilityChoices.Magic.WizardMonkey.ArcaneMetamorphosis>().Mode == 1)
             {
                 __instance.isCurrentlyMorphed =
                     __instance.GraveyardManager.graveyardManaState == GraveyardManaState.Consuming &&

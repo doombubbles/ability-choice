@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AbilityChoice.AbilityChoices.Hero.Corvus;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
@@ -13,7 +12,6 @@ using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
-using Il2CppAssets.Scripts.Simulation.Artifacts;
 using Il2CppAssets.Scripts.Simulation.Bloons;
 using Il2CppAssets.Scripts.Simulation.Corvus.TowerManager;
 using Il2CppAssets.Scripts.Simulation.Towers;
