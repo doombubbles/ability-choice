@@ -115,9 +115,9 @@ public abstract class AbilityChoice : NamedModContent
 
     public static float CalcAvgBonus(float uptime, float dpsMult) => uptime * dpsMult + (1 - uptime);
 
-    protected void TechBotify(TowerModel model)
+    internal void TechBotify(TowerModel model, AbilityModel ability = null)
     {
-        var ability = AbilityModel(model);
+        ability ??= AbilityModel(model);
 
         // ability.enabled = false;
         if (!ability.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword))
@@ -125,7 +125,7 @@ public abstract class AbilityChoice : NamedModContent
             ability.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
         }
 
-        var name = $"ActivateAbilityAfterIntervalModel_{AbilityName.Replace(" ", "")}";
+        var name = $"{nameof(TechBotify)}_{ability.displayName.Replace(" ", "")}";
         if (model.behaviors.FirstOrDefault(a => a.name == name).Is<ActivateAbilityAfterIntervalModel>(out var m))
         {
             m.abilityModel = ability;
