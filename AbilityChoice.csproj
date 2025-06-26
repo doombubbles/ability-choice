@@ -8,9 +8,6 @@
         <Optimize>False</Optimize>
         <DebugType>embedded</DebugType>
     </PropertyGroup>
-    <ItemGroup>
-      <Folder Include="AbilityChoices\Paragon\" />
-    </ItemGroup>
 
     <Import Project="..\btd6.targets" />
 </Project>

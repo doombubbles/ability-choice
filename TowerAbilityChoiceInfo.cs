@@ -1,7 +1,6 @@
 ﻿using System;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,7 +34,7 @@ public class TowerAbilityChoiceInfo : MonoBehaviour
         }
     }
 
-    public static void Setup(Il2CppReferenceArray<UpgradeDetails> pathUpgrades)
+    public static void Setup(params UpgradeDetails[] pathUpgrades)
     {
         foreach (var upgradeDetails in pathUpgrades)
         {

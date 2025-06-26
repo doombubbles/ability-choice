@@ -25,6 +25,10 @@ public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
 
         var permaBehavior = lord.GetBehavior<TowerCreateTowerModel>().Duplicate();
 
+        permaBehavior.RemoveChildDependant(permaBehavior.towerModel);
+        permaBehavior.towerModel = abilityModel.GetDescendant<TowerModel>();
+        permaBehavior.AddChildDependant(permaBehavior.towerModel);
+
         permaBehavior.towerModel.GetWeapon().rate /= uptime;
 
         model.AddBehavior(permaBehavior);

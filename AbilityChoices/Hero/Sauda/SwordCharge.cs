@@ -89,10 +89,10 @@ public class SwordCharge : HeroAbilityChoice
             Range = 9999,
             AddToSharedGrid = false,
             CanSeeCamo = true,
-            Behaviors = new Model[]
-            {
+            Behaviors =
+            [
                 new RotateToTargetModel("", true, false, false, 0, true, false)
-            },
+            ],
             Weapon = new WeaponHelper
             {
                 Animation = -1,

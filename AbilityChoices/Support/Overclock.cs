@@ -13,9 +13,9 @@ public class Overclock : TowerAbilityChoice
     public override string Description1 =>
         "Modified Ability: Permanently boost (based on tier) one tower at a time.";
 
-    public override string Description2 => "All towers in range have increased Attack Speed.";
+    public override string Description2 => "All towers in range are partially overclocked.";
 
-    protected virtual float Multiplier => .8f;
+    protected virtual float Multiplier => .3f;
 
     public override void Apply1(TowerModel model)
     {
@@ -27,14 +27,14 @@ public class Overclock : TowerAbilityChoice
     {
         var overclock = AbilityModel(model).GetBehavior<OverclockModel>();
 
-        var rateSupport = new RateSupportModel("RateSupportModel_", Multiplier, true,
-            overclock.mutatorSaveId, false, 1, null, overclock.buffLocsName, overclock.buffIconName)
+        model.AddBehavior(new RangeSupportModel(nameof(Overclock), true,
+            1 / CalcAvgBonus(Multiplier, 1 / overclock.rateModifier),
+            CalcAvgBonus(Multiplier, overclock.villageRangeModifier), overclock.mutatorId, null,
+            false, overclock.buffLocsName, overclock.buffIconName)
         {
             appliesToOwningTower = true,
-            showBuffIcon = true
-        };
-
-        model.AddBehavior(rateSupport);
+            showBuffIcon = true,
+        });
     }
 
     protected override void RemoveAbility(TowerModel model)

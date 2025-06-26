@@ -6,6 +6,7 @@ public class Ultraboost : Overclock
 {
     public override string UpgradeId => UpgradeType.Ultraboost;
 
+    public override string Description2 => "All towers in range are fully overclocked.";
 
-    public override string Description2 => "All towers in range have further increased Attack Speed.";
+    protected override float Multiplier => 1f;
 }

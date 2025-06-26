@@ -11,6 +11,7 @@ using Il2CppAssets.Scripts.Models.Artifacts;
 using Il2CppAssets.Scripts.Models.Artifacts.Behaviors;
 using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Simulation.Artifacts;
 using Il2CppAssets.Scripts.Simulation.Bloons;
@@ -66,9 +67,14 @@ public class AbilityChoiceMod : BloonsTD6Mod
             "more on the cautious side, at the risk of the effects not being as exciting to use."
     };
 
-#if DEBUG
-    public static readonly ModSettingButton CreateMds = new(GenerateReadme.Generate);
-#endif
+    public static readonly ModSettingInt MagusPerfectusSwitchThreshold = new(0)
+    {
+        description = "Controls the threshold where the Magus Perfectus will switch to its mana generating attack " +
+                      "when it drops below this amount of mana.",
+        min = 0,
+        max = 100000,
+        icon = VanillaSprites.MagusPerfectusUpgradeIcon
+    };
 
     public static readonly string DontShowAbilityKeyword = " DONT SHOW";
 
@@ -299,7 +305,8 @@ public class AbilityChoiceMod : BloonsTD6Mod
         {
             var corvus = bloon.Sim.GetCorvusManager(InGame.Bridge.MyPlayerNumber);
 
-            if (corvus.CanSpellBeCast(CorvusSpellType.SoulBarrier) && CorvusAbilityChoice.EnabledForSpell(CorvusSpellType.SoulBarrier))
+            if (corvus.CanSpellBeCast(CorvusSpellType.SoulBarrier) &&
+                CorvusAbilityChoice.EnabledForSpell(CorvusSpellType.SoulBarrier))
             {
                 corvus.CastSpell(CorvusSpellType.SoulBarrier);
             }
@@ -314,6 +321,32 @@ public class AbilityChoiceMod : BloonsTD6Mod
         {
             saveData.metaData["AbilityChoice-NextSacrificeTime"] = time.ToString();
         }
+
+        if (tower.GetMutatorById("Overclock").Is(out var mutator))
+        {
+            var overclockMutator = mutator.mutator.Cast<OverclockModel.OverclockMutator>();
+            var model = overclockMutator.overclockModel;
+
+            if (model.OverclockAbilityChoice())
+            {
+                saveData.metaData["OverclockAbilityChoice-rateModifier"] = model.rateModifier.ToString();
+                saveData.metaData["OverclockAbilityChoice-villageRangeModifier"] =
+                    model.villageRangeModifier.ToString();
+            }
+        }
+
+        if (tower.GetMutatorById("Overclock").Is(out mutator))
+        {
+            var takeAimMutator = mutator.mutator.Cast<TakeAimModel.TakeAimMutator>();
+            var model = takeAimMutator.takeAimModel;
+
+            if (model.OverclockAbilityChoice())
+            {
+                saveData.metaData["OverclockAbilityChoice-rangeModifier"] = model.rangeModifier.ToString();
+                saveData.metaData["OverclockAbilityChoice-spreadModifier"] =
+                    model.spreadModifier.ToString();
+            }
+        }
     }
 
     public override void OnTowerLoaded(Tower tower, TowerSaveDataModel saveData)
@@ -321,6 +354,54 @@ public class AbilityChoiceMod : BloonsTD6Mod
         if (saveData.metaData.TryGetValue("AbilityChoice-NextSacrificeTime", out var time))
         {
             AdoraSacrificeUI.NextSacrificeTimes[tower.Id] = int.Parse(time);
+        }
+
+        if (tower.GetMutatorById("Overclock").Is(out var mutator))
+        {
+            var overclockMutator = mutator.mutator.Cast<OverclockModel.OverclockMutator>();
+            var model = overclockMutator.overclockModel;
+
+            if (model.OverclockAbilityChoice())
+            {
+                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-rateModifier", out var rm) &&
+                    float.TryParse(rm, out var rateModifier))
+                {
+                    model.rateModifier = rateModifier;
+                }
+
+                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-villageRangeModifier", out var vrm) &&
+                    float.TryParse(vrm, out var villageRangeModifier))
+                {
+                    model.villageRangeModifier = villageRangeModifier;
+                }
+
+                overclockMutator.resultCache.Clear();
+                tower.ApplyMutation();
+            }
+        }
+
+        if (tower.GetMutatorById("TakeAim").Is(out mutator))
+        {
+            var takeAimMutator = mutator.mutator.Cast<TakeAimModel.TakeAimMutator>();
+            var model = takeAimMutator.takeAimModel;
+
+            if (model.OverclockAbilityChoice())
+            {
+                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-rangeModifier", out var rm) &&
+                    float.TryParse(rm, out var rangeModifier))
+                {
+                    model.rangeModifier = rangeModifier;
+                }
+
+                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-spreadModifier", out var sm) &&
+                    float.TryParse(sm, out var spreadModifier))
+                {
+                    model.spreadModifier = spreadModifier;
+                }
+
+                takeAimMutator.resultCache.Clear();
+                tower.ApplyMutation();
+            }
         }
     }
 }
