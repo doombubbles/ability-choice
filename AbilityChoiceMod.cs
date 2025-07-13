@@ -333,15 +333,15 @@ public class AbilityChoiceMod : BloonsTD6Mod
             }
         }
 
-        if (tower.GetMutatorById("Overclock").Is(out mutator))
+        if (tower.GetMutatorById("TakeAim").Is(out mutator))
         {
             var takeAimMutator = mutator.mutator.Cast<TakeAimModel.TakeAimMutator>();
             var model = takeAimMutator.takeAimModel;
 
             if (model.OverclockAbilityChoice())
             {
-                saveData.metaData["OverclockAbilityChoice-rangeModifier"] = model.rangeModifier.ToString();
-                saveData.metaData["OverclockAbilityChoice-spreadModifier"] =
+                saveData.metaData["TakeAimAbilityChoice-rangeModifier"] = model.rangeModifier.ToString();
+                saveData.metaData["TakeAimAbilityChoice-spreadModifier"] =
                     model.spreadModifier.ToString();
             }
         }

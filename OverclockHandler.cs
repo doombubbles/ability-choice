@@ -91,7 +91,7 @@ internal static class OverclockHandler
 
     private static TechBotLink GetFakeTechBotLink(Ability __instance)
     {
-        var oc = __instance.entity.GetBehaviorInDependants<Overclock>();
+        var oc = __instance.entity.GetBehaviorInDependants<TapTowerAbilityBehavior>();
 
         if (!Dots.TryGetValue(__instance.tower.Id, out var dots))
         {
@@ -107,7 +107,7 @@ internal static class OverclockHandler
             drawDots = true,
             entity = __instance.entity,
             Sim = __instance.Sim,
-            selectedTowerId = oc.selectedTowerId,
+            selectedTowerId = oc.selectedTower?.Id ?? new ObjectId(),
             linkedTower = oc.selectedTower,
             model = model,
             techBotLinkModel = model,
@@ -157,6 +157,7 @@ internal static class OverclockHandler
                   ultraBoost.stacks >= overclockPermanentModel.maxStacks))
             {
                 __instance.Activate();
+                __instance.CooldownRemaining = __instance.abilityModel.Cooldown;
             }
 
             if (__instance.abilityModel.OverclockAbilityChoice() &&
