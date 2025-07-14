@@ -320,9 +320,9 @@ public class AbilityChoiceMod : BloonsTD6Mod
             saveData.metaData["AbilityChoice-NextSacrificeTime"] = time.ToString();
         }
 
-        if (tower.GetMutatorById("Overclock").Is(out var mutator))
+        if (tower.GetMutatorById("Overclock").Is(out var mutator) &&
+            mutator.mutator.Is(out OverclockModel.OverclockMutator overclockMutator))
         {
-            var overclockMutator = mutator.mutator.Cast<OverclockModel.OverclockMutator>();
             var model = overclockMutator.overclockModel;
 
             if (model.OverclockAbilityChoice())
@@ -333,9 +333,9 @@ public class AbilityChoiceMod : BloonsTD6Mod
             }
         }
 
-        if (tower.GetMutatorById("TakeAim").Is(out mutator))
+        if (tower.GetMutatorById("TakeAim").Is(out mutator) &&
+            mutator.mutator.Is(out TakeAimModel.TakeAimMutator takeAimMutator))
         {
-            var takeAimMutator = mutator.mutator.Cast<TakeAimModel.TakeAimMutator>();
             var model = takeAimMutator.takeAimModel;
 
             if (model.OverclockAbilityChoice())

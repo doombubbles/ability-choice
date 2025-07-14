@@ -34,9 +34,11 @@ internal static class OverclockHandler
         if (behavior.Is(out Overclock o))
         {
             var overclock = o.overclockModel.Duplicate();
-            var uptime = overclock.tierBasedDurationMultiplier[tier] *
-                         overclock.lifespanFrames /
-                         (ability.abilityModel.Cooldown * 60);
+            var uptime =
+                overclock.tierBasedDurationMultiplier
+                    [Math.Clamp(tier, 0, overclock.tierBasedDurationMultiplier.Count - 1)] *
+                overclock.lifespanFrames /
+                ability.abilityModel.cooldownFrames;
 
             overclock.rateModifier = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / overclock.rateModifier);
             overclock.villageRangeModifier = AbilityChoice.CalcAvgBonus(uptime, overclock.villageRangeModifier);
@@ -47,7 +49,7 @@ internal static class OverclockHandler
         if (behavior.Is(out TakeAim t))
         {
             var takeAim = t.takeAimModel.Duplicate();
-            var uptime = takeAim.lifespanFrames / (ability.abilityModel.Cooldown * 60);
+            var uptime = takeAim.lifespanFrames / (float) ability.abilityModel.cooldownFrames;
 
             takeAim.rangeModifier = AbilityChoice.CalcAvgBonus(uptime, takeAim.rangeModifier);
             takeAim.spreadModifier = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / takeAim.spreadModifier);
@@ -72,7 +74,7 @@ internal static class OverclockHandler
             tier = (tier - 1) / 4;
         }
 
-        to.AddMutator(GetMutator(behavior, tier));
+        to.AddMutator(GetMutator(behavior, tier), isParagonMutator: from.IsParagonBased());
     }
 
     internal static bool OverclockAbilityChoice(this TapTowerAbilityBehavior overclock) =>
@@ -157,7 +159,7 @@ internal static class OverclockHandler
                   ultraBoost.stacks >= overclockPermanentModel.maxStacks))
             {
                 __instance.Activate();
-                __instance.CooldownRemaining = __instance.abilityModel.Cooldown;
+                __instance.CooldownRemaining = __instance.abilityModel.cooldownFrames;
             }
 
             if (__instance.abilityModel.OverclockAbilityChoice() &&
