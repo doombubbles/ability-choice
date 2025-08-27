@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models.Effects;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+
 namespace AbilityChoice.AbilityChoices.Military.MonkeySub;
 
 public class FirstStrikeCapability : TowerAbilityChoice

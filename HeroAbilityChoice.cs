@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AbilityChoice.Descriptions;
 using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 
@@ -44,10 +45,10 @@ public abstract class HeroAbilityChoice : AbilityChoice
         Cache[Id] = this;
     }
 
-    public override IEnumerable<TowerModel> GetAffected(GameModel gameModel) =>
-        gameModel.GetTowersWithBaseId(HeroId)
-            .Where(AppliesTo)
-            .OrderBy(model => model.tier);
+    public override IEnumerable<TowerModel> GetAffected(GameModel gameModel) => gameModel.GetTowersWithBaseId(HeroId)
+        .AsIEnumerable()
+        .Where(AppliesTo)
+        .OrderBy(model => model.tier);
 
     public static string IconForMode(int mode) => mode switch
     {

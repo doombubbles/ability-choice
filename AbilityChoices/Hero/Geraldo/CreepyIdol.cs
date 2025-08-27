@@ -31,7 +31,7 @@ public class CreepyIdol : GeraldoAbilityChioce
     {
         base.Apply(gameModel);
 
-        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.CreepyIdol))
+        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.CreepyIdol).AsIEnumerable())
         {
             towerModel.GetDescendant<TowerExpireModel>().rounds = -1;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.GeraldoItems;
 using Il2CppAssets.Scripts.Models.Towers;
@@ -38,7 +39,7 @@ public class GenieBottle : GeraldoAbilityChioce
     {
         base.Apply(gameModel);
 
-        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.GenieBottle))
+        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.GenieBottle).AsIEnumerable())
         {
             towerModel.GetDescendant<TowerExpireModel>().rounds = -1;
         }

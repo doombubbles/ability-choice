@@ -17,7 +17,8 @@ internal static class UpgradeScreen_PopulateParagon
         else
         {
             TaskScheduler.ScheduleTask(() => TowerAbilityChoiceInfo.Setup(__instance.paragonUpgradeDetails),
-                () => __instance.paragonUpgradeDetails.isActiveAndEnabled, () => __instance.currTowerId != tower);
+                () => __instance.paragonUpgradeDetails.isActiveAndEnabled,
+                () => __instance == null || __instance.currTowerId != tower);
         }
     }
 }

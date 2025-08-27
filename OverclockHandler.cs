@@ -31,14 +31,14 @@ internal static class OverclockHandler
     public static BehaviorMutator GetMutator(TapTowerAbilityBehavior behavior, int tier)
     {
         var ability = behavior.ability;
+        var cooldownFrames = ability.abilityModel.cooldownFrames * (1 - ability.abilityModel.CooldownSpeedScale);
+
         if (behavior.Is(out Overclock o))
         {
             var overclock = o.overclockModel.Duplicate();
-            var uptime =
-                overclock.tierBasedDurationMultiplier
-                    [Math.Clamp(tier, 0, overclock.tierBasedDurationMultiplier.Count - 1)] *
-                overclock.lifespanFrames /
-                ability.abilityModel.cooldownFrames;
+            tier = Math.Clamp(tier, 0, overclock.tierBasedDurationMultiplier.Count - 1);
+
+            var uptime = overclock.tierBasedDurationMultiplier[tier] * overclock.lifespanFrames / cooldownFrames;
 
             overclock.rateModifier = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / overclock.rateModifier);
             overclock.villageRangeModifier = AbilityChoice.CalcAvgBonus(uptime, overclock.villageRangeModifier);
@@ -49,7 +49,7 @@ internal static class OverclockHandler
         if (behavior.Is(out TakeAim t))
         {
             var takeAim = t.takeAimModel.Duplicate();
-            var uptime = takeAim.lifespanFrames / (float) ability.abilityModel.cooldownFrames;
+            var uptime = takeAim.lifespanFrames / cooldownFrames;
 
             takeAim.rangeModifier = AbilityChoice.CalcAvgBonus(uptime, takeAim.rangeModifier);
             takeAim.spreadModifier = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / takeAim.spreadModifier);
@@ -100,8 +100,7 @@ internal static class OverclockHandler
             dots = Dots[__instance.tower.Id] = new List<Entity>();
         }
 
-        var model = Game.instance.model.GetPowerWithName(TowerType.TechBot).tower
-            .GetDescendant<TechBotLinkModel>();
+        var model = Game.instance.model.GetPowerWithId(TowerType.TechBot).tower.GetDescendant<TechBotLinkModel>();
 
         return new TechBotLink
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.GeraldoItems;
 using Il2CppAssets.Scripts.Models.Towers;
@@ -42,7 +43,7 @@ public class BottleHotSauce : GeraldoAbilityChioce
     {
         base.Apply(gameModel);
 
-        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.HotSauceCreature))
+        foreach (var towerModel in gameModel.GetTowersWithBaseId(TowerType.HotSauceCreature).AsIEnumerable())
         {
             towerModel.GetDescendant<TowerExpireModel>().rounds = -1;
         }

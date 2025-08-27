@@ -11,8 +11,7 @@ public class PlasmaMonkeyFanClub : SuperMonkeyFanClub
 {
     public override string UpgradeId => UpgradeType.PlasmaMonkeyFanClub;
 
-    public override string Description1 =>
-        "Up to 5 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
+    public override string Description1 => "5+ nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.";
 
     public override string Description2 => "Permanently shoots powerful plasma blasts itself.";
 

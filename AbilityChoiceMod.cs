@@ -361,6 +361,9 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
             if (model.OverclockAbilityChoice())
             {
+                mutator.totalDuration = -1;
+                mutator.removeAt = -1;
+
                 if (saveData.metaData.TryGetValue("OverclockAbilityChoice-rateModifier", out var rm) &&
                     float.TryParse(rm, out var rateModifier))
                 {
@@ -385,13 +388,16 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
             if (model.OverclockAbilityChoice())
             {
-                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-rangeModifier", out var rm) &&
+                mutator.totalDuration = -1;
+                mutator.removeAt = -1;
+
+                if (saveData.metaData.TryGetValue("TakeAimAbilityChoice-rangeModifier", out var rm) &&
                     float.TryParse(rm, out var rangeModifier))
                 {
                     model.rangeModifier = rangeModifier;
                 }
 
-                if (saveData.metaData.TryGetValue("OverclockAbilityChoice-spreadModifier", out var sm) &&
+                if (saveData.metaData.TryGetValue("TakeAimAbilityChoice-spreadModifier", out var sm) &&
                     float.TryParse(sm, out var spreadModifier))
                 {
                     model.spreadModifier = spreadModifier;

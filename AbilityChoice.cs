@@ -5,6 +5,7 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Unity;
 using Il2CppNinjaKiwi.Common.ResourceUtils;
 
 namespace AbilityChoice;
@@ -42,10 +43,23 @@ public abstract class AbilityChoice : NamedModContent
 
     protected abstract bool HasMode2 { get; }
 
+    protected readonly HashSet<string> affectedIds = [];
+    protected readonly List<string> affectedOrder = [];
+
+    protected override float RegistrationPriority => 25f;
+
     public override void Register()
     {
         setting = AbilityChoiceMod.AbilityChoiceSettings.CreateEntry(Id, 1);
         // MelonLogger.Msg($"Registered AbilityChoice {Name} for upgrade {UpgradeId} and value {setting.Value}");
+
+        foreach (var id in GetAffected(Game.instance.model).Select(model => model.name))
+        {
+            if (affectedIds.Add(id))
+            {
+                affectedOrder.Add(id);
+            }
+        }
     }
 
     public void Toggle()
@@ -104,10 +118,18 @@ public abstract class AbilityChoice : NamedModContent
 
     public virtual void Apply(GameModel gameModel)
     {
-        foreach (var towerModel in GetAffected(gameModel))
+        foreach (var towerModel in GetAffectedCached(gameModel))
         {
             Apply(towerModel);
         }
+    }
+
+    public IEnumerable<TowerModel> GetAffectedCached(GameModel gameModel)
+    {
+        var towers = gameModel.towers
+            .Where(model => affectedIds.Contains(model.name))
+            .ToDictionary(model => model.name);
+        return affectedOrder.Select(s => towers[s]).Where(AppliesTo);
     }
 
     public abstract IEnumerable<TowerModel> GetAffected(GameModel gameModel);

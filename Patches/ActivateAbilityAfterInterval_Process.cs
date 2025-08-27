@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 namespace AbilityChoice.Patches;
 
@@ -14,8 +15,12 @@ internal static class ActivateAbilityAfterInterval_Process
 
         if (ability != null)
         {
-            __instance.activateAbilityAfterIntervalModel.interval = ability.abilityModel.cooldown;
-            __instance.activateAbilityAfterIntervalModel.intervalFrames = ability.abilityModel.cooldownFrames;
+            var cooldown = ability.abilityModel.Cooldown * (1 - ability.abilityModel.CooldownSpeedScale);
+
+            var model = __instance.activateAbilityAfterIntervalModel;
+
+            model.interval = Math.Min(model.interval, cooldown);
+            model.intervalFrames = Math.Min(model.intervalFrames, (int) Math.Round(cooldown * 60));
         }
     }
 }

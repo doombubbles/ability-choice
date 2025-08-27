@@ -3,6 +3,7 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Unity;
+
 namespace AbilityChoice.AbilityChoices.Magic.Druid;
 
 public class JunglesBounty : TowerAbilityChoice

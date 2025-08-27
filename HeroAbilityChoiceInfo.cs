@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppNinjaKiwi.Common;
+using Il2CppSystem.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +58,7 @@ public class HeroAbilityChoiceInfo : MonoBehaviour
 
     public static void Setup(string selectedHero, Il2CppReferenceArray<HeroUpgradeButton> buttons)
     {
-        var models = Game.instance.model.GetTowersWithBaseId(selectedHero);
+        var models = Game.instance.model.GetTowersWithBaseId(selectedHero).ToArray();
 
         var choices = ModContent.GetContent<HeroAbilityChoice>()
             .Where(choice => choice.HeroId == selectedHero)

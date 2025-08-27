@@ -29,15 +29,15 @@ public class CallToArms : TowerAbilityChoice
 
         var bonus = CalcAvgBonus(c2a.Lifespan / ability.Cooldown, c2a.multiplier);
 
-        var buff = new RateSupportModel($"RateSupportModel_{Name}", 1 / bonus, true, $"Village:{Name}", IsGlobal, 1,
+        var buff = new RateSupportModel(Name, 1 / bonus, true, $"Village:{Name}", IsGlobal, 1,
             new Il2CppReferenceArray<TowerFilterModel>(0), buffIndicator.buffName, buffIndicator.iconName)
         {
             onlyShowBuffIfMutated = true,
             isUnique = true
         };
 
-        var buff2 = new PierceSupportModel($"PierceSupportModel_{Name}_MULT", true, bonus, $"Village:{Name}2",
-            new Il2CppReferenceArray<TowerFilterModel>(0), IsGlobal, buffIndicator.buffName, buffIndicator.iconName)
+        var buff2 = new PiercePercentageSupportModel(Name, true, bonus, $"Village:{Name}2",
+            new Il2CppReferenceArray<TowerFilterModel>(0), IsGlobal, buffIndicator.buffName, buffIndicator.iconName, 1)
         {
             onlyShowBuffIfMutated = true,
             showBuffIcon = false,
