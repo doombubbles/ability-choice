@@ -17,11 +17,34 @@ public class LongArmOfLight : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        { 3, "Further increased attack range. Everything third shot has bonus power & damages all Bloon types." },
-        { 16, "Long Arm of Light projectiles becomes even more deadly, and now happen every other attack." }
+        {
+            3,
+            "Adora occasionally gets greatly increases attack range and power for a short time & damages all Bloon Types."
+        }
     };
 
+    public override Dictionary<int, string> Descriptions2 => new()
+    {
+        {3, "Further increased attack range. Everything third shot has bonus power & damages all Bloon types."},
+        {16, "Long Arm of Light projectiles becomes even more deadly, and now happen every other attack."}
+    };
+
+    private const int Factor = 3;
+
     public override void Apply1(TowerModel model)
+    {
+        var ability = AbilityModel(model);
+
+        ability.Cooldown /= Factor;
+
+        // ability.RemoveBehavior<CreateEffectOnAbilityModel>();
+        ability.RemoveBehavior<CreateSoundOnAbilityModel>();
+
+        ability.GetBehavior<LongArmOfLightModel>().Lifespan /= Factor;
+    }
+
+
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -66,5 +89,17 @@ public class LongArmOfLight : HeroAbilityChoice
         var alt = new AlternateProjectileModel("", proj, null, interval);
 
         weapon.AddBehavior(alt);
+    }
+
+    protected override void RemoveAbility(TowerModel model)
+    {
+        if (Mode2)
+        {
+            base.RemoveAbility(model);
+        }
+        else
+        {
+            TechBotify(model);
+        }
     }
 }

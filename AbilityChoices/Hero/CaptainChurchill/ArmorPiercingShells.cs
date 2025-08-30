@@ -19,20 +19,41 @@ public class ArmorPiercingShells : HeroAbilityChoice
     {
         {
             3,
+            "Periodically Churchill's shots can pop Black Bloons and do extra damage to Ceramic Bloons for a short duration. Duration increases as Churchill levels."
+        }
+    };
+
+    public override Dictionary<int, string> Descriptions2 => new()
+    {
+        {
+            3,
             "Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons."
         },
         {
             13,
-            "Armor Piercing Shells happen every other shot, pop 2 layers of Bloon and do extra damage to Ceramic and higher."
-        },
-        {
-            17,
-            "Armor Piercing Shells do even more damage."
+            "Armor Piercing Shells happen every other shot, pop 3 layers of Bloon and do extra damage to Ceramic and higher."
         }
     };
 
+    private const int Factor = 3;
 
     public override void Apply1(TowerModel model)
+    {
+        var ability = AbilityModel(model);
+
+        ability.Cooldown /= Factor;
+
+        // ability.RemoveBehavior<CreateEffectOnAbilityModel>();
+        ability.RemoveBehavior<CreateSoundOnAbilityModel>();
+
+        ability.GetBehaviors<MutateProjectileOnAbilityModel>().ForEach(mutate => mutate.lifespanFrames /= Factor);
+        ability.GetBehaviors<MutateCreateProjectileOnExhaustPierceOnAbilityModel>()
+            .ForEach(mutate => mutate.lifespanFrames /= Factor);
+        ability.GetBehaviors<ChangeDamageTypeModel>().ForEach(damage => damage.lifespanFrames /= Factor);
+    }
+
+
+    public override void Apply2(TowerModel model)
     {
         var ability = AbilityModel(model);
 
@@ -58,7 +79,7 @@ public class ArmorPiercingShells : HeroAbilityChoice
         });
 
         projectile.display = projectile.GetBehavior<DisplayModel>().display =
-            ability.GetBehavior<ChangeProjectileDisplayModel>().displayPath.assetPath;
+                                 ability.GetBehavior<ChangeProjectileDisplayModel>().displayPath.assetPath;
 
         projectile.GetDescendant<CreateProjectileOnExhaustPierceModel>().count += ability
             .GetBehavior<MutateCreateProjectileOnExhaustPierceOnAbilityModel>().countIncrease;
@@ -66,5 +87,17 @@ public class ArmorPiercingShells : HeroAbilityChoice
         var alt = new AlternateProjectileModel("", projectile, null, interval);
 
         weapon.AddBehavior(alt);
+    }
+
+    protected override void RemoveAbility(TowerModel model)
+    {
+        if (Mode2)
+        {
+            base.RemoveAbility(model);
+        }
+        else
+        {
+            TechBotify(model);
+        }
     }
 }

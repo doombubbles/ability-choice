@@ -128,6 +128,7 @@ public abstract class AbilityChoice : NamedModContent
     {
         var towers = gameModel.towers
             .Where(model => affectedIds.Contains(model.name))
+            .DistinctBy(model => model.name)
             .ToDictionary(model => model.name);
         return affectedOrder.Select(s => towers[s]).Where(AppliesTo);
     }
