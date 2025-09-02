@@ -1,12 +1,1 @@
-- Added Ability Choices for Silas
-  - Frostbite
-    - Red: Periodically Silas can hit all Bloons types for a short duration, doing extra damage to Frozen Bloons based on remaining freeze time.
-    - Blue: Every 4th attack can hit all Bloons types and does extra damage to Frozen Bloons based on remaining freeze time.
-  - Frozen Cascade
-    - Red: Occasionally creates shattering blasts of ice around Silas then other Ice Monkeys spreading out from Silas. Frozen Bloons take extra damage.
-    - Blue: The Ice Fragments of nearby Ice Monkey can hit all Bloon types and do more damage, further increased against Frozen Bloons.
-  - Frozen Burial
-    - Red: Periodically freezes and damages all Bloons, dealing more damage to already frozen Bloons, then fills the track with mini Ice Walls.
-    - Blue: Silas creates more Ice Walls, and Ice Walls now deal damage to Bloons.
-- Churchill's Level 3 Red effect is now the Blue effect. The new Red effect is getting occasional bursts of Armor Piercing Shell usage
-- Adora's Level 3 Red effect is now the Blue effect. The new Red effect is getting occasional bursts of Long Arm of the Light usage
+- Fixed for BTD6 v50.1

@@ -42,7 +42,7 @@ public abstract class TowerAbilityChoice : AbilityChoice
     }
 
     public override IEnumerable<TowerModel> GetAffected(GameModel gameModel) =>
-        gameModel.towers.Where(model => model.appliedUpgrades.Contains(UpgradeId))
+        gameModel.towers.Where(model => model.appliedUpgrades?.Contains(UpgradeId) == true)
             .Where(AppliesTo)
             .OrderBy(model => model.appliedUpgrades.Length);
 
