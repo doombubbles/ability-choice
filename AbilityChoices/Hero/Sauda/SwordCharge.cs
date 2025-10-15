@@ -64,7 +64,7 @@ public class SwordCharge : HeroAbilityChoice
         var proj = swordCharge.projectileModel;
 
         proj.AddBehavior(new TravelStraitModel("", proj.GetBehavior<TravelAlongPathModel>().speedFrames * 60, 1f));
-        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 360, false, 1000, false, true));
+        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 360, false, 1000, false, true, false));
 
         proj.RemoveBehavior<AgeModel>();
         proj.RemoveBehavior<TravelAlongPathModel>();

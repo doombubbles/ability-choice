@@ -88,7 +88,7 @@ public class LeapingSwordAttack : HeroAbilityChoice
         proj.ignorePierceExhaustion = false;
 
         proj.AddBehavior(new TravelStraitModel("", 150f, .5f));
-        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 180, false, 1000, false, true));
+        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 180, false, 1000, false, true, false));
 
         proj.GetDamageModel().damage /= Factor;
         if (proj.HasBehavior(out SaudaAfflictionDamageModifierModel saudaDamage))

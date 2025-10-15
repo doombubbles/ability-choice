@@ -24,7 +24,7 @@ public class SummonLordPhoenix : SummonPheonix
         lordPhoenix.behaviors = lordPhoenix.behaviors.RemoveItemOfType<Model, TowerExpireModel>();
         foreach (var weaponModel in lordPhoenix.GetWeapons())
         {
-            weaponModel.rate /= uptime;
+            weaponModel.Rate /= uptime;
         }
 
         permaBehavior.towerModel = lordPhoenix;

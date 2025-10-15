@@ -5,6 +5,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.TowerFilters;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
+
 namespace AbilityChoice.AbilityChoices.Primary.IceMonkey;
 
 public class AbsoluteZero : Snowstorm
@@ -33,18 +34,15 @@ public class AbsoluteZero : Snowstorm
 
         var avgBuff = CalcAvgBonus(support.lifespan / abilityModel.Cooldown, 1 / support.rateModifier);
 
-        var buff = new RateSupportModel("RateSupportZoneModel_AbilityChoice", 1 / avgBuff, true,
+        var buff = new RateSupportModel("AbilityChoice", 1 / avgBuff, true,
             "AbsoluteZeroRateBuff2", true, 1,
-            new Il2CppReferenceArray<TowerFilterModel>(
-                new TowerFilterModel[]
-                {
-                    new FilterInBaseTowerIdModel("FilterInBaseTowerIdModel_",
-                        new Il2CppStringArray(new[] { TowerType.IceMonkey }))
-                }
-            )
-            , "", "")
+            new Il2CppReferenceArray<TowerFilterModel>([
+                new FilterInBaseTowerIdModel("", new Il2CppStringArray([TowerType.IceMonkey]))
+            ])
+            , support.buffLocsName, support.buffIconName)
         {
-            showBuffIcon = false,
+            isGlobal = true,
+            maxStackSize = 2,
             appliesToOwningTower = true
         };
         model.AddBehavior(buff);

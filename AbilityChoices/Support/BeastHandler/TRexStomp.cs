@@ -46,9 +46,7 @@ public class TRexStomp : TowerAbilityChoice
         }
 
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel.Duplicate();
-        var effectBehavior =
-            new CreateEffectOnExhaustFractionModel("CreateEffectOnExhaustFractionModel_",
-                effect, 0, Fullscreen.No, 1.0f, -1f, false);
+        var effectBehavior = new CreateEffectOnExhaustFractionModel("", effect, 0, Fullscreen.No, 1.0f, -1f, false);
         proj.AddBehavior(effectBehavior);
 
         tRex.AddBehavior(attackModel);
@@ -73,12 +71,12 @@ public class TRexStomp : TowerAbilityChoice
             mainProjectile.AddBehavior(slowModifierForTagModel);
         }
 
-        mainProjectile.collisionPasses = new[] { -1, 0 };
+        mainProjectile.UpdateCollisionPassList();
     }
 
     protected override AbilityModel AbilityModel(TowerModel model) =>
-        base.AbilityModel(model.GetBehavior<BeastHandlerLeashModel>()?.towerModel ?? model);
+        base.AbilityModel(model.FindDescendant<TowerModel>(TowerType.Microraptor) ?? model);
 
     protected override void RemoveAbility(TowerModel model) =>
-        base.RemoveAbility(model.GetBehavior<BeastHandlerLeashModel>().towerModel);
+        base.RemoveAbility(model.FindDescendant<TowerModel>(TowerType.Microraptor) ?? model);
 }

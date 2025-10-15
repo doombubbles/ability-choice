@@ -1,1 +1,3 @@
-- Fixed for BTD6 v50.1
+- Minor fixes for v51
+- Added a Red Ability choice for the new Bomb Shooter Paragon for automatic ISAB missiles
+- Fixed Beast Handler ability choices not applying to all crosspaths

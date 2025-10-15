@@ -24,15 +24,19 @@ public class FirstStrikeCapability : TowerAbilityChoice
     {
         var abilityModel = AbilityModel(model);
 
-        var abilityAttack = abilityModel.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate();
-        var abilityWeapon = abilityAttack.weapons[0];
+        var abilityAttack = abilityModel.GetBehavior<ActivateAttackModel>().attacks[0].Duplicate(Name);
+        var abilityWeapon = abilityAttack.weapons[0]!;
 
-        abilityWeapon.rate = abilityModel.Cooldown / Factor;
+        abilityWeapon.Rate = abilityModel.Cooldown / Factor;
 
         foreach (var createProjectileOnExpireModel in abilityWeapon.projectile
                      .GetBehaviors<CreateProjectileOnExpireModel>())
         {
-            createProjectileOnExpireModel.projectile.GetDamageModel().damage /= Factor;
+            var damageModel = createProjectileOnExpireModel.projectile.GetDamageModel();
+            damageModel.damage /= Factor;
+#if DEBUG
+            damageModel.SetName("");
+#endif
             if (createProjectileOnExpireModel.projectile.radius > 10)
             {
                 createProjectileOnExpireModel.projectile.radius /= 2f;
@@ -40,7 +44,6 @@ public class FirstStrikeCapability : TowerAbilityChoice
         }
 
         var asset = abilityWeapon.projectile.GetBehavior<CreateEffectOnExpireModel>();
-        asset.assetId = CreatePrefabReference("");
         asset.effectModel = new EffectModel(asset.name, asset.assetId, .5f, asset.lifespan, Fullscreen.No,
             false, false, false, false, false, false);
 

@@ -5,9 +5,13 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Unity;
+
 namespace AbilityChoice.AbilityChoices.Magic.WizardMonkey;
 
-public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
+/// <summary>
+/// Yup this is an actual typo
+/// </summary>
+public class SummonPheonix : TowerAbilityChoice
 {
     public override string UpgradeId => UpgradeType.SummonPhoenix;
 
@@ -24,11 +28,7 @@ public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
 
         var permaBehavior = lord.GetBehavior<TowerCreateTowerModel>().Duplicate();
 
-        permaBehavior.RemoveChildDependant(permaBehavior.towerModel);
-        permaBehavior.towerModel = abilityModel.GetDescendant<TowerModel>();
-        permaBehavior.AddChildDependant(permaBehavior.towerModel);
-
-        permaBehavior.towerModel.GetWeapon().rate /= uptime;
+        permaBehavior.towerModel.GetWeapon().Rate /= uptime;
 
         model.AddBehavior(permaBehavior);
     }
@@ -44,7 +44,7 @@ public class SummonPheonix : TowerAbilityChoice // Yup this is an actual typo
         AddAttacksFromSubTower(model, phoenix);
     }
 
-    protected void AddAttacksFromSubTower(TowerModel model, TowerModel subTowerModel)
+    protected static void AddAttacksFromSubTower(TowerModel model, TowerModel subTowerModel)
     {
         foreach (var attackModel in subTowerModel.GetAttackModels())
         {

@@ -26,7 +26,6 @@ public class Snowstorm : TowerAbilityChoice
         var abilityWeapon = abilityAttack.weapons[0];
         abilityWeapon.Rate = ability.Cooldown / Factor;
         var proj = abilityWeapon.projectile;
-        proj.RemoveBehavior<DamageModel>();
         proj.GetBehavior<FreezeModel>().Lifespan /= Factor;
 
         model.AddBehavior(abilityAttack);

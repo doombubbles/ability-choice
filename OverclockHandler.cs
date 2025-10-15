@@ -344,8 +344,10 @@ internal static class OverclockHandler
         [HarmonyPostfix]
         internal static void Postfix(Simulation sim, MapSaveDataModel mapData)
         {
+            if (mapData == null) return;
             foreach (var saveData in mapData.placedTowers)
             {
+                if (saveData == null) continue;
                 var tower = sim.towerManager.GetTowerById(saveData.IdLastSave);
 
                 ModHelper.GetMod<AbilityChoiceMod>().OnTowerLoaded(tower, saveData);
