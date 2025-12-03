@@ -121,7 +121,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
                 }
                 else continue;
 
-                if (InGame.instance != null)
+                if (InGame.instance != null && !PopupScreen.instance.IsPopupActive())
                 {
                     PopupScreen.instance.ShowOkPopup(
                         "In order for this to take effect, you'll need to exit to the main menu and come back to the game.");

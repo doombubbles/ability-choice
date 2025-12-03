@@ -35,7 +35,7 @@ internal static class MenuThemeManager_SetTheme
     private static void Postfix(MenuThemeManager __instance, BaseTSMTheme newTheme)
     {
         if (ModContent.GetInstance<BloodSacrifice>().Mode == 0 ||
-            !__instance.selectionMenu.Is(out TowerSelectionMenu menu) ||
+            !__instance.PlayerContext.towerSelectionMenu.Is(out var menu) ||
             !newTheme.Is(out TSMThemeDefault theme)) return;
 
         var ui = theme.GetComponent<AdoraSacrificeUI>();

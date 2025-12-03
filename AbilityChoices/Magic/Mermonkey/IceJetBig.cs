@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+
 namespace AbilityChoice.AbilityChoices.Magic.Mermonkey;
 
 public class IceJetBig : IceJet
@@ -37,7 +38,9 @@ public class IceJetBig : IceJet
         global.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false,
             false, false, false));
 
-        global.AddBehavior(new CreateSoundOnProjectileCreatedModel("", sound.sound, sound.sound, sound.sound,
-            sound.sound, sound.sound, ""));
+        global.AddBehavior(CreateSoundOnProjectileCreatedModel.Create(new()
+        {
+            sound1 = sound.sound, sound2 = sound.sound, sound3 = sound.sound, sound4 = sound.sound, sound5 = sound.sound
+        }));
     }
 }

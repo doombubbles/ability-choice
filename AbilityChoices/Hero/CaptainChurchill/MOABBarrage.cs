@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
@@ -37,8 +38,8 @@ public class MOABBarrage : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        {10, "Constantly barrages the strongest MOAB-class Bloon on screen with shells that deal massive damage."},
-        {20, "MOAB Barrage shells and Main Gun do massively increased damage per hit, and barrages fire even faster."}
+        { 10, "Constantly barrages the strongest MOAB-class Bloon on screen with shells that deal massive damage." },
+        { 20, "MOAB Barrage shells and Main Gun do massively increased damage per hit, and barrages fire even faster." }
     };
 
     public override void Apply1(TowerModel model)
@@ -54,7 +55,7 @@ public class MOABBarrage : HeroAbilityChoice
         var attack = Game.instance.model.GetHeroWithNameAndLevel(TowerType.Gwendolin, 10).GetAbility(1)
             .GetDescendant<ActivateAttackModel>().attacks[1].Duplicate();
         attack.fireWithoutTarget = false;
-        attack.AddBehavior(new AttackFilterModel("", new[] {new FilterWithTagModel("", BloonTag.Moabs, false)}));
+        attack.AddBehavior(new AttackFilterModel("", new[] { new FilterWithTagModel("", BloonTag.Moabs, false) }));
 
         var weapon = attack.GetChild<WeaponModel>();
         weapon.Rate = ability.Cooldown / dot.numOfMissiles;
@@ -74,7 +75,7 @@ public class MOABBarrage : HeroAbilityChoice
         var addBehavior = projectile.GetBehavior<AddBehaviorToBloonModel>();
         addBehavior.mutationId = moabBarrage.mutatorId;
         addBehavior.overlayType = "";
-        addBehavior.behaviors = new[] {newDot};
+        addBehavior.behaviors = new[] { newDot };
 
 
         model.AddBehavior(attack);
@@ -99,38 +100,39 @@ public class MOABBarrage : HeroAbilityChoice
         dot.InitialDelay = 0;
         dot.randomDelayMax = dot.randomDelayMaxFrames = 0;
 
-        model.AddBehavior(new AttackModel(Name, new[]
+        model.AddBehavior(new AttackHelper(Name)
         {
-            new WeaponModel("", 3, 1 / perSecond,
-                projectile: new ProjectileModel(CreatePrefabReference(null), Name, behaviors: new Model[]
-                {
-                    new AddBehaviorToBloonModel("", moabBarrage.mutatorId, .05f, 1, null, null, new[]
-                    {
-                        dot
-                    }, "", true, false, true, false, 0, false, 0, null, false, 0, false),
-                    new ProjectileFilterModel("", new[]
-                    {
-                        new FilterAllExceptTargetModel("", false)
-                    }),
-                    new InstantModel("", false, false, false),
-                    new AgeModel("", .05f, 0, false, null),
-                    new DisplayModel("", CreatePrefabReference(null), 0, DisplayCategory.Projectile)
-                }, filters: new[]
-                {
-                    new FilterAllExceptTargetModel("", false)
-                }, maxPierce: 1, collisionPasses: new[] {-1, 0, 1}),
-                emission: new SingleEmissionModel("", null),
-                behaviors: new[]
-                {
-                    new EjectEffectModel("", effect, .2f, Fullscreen.No, false, false, false, false)
-                })
-        }, 9999, new Model[]
-        {
-            new AttackFilterModel("", new[]
+            Range = 9999,
+            AttackThroughWalls = true,
+            Filters = [FilterMoabModel.Create()],
+            Behaviors = [TargetStrongModel.Create()],
+            CanSeeCamo = true,
+            Weapon = new WeaponHelper
             {
-                new FilterMoabModel("", false)
-            }),
-            new TargetStrongModel("", false, false)
-        }, null, 0, 0, 0, true, false, 0, false, 0, false));
+                Animation = 3,
+                Rate = 1 / perSecond,
+                Emission = SingleEmissionModel.Create(),
+                Behaviors =
+                [
+                    EjectEffectModel.Create(new() { effectModel = effect, lifespan = .2f })
+                ],
+                Projectile = new ProjectileHelper(Name)
+                {
+                    MaxPierce = 1,
+                    Behaviors =
+                    [
+                        AddBehaviorToBloonModel.Create(new()
+                        {
+                            mutationId = moabBarrage.mutatorId, lifespan = .05f, layers = 1, behaviors = [dot],
+                            isUnique = true
+                        }),
+                        InstantModel.Create(),
+                        AgeModel.Create(new() { lifespan = .05f }),
+                        DisplayModel.Create()
+                    ],
+                    Filters = [FilterAllExceptTargetModel.Create()]
+                }
+            }
+        });
     }
 }

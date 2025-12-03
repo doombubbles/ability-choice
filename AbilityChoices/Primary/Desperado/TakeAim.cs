@@ -20,7 +20,7 @@ public class TakeAim : TowerAbilityChoice
     public override void Apply1(TowerModel model)
     {
         // see OverclockHandler
-        model.GetDescendant<TakeAimModel>().name += OverclockHandler.Enabled;
+        model.GetDescendant<TakeAimModel>().SetName(OverclockHandler.Enabled);
     }
 
     public override void Apply2(TowerModel model)

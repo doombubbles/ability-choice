@@ -1,3 +1,1 @@
-- Minor fixes for v51
-- Added a Red Ability choice for the new Bomb Shooter Paragon for automatic ISAB missiles
-- Fixed Beast Handler ability choices not applying to all crosspaths
+- Fixed for v52

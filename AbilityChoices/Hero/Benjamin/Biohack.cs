@@ -29,7 +29,7 @@ public class Biohack : HeroAbilityChoice
     {
         {
             3,
-            "Biohacks the closest other tower, making it pop an extra layer per attack but have 20% reduced attack speed."
+            "Biohacks the closest other tower, making it pop an extra layer per attack but have 25% reduced attack speed."
         },
         {13, "Biohack bonus damage increased to 2 and no longer reduced attack speed."},
         {19, "Biohack makes the affected monkey pop 3 extra layers instead of 2."}
@@ -105,7 +105,7 @@ public class Biohack : HeroAbilityChoice
                 {
                     if (weaponModel.HasDescendant<DamageModel>())
                     {
-                        weaponModel.Rate *= 1.2f;
+                        weaponModel.Rate *= 1.25f;
                     }
                 });
             }

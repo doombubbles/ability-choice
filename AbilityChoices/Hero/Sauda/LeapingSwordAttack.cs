@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Models.Towers;
@@ -10,6 +11,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation.SMath;
 
 namespace AbilityChoice.AbilityChoices.Hero.Sauda;
 
@@ -61,14 +63,23 @@ public class LeapingSwordAttack : HeroAbilityChoice
 
         var melee = model.GetAttackModel();
 
-        var attack = new AttackModel(Name, new[]
+        var attack = new AttackHelper(Name)
         {
-            new WeaponModel("", -1, ability.Cooldown / Factor, impact, emission: new SingleEmissionModel("", new[]
+            Range = 9999,
+            Behaviors = melee.behaviors,
+            AttackThroughWalls = true,
+            Weapon = new WeaponHelper
             {
-                new EmissionRotationZeroModel("")
-            }), ejectZ: 9999)
-        }, 9999, melee.behaviors, null, 0, 0, 0, true, false, 0, true, 0, false);
-
+                Animation = -1,
+                Rate = ability.Cooldown / Factor,
+                Projectile = impact,
+                Eject = new Vector3(0, 0, 9999),
+                Emission = SingleEmissionModel.Create(new()
+                {
+                    behaviors = [EmissionRotationZeroModel.Create()]
+                }),
+            }
+        };
 
         model.AddBehavior(attack);
     }
@@ -101,16 +112,18 @@ public class LeapingSwordAttack : HeroAbilityChoice
             saudaDamage.lv19NonMoabBonus /= Factor;
         }
 
-        model.AddBehavior(new AttackModel(Name, new[]
+        model.AddBehavior(new AttackHelper(Name)
         {
-            new WeaponModel("", -1, weaponModel.Rate * 2, proj, emission: new SingleEmissionModel("", null),
-                ejectY: weaponModel.ejectY)
-        }, model.range, new[]
-        {
-            new AttackFilterModel("", new[]
+            Range = model.range,
+            CanSeeCamo = true,
+            Weapon = new WeaponHelper
             {
-                new FilterInvisibleModel("", false, false)
-            })
-        }, null, 0, 0, 0, false, false, 0, false, 0, false));
+                Animation = -1,
+                Rate = weaponModel.Rate * 2,
+                Emission = SingleEmissionModel.Create(),
+                Eject = new Vector3(0, weaponModel.ejectY, 0),
+                Projectile = proj,
+            }
+        });
     }
 }

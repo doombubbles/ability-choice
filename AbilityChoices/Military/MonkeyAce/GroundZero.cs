@@ -56,7 +56,10 @@ public class GroundZero : TowerAbilityChoice
         projectile.RemoveBehavior<CreateEffectOnExhaustFractionModel>();
         projectile.GetBehavior<DisplayModel>().display = CreatePrefabReference("");
 
-        weapon.AddBehavior(new CreateSoundOnProjectileCreatedModel("", sound, sound, sound, sound, sound, ""));
+        weapon.AddBehavior(CreateSoundOnProjectileCreatedModel.Create(new()
+        {
+            sound1 = sound, sound2 = sound, sound3 = sound, sound4 = sound, sound5 = sound
+        }));
 
         model.AddBehavior(newAttack);
     }

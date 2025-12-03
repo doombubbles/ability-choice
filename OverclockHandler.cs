@@ -74,7 +74,7 @@ internal static class OverclockHandler
             tier = (tier - 1) / 4;
         }
 
-        to.AddMutator(GetMutator(behavior, tier), isParagonMutator: from.IsParagonBased());
+        to.AddMutator(GetMutator(behavior, tier), isParagonMutator: from.IsParagonBased(), cantBeAbsorbed: true);
     }
 
     internal static bool OverclockAbilityChoice(this TapTowerAbilityBehavior overclock) =>

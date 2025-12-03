@@ -34,9 +34,7 @@ public class FirstStrikeCapability : TowerAbilityChoice
         {
             var damageModel = createProjectileOnExpireModel.projectile.GetDamageModel();
             damageModel.damage /= Factor;
-#if DEBUG
-            damageModel.SetName("");
-#endif
+            // damageModel.SetName("");
             if (createProjectileOnExpireModel.projectile.radius > 10)
             {
                 createProjectileOnExpireModel.projectile.radius /= 2f;

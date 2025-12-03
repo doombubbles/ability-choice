@@ -3,6 +3,7 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+
 namespace AbilityChoice.AbilityChoices.Support.EngineerMonkey;
 
 public class Overclock : TowerAbilityChoice
@@ -19,7 +20,7 @@ public class Overclock : TowerAbilityChoice
     public override void Apply1(TowerModel model)
     {
         // see OverclockHandler
-        model.GetDescendant<OverclockModel>().name += OverclockHandler.Enabled;
+        model.GetDescendant<OverclockModel>().SetName(OverclockHandler.Enabled);
     }
 
     public override void Apply2(TowerModel model)
