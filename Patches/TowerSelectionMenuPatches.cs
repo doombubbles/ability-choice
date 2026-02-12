@@ -1,4 +1,4 @@
-﻿using AbilityChoice.AbilityChoices.Hero.AdmiralBrickell;
+﻿using AbilityChoice.AbilityChoices.Hero.Adora;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
@@ -13,7 +13,7 @@ internal static class TowerSelectionMenu_UpdateTower
     [HarmonyPostfix]
     private static void Postfix(TowerSelectionMenu __instance)
     {
-        if (ModContent.GetInstance<BloodSacrifice>().Mode == 0) return;
+        if (ModContent.GetInstance<BloodSacrifice>().Mode != 1) return;
 
         var themeManager = __instance.themeManager;
         var currentTheme = themeManager.CurrentTheme;
@@ -34,7 +34,7 @@ internal static class MenuThemeManager_SetTheme
     [HarmonyPostfix]
     private static void Postfix(MenuThemeManager __instance, BaseTSMTheme newTheme)
     {
-        if (ModContent.GetInstance<BloodSacrifice>().Mode == 0 ||
+        if (ModContent.GetInstance<BloodSacrifice>().Mode != 1 ||
             !__instance.PlayerContext.towerSelectionMenu.Is(out var menu) ||
             !newTheme.Is(out TSMThemeDefault theme)) return;
 

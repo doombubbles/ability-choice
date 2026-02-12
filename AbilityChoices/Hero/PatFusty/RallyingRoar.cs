@@ -56,11 +56,11 @@ public class RallyingRoar : HeroAbilityChoice
             {
                 Animation = 3,
                 Rate = ability.Cooldown / Factor,
-                Behaviors = new WeaponBehaviorModel[]
-                {
+                Behaviors =
+                [
                     new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false, false,
                         false, false)
-                },
+                ],
                 Projectile = new ProjectileHelper("WeakeningRoar")
                 {
                     Radius = buff.range,
@@ -69,8 +69,13 @@ public class RallyingRoar : HeroAbilityChoice
                     Behaviors = new Model[]
                     {
                         new AgeModel("", .05f, 0, false, null),
-                        new AddBonusDamagePerHitToBloonModel("", "WeakeningRoar", buff.lifespan / Factor,
-                            buff.damageIncrease, 99999, true, false, false, "")
+                        AddBonusDamagePerHitToBloonModel.Create(new()
+                        {
+                            mutationId = "WeakeningRoar",
+                            lifespan = buff.lifespan / Factor,
+                            perHitDamageAddition = buff.damageIncrease,
+                            isUnique = true,
+                        }),
                     }
                 }
             }

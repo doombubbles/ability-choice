@@ -1,1 +1,5 @@
-- Fixed for v52
+- Fixed for v53
+- Added Red Ability Choices for the reworked Druid Ability, they periodically vine crush multiple Bloons at once
+- Added a Blue Choice for Adora's Level 7 Sacrifice
+  - Level 7: Adora get more 10% Hero XP for each 3+/X/X Super Monkey (up to 50%). Each one nearby will buff the range and rate of fire of themselves and Adora by 5%, stacking up to 25%.
+  - Level 20: ... Super Monkey buff is now 10% per stack, up to 50%.
