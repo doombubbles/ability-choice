@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppNinjaKiwi.Common;
+using Il2CppNinjaKiwi.Localization;
 using Il2CppSystem.Linq;
 using UnityEngine;
 using UnityEngine.UI;

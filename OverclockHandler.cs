@@ -105,11 +105,10 @@ internal static class OverclockHandler
         return new TechBotLink
         {
             ability = __instance,
-            drawDots = true,
             entity = __instance.entity,
             Sim = __instance.Sim,
             selectedTowerId = oc.selectedTower?.Id ?? new ObjectId(),
-            linkedTower = oc.selectedTower,
+            linkedTowers = new[] { oc.selectedTower }.ToIl2CppList(),
             model = model,
             techBotLinkModel = model,
             lineDotDisplays = dots
@@ -169,7 +168,7 @@ internal static class OverclockHandler
                 if (behavior.selectedTower != null &&
                     TowerSelectionMenu.instance.selectedTower?.Id == __instance.tower.Id)
                 {
-                    fakeTechBotLink.PlotPointsToLinkedTower();
+                    fakeTechBotLink.PlotPointsToLinkedTower(behavior.selectedTower);
                 }
                 else
                 {

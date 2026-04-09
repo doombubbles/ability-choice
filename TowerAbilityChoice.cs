@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppNinjaKiwi.Common;
+using Il2CppNinjaKiwi.Localization;
 
 namespace AbilityChoice;
 
