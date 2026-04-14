@@ -1,1 +1,2 @@
-- Fixed for BTD6 v54
+- Fixed Beast Handler Blue Ability Choice
+- Adjusted Bomb Shooter Red Ability choice to account for the new shrapnel crosspath

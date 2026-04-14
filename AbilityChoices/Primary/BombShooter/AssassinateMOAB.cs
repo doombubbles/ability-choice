@@ -4,6 +4,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
+
 namespace AbilityChoice.AbilityChoices.Primary.BombShooter;
 
 public class AssassinateMOAB : TowerAbilityChoice
@@ -32,6 +33,11 @@ public class AssassinateMOAB : TowerAbilityChoice
 
         newAttackWeapon.projectile.scale = 0.5f;
 
+        newAttack.GetDescendants<CreateProjectileOnContactModel>().ForEach(m =>
+        {
+            m.projectile.GetDamageModel().damage = 1;
+            m.projectile.GetBehavior<DamageModifierForTagModel>().damageAddative = 1;
+        });
         newAttack.GetDescendant<CreateProjectileOnContactModel>().projectile.GetDamageModel().damage = 1;
 
         model.AddBehavior(newAttack);

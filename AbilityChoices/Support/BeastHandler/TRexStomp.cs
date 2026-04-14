@@ -6,6 +6,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 namespace AbilityChoice.AbilityChoices.Support.BeastHandler;
@@ -59,7 +60,7 @@ public class TRexStomp : TowerAbilityChoice
         var proj = ability.GetDescendant<WeaponModel>().projectile.Duplicate();
 
         var mainAttack = tRex.GetAttackModel();
-        var mainProjectile = mainAttack.GetDescendant<CreateProjectileOnContactModel>().projectile;
+        var mainProjectile = mainAttack.weapons[0]!.projectile.GetDescendant<ProjectileModel>();
 
         var slow = proj.GetBehavior<SlowModel>();
         slow.Lifespan /= Factor * 2;
