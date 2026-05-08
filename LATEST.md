@@ -1,2 +1,10 @@
-- Fixed Beast Handler Blue Ability Choice
-- Adjusted Bomb Shooter Red Ability choice to account for the new shrapnel crosspath
+- Fixed Legend of the Night Red Ability Choice not correctly getting the extra +10 range over Dark Champion Red Ability Choice
+- Added Red and Blue Ability Choice for Boomerang Paragon
+  - Red: Periodically overcharges its own attack speed, with the bonus tapering off over 10 seconds.
+  - Blue: Buffs the attack speed of all primary towers, including itself and other paragons, by 25% instead of 11%.
+- Added Red and Blue Ability Choice for Ice Monkey Paragon
+  - Red: Periodically freezes and slows all Bloons, even BADs and Bosses somewhat, and the first Boss skull each tier is nullified.
+  - Blue: All Bloons are permanently slowed, even BADs and Bosses somewhat.
+- Added Red and Blue Ability Choice for Druid Paragon
+  - Red: Toggle to forego its own income generation to go into a 25% effectiveness Wrathful state.
+  - Blue: Permanently foregoes all of its own income generation to always be in a 30% effectiveness Wrathful state.

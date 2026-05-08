@@ -15,7 +15,7 @@ Left column is the new description for the Red Choice, right column is the new d
        <h4>Super Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 3 nearby Dart Monkeys including itself are permanently Super Monkey fans.
+       3+ nearby Dart Monkeys including itself are permanently Super Monkey fans.
     </td>
     <td>
        Gains permanent Super attack speed and range itself.
@@ -25,7 +25,7 @@ Left column is the new description for the Red Choice, right column is the new d
        <h4>Plasma Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 5 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
+       5+ nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
     </td>
     <td>
        Permanently shoots powerful plasma blasts itself.
@@ -57,6 +57,16 @@ Left column is the new description for the Red Choice, right column is the new d
     <td>
        Perma Charge has permanent super fast attack speed, and an even more powerful shock effect.
     </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Glaive Dominus</h4>
+    </td>
+    <td>
+       The Bloons will look upon my Glaives, and they will know fear. Periodically overcharges its own attack speed, with the bonus tapering off over 10 seconds.
+    </td>
+    <td>
+       The Bloons will look upon my Glaives, and they will know fear. Buffs the attack speed of all primary towers, including itself and other paragons, by 25% instead of 11%.
+    </td>
 </tr>
 </table>
 
@@ -76,16 +86,6 @@ Left column is the new description for the Red Choice, right column is the new d
     </td>
 </tr><tr>
     <td align='center'>
-       <h4>Bomb Blitz</h4>
-    </td>
-    <td>
-       Deals even further increased damage.
-    </td>
-    <td>
-       -
-    </td>
-</tr><tr>
-    <td align='center'>
        <h4>MOAB Eliminator</h4>
     </td>
     <td>
@@ -93,6 +93,16 @@ Left column is the new description for the Red Choice, right column is the new d
     </td>
     <td>
        Does extremely further increased MOAB damage.
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Ballistic Obliteration Missile Bunker</h4>
+    </td>
+    <td>
+       Cluster explosions, anti-MOAB explosions, Bloon stunning explosions, knockback explosions. Automatic frequent ISAB Missiles! BOMB has it all!
+    </td>
+    <td>
+       -
     </td>
 </tr>
 </table>
@@ -158,6 +168,16 @@ Left column is the new description for the Red Choice, right column is the new d
     <td>
        Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.
     </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Herald of Everfrost</h4>
+    </td>
+    <td>
+       As the eternal frost descends and cold reigns supreme, even the baddest of Bloons are helpless against its icy grasp. Periodically freezes and slows all Bloons, even BADs and Bosses somewhat, and the first Boss skull each tier is nullified.
+    </td>
+    <td>
+       As the eternal frost descends and cold reigns supreme, even the baddest of Bloons are helpless against its icy grasp. All Bloons are permanently slowed, even BADs and Bosses somewhat.
+    </td>
 </tr>
 </table>
 
@@ -217,7 +237,7 @@ Left column is the new description for the Red Choice, right column is the new d
        <h4>Golden Justice</h4>
     </td>
     <td>
-       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Mark Bloons and make extra Execute attacks against Marked Bloons.
+       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Marks Bloons and makes extra Execute attacks against Marked Bloons.
     </td>
     <td>
        They say Desperado's longarm can hit clean through an army of Bloons. Desperado's main attacks still have a chance to Mark Bloons for Execution. 
@@ -523,16 +543,6 @@ Left column is the new description for the Red Choice, right column is the new d
     </td>
 </tr><tr>
     <td align='center'>
-       <h4>The Anti-Bloon</h4>
-    </td>
-    <td>
-       Frequently eradicates nearby Bloons.
-    </td>
-    <td>
-       Nanobot plasma seeks out and destroys Bloons with strong Crits
-    </td>
-</tr><tr>
-    <td align='center'>
        <h4>Legend of the Night</h4>
     </td>
     <td>
@@ -540,6 +550,16 @@ Left column is the new description for the Red Choice, right column is the new d
     </td>
     <td>
        -
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>The Anti-Bloon</h4>
+    </td>
+    <td>
+       Frequently eradicates nearby Bloons.
+    </td>
+    <td>
+       Nanobot plasma seeks out and destroys Bloons with strong Crits
     </td>
 </tr>
 </table>
@@ -590,7 +610,7 @@ Left column is the new description for the Red Choice, right column is the new d
        <h4>Total Transformation</h4>
     </td>
     <td>
-       Has a monstrous laser attack, and 2 nearby Monkeys are constantly transformed into monsters.
+       Has a monstrous laser attack, and 3+ nearby Monkeys are constantly transformed into monsters.
     </td>
     <td>
        Transforms just itself permanently into an even more powerful monster!
@@ -607,20 +627,30 @@ Left column is the new description for the Red Choice, right column is the new d
        <h4>Jungle's Bounty</h4>
     </td>
     <td>
-       Vines create stronger thorn piles. Periodically generates cash, plus extra per Banana Farm near the Druid.
+       Vines create stronger thorn piles. Druid generates cash and lives at the end of each round, plus extra cash per Banana Farm near the Druid. Periodically crushes multiple Bloons at once.
     </td>
     <td>
-       Vines create stronger thorn piles. Nearby income generation is increased by 20%.
+       -
     </td>
 </tr><tr>
     <td align='center'>
        <h4>Spirit of the Forest</h4>
     </td>
     <td>
-       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Periodically gives lives as well as more cash.
+       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Crushing vines grab more Bloons.
     </td>
     <td>
-       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Income bonus increased to 30%
+       -
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Root of all Nature</h4>
+    </td>
+    <td>
+       That from which all life branches. Toggle to forego its own income generation to go into a 25 % effectiveness Wrathful state.
+    </td>
+    <td>
+       That from which all life branches. Permanently foregoes all of its own income generation to always be in a 30 % effectiveness Wrathful state.
     </td>
 </tr>
 </table>
@@ -940,10 +970,10 @@ Hero Ability Choices list the new upgrade description for each level where there
         <h4>Armor Piercing Shells</h4>
     </td>
     <td>
-       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 2 layers of Bloon and do extra damage to Ceramic and higher.<br/>Lvl 17: Armor Piercing Shells do even more damage.
+       Lvl 3: Periodically Churchill's shots can pop Black Bloons and do extra damage to Ceramic Bloons for a short duration. Duration increases as Churchill levels.
     </td>
     <td>
-       -
+       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 3 layers of Bloon and do extra damage to Ceramic and higher.
     </td>
 </tr><tr>
     <td align='center'>
@@ -970,7 +1000,7 @@ Hero Ability Choices list the new upgrade description for each level where there
        Lvl 3: Periodically Biohacks the 4 closest Monkeys, making them pop an extra layer for a few attacks but then skipping their next.<br/>Lvl 13: Biohack increases bonus damage and affects 6 Monkeys at a time.<br/>Lvl 19: Biohack lasts for more attacks and affected Monkeys pop 3 extra layers instead of 2.
     </td>
     <td>
-       Lvl 3: Biohacks the closest other tower, letting them pop an extra layer per attack.<br/>Lvl 13: Biohack increases bonus damage.<br/>Lvl 19: Biohack makes the affected monkey pop 3 extra layers instead of 2.
+       Lvl 3: Biohacks the closest other tower, making it pop an extra layer per attack but have 25% reduced attack speed.<br/>Lvl 13: Biohack bonus damage increased to 2 and no longer reduced attack speed.<br/>Lvl 19: Biohack makes the affected monkey pop 3 extra layers instead of 2.
     </td>
 </tr><tr>
     <td align='center'>
@@ -1058,10 +1088,20 @@ Hero Ability Choices list the new upgrade description for each level where there
         <h4>The Long Arm of Light</h4>
     </td>
     <td>
-       Lvl 3: Further increased attack range. Everything third shot has bonus power & damages all Bloon types.<br/>Lvl 16: Long Arm of Light projectiles becomes even more deadly, and now happen every other attack.
+       Lvl 3: Adora occasionally gets greatly increases attack range and power for a short time & damages all Bloon Types.
     </td>
     <td>
-       -
+       Lvl 3: Further increased attack range. Everything third shot has bonus power & damages all Bloon types.<br/>Lvl 16: Long Arm of Light projectiles becomes even more deadly, and now happen every other attack.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Blood Sacrifice</h4>
+    </td>
+    <td>
+       Lvl 7: You may pay tribute to Adora, passively spending money in order to give bonus XP to Adora and boost her attack range and rate of fire (and also 3+/X/X Super Monkeys').<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range, and cost efficiency for paying tribute.
+    </td>
+    <td>
+       Lvl 7: Adora get more 10% Hero XP for each 3+/X/X Super Monkey (up to 50%). Each one nearby will buff the range and rate of fire of themselves and Adora by 5%, stacking up to 25%.<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range. Super Monkey buff is now 10% per stack, up to 50%.
     </td>
 </tr><tr>
     <td align='center'>
@@ -1099,16 +1139,6 @@ Hero Ability Choices list the new upgrade description for each level where there
     </td>
     <td>
        Lvl 7: Sea mines last longer. Brickell gains increased attack range and Camo Bloon detection.
-    </td>
-</tr><tr>
-    <td align='center'>
-        <h4>Blood Sacrifice</h4>
-    </td>
-    <td>
-       Lvl 7: You may pay tribute to Adora, passively spending money in order to give bonus XP to Adora and boost her attack range and rate of fire.<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range, and cost efficiency for paying tribute.
-    </td>
-    <td>
-       -
     </td>
 </tr><tr>
     <td align='center'>
@@ -1527,6 +1557,43 @@ and the right column is the changed item shop descriptions for each hero level.
     </td>
     <td>
        -
+    </td>
+</tr>
+</table>
+
+### Silas
+
+
+<table>
+   <tr>
+    <td align='center'>
+        <h4>Frostbite</h4>
+    </td>
+    <td>
+       Lvl 3: Periodically Silas can hit all Bloons types for a short duration, doing extra damage to Frozen Bloons based on remaining freeze time.<br/>Lvl 9: Frozen Bloons take more damage from Frostbite attacks. Ice Fragment damage & pierce increased.<br/>Lvl 15: Frozen Bloons take more damage from all special attacks, and special attacks are more frequent.<br/>Lvl 20: Frozen Bloons take even more damage from Frostbite attacks. Silas creates Ice Walls more often. Monkeys that freeze Bloons freeze them yet longer again.
+    </td>
+    <td>
+       Lvl 3: Every 4th attack can hit all Bloons types and does extra damage to Frozen Bloons based on remaining freeze time.<br/>Lvl 9: Frozen Bloons take more damage from Frostbite attacks. Ice Fragment damage & pierce increased.<br/>Lvl 15: Frozen Bloons take more damage from all special attacks, and special attacks are more frequent.<br/>Lvl 20: Frozen Bloons take even more damage from Frostbite attacks. Silas creates Ice Walls more often. Monkeys that freeze Bloons freeze them yet longer again.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Frozen Cascade</h4>
+    </td>
+    <td>
+       Lvl 7: Occasionally creates shattering blasts of ice around Silas then other Ice Monkeys spreading out from Silas. Frozen Bloons take extra damage.
+    </td>
+    <td>
+       Lvl 7: The Ice Fragments of nearby Ice Monkey can hit all Bloon types and do more damage, further increased against Frozen Bloons.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Frozen Burial</h4>
+    </td>
+    <td>
+       Lvl 10: Periodically freezes and damages all Bloons, dealing more damage to already frozen Bloons, then fills the track with mini Ice Walls.
+    </td>
+    <td>
+       Lvl 10: Silas creates more Ice Walls, and Ice Walls now deal damage to Bloons.
     </td>
 </tr>
 </table>

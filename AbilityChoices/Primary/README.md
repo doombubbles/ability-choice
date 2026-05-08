@@ -10,7 +10,7 @@
        <h4>Super Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 3 nearby Dart Monkeys including itself are permanently Super Monkey fans.
+       3+ nearby Dart Monkeys including itself are permanently Super Monkey fans.
     </td>
     <td>
        Gains permanent Super attack speed and range itself.
@@ -20,7 +20,7 @@
        <h4>Plasma Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 5 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
+       5+ nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
     </td>
     <td>
        Permanently shoots powerful plasma blasts itself.
@@ -52,6 +52,16 @@
     <td>
        Perma Charge has permanent super fast attack speed, and an even more powerful shock effect.
     </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Glaive Dominus</h4>
+    </td>
+    <td>
+       The Bloons will look upon my Glaives, and they will know fear. Periodically overcharges its own attack speed, with the bonus tapering off over 10 seconds.
+    </td>
+    <td>
+       The Bloons will look upon my Glaives, and they will know fear. Buffs the attack speed of all primary towers, including itself and other paragons, by 25% instead of 11%.
+    </td>
 </tr>
 </table>
 
@@ -71,16 +81,6 @@
     </td>
 </tr><tr>
     <td align='center'>
-       <h4>Bomb Blitz</h4>
-    </td>
-    <td>
-       Deals even further increased damage.
-    </td>
-    <td>
-       -
-    </td>
-</tr><tr>
-    <td align='center'>
        <h4>MOAB Eliminator</h4>
     </td>
     <td>
@@ -88,6 +88,16 @@
     </td>
     <td>
        Does extremely further increased MOAB damage.
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Ballistic Obliteration Missile Bunker</h4>
+    </td>
+    <td>
+       Cluster explosions, anti-MOAB explosions, Bloon stunning explosions, knockback explosions. Automatic frequent ISAB Missiles! BOMB has it all!
+    </td>
+    <td>
+       -
     </td>
 </tr>
 </table>
@@ -153,6 +163,16 @@
     <td>
        Cold Aura slows MOABs even further. Also globally buffs the attack speed of Ice Monkeys.
     </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Herald of Everfrost</h4>
+    </td>
+    <td>
+       As the eternal frost descends and cold reigns supreme, even the baddest of Bloons are helpless against its icy grasp. Periodically freezes and slows all Bloons, even BADs and Bosses somewhat, and the first Boss skull each tier is nullified.
+    </td>
+    <td>
+       As the eternal frost descends and cold reigns supreme, even the baddest of Bloons are helpless against its icy grasp. All Bloons are permanently slowed, even BADs and Bosses somewhat.
+    </td>
 </tr>
 </table>
 
@@ -212,7 +232,7 @@
        <h4>Golden Justice</h4>
     </td>
     <td>
-       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Mark Bloons and make extra Execute attacks against Marked Bloons.
+       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Marks Bloons and makes extra Execute attacks against Marked Bloons.
     </td>
     <td>
        They say Desperado's longarm can hit clean through an army of Bloons. Desperado's main attacks still have a chance to Mark Bloons for Execution. 

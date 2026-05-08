@@ -24,16 +24,6 @@
     </td>
 </tr><tr>
     <td align='center'>
-        <h4>Blood Sacrifice</h4>
-    </td>
-    <td>
-       Lvl 7: You may pay tribute to Adora, passively spending money in order to give bonus XP to Adora and boost her attack range and rate of fire.<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range, and cost efficiency for paying tribute.
-    </td>
-    <td>
-       -
-    </td>
-</tr><tr>
-    <td align='center'>
         <h4>Mega Mine</h4>
     </td>
     <td>

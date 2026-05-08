@@ -7,7 +7,7 @@
        <h4>Super Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 3 nearby Dart Monkeys including itself are permanently Super Monkey fans.
+       3+ nearby Dart Monkeys including itself are permanently Super Monkey fans.
     </td>
     <td>
        Gains permanent Super attack speed and range itself.
@@ -17,7 +17,7 @@
        <h4>Plasma Monkey Fan Club</h4>
     </td>
     <td>
-       Up to 5 nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
+       5+ nearby Dart Monkeys including itself are permanently Plasma Monkey Fans.
     </td>
     <td>
        Permanently shoots powerful plasma blasts itself.

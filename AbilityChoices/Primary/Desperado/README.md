@@ -27,7 +27,7 @@
        <h4>Golden Justice</h4>
     </td>
     <td>
-       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Mark Bloons and make extra Execute attacks against Marked Bloons.
+       They say Desperado's longarm can hit clean through an army of Bloons. Still periodically Marks Bloons and makes extra Execute attacks against Marked Bloons.
     </td>
     <td>
        They say Desperado's longarm can hit clean through an army of Bloons. Desperado's main attacks still have a chance to Mark Bloons for Execution. 

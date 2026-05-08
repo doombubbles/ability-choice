@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AbilityChoice.AbilityChoices.Primary.IceMonkey;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
@@ -9,12 +10,15 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Artifacts;
 using Il2CppAssets.Scripts.Models.Artifacts.Behaviors;
 using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Simulation;
 using Il2CppAssets.Scripts.Simulation.Bloons;
 using Il2CppAssets.Scripts.Simulation.Corvus.TowerManager;
 using Il2CppAssets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Unity.Menu;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity.UI_New.Legends;
@@ -95,6 +99,15 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
     public override void OnUpdate()
     {
+        if (UnityToSimulation.Current != null && ModContent.GetInstance<EclipseOfFimbulwinter>().Mode == 1 &&
+            UnityToSimulation.Current.GetAllTowers()
+                .Any(tower => tower.Def.baseId == TowerType.IceMonkey && tower.Def.isParagon) &&
+            UnityToSimulation.Current.GetBossBloon() != null &&
+            UnityToSimulation.Current.GetCurrentBossSkull() == 0)
+        {
+            Simulation.Current.blockNextBossSkull = true;
+        }
+
         if (Input.GetMouseButtonUp((int) PointerEventData.InputButton.Right))
         {
             var raycastResults = new Il2CppSystem.Collections.Generic.List<RaycastResult>();
@@ -143,7 +156,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         GetRelevantArtifactEfffects(out var boosts, out var towerSetChanges, out var abilityStackings);
 
-        if (InGameData.CurrentGame.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
+        if (InGameData.CurrentGame?.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
             ProcessBoosts(gameModel, boosts, towerSetChanges, abilityStackings, false);
         }
@@ -160,7 +173,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
             }
         }
 
-        if (InGameData.CurrentGame.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
+        if (InGameData.CurrentGame?.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
             ProcessBoosts(gameModel, boosts, towerSetChanges, abilityStackings, true);
         }
@@ -174,7 +187,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
         towerSetChanges = [];
         abilityStackings = [];
 
-        if (InGameData.CurrentGame.rogueData == null || RogueLegendsManager.instance?.RogueSaveData == null) return;
+        if (InGameData.CurrentGame?.rogueData == null || RogueLegendsManager.instance?.RogueSaveData == null) return;
 
         foreach (var artifact in RogueLegendsManager.instance.RogueSaveData.artifactsInventory)
         {
@@ -299,9 +312,10 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
     public override bool PreBloonLeaked(Bloon bloon)
     {
-        if (bloon.Sim.GetCorvusManagerExists(InGame.Bridge.MyPlayerNumber))
+        var me = InGame.Bridge?.MyPlayerNumber ?? -1;
+        if (bloon.Sim.GetCorvusManagerExists(me))
         {
-            var corvus = bloon.Sim.GetCorvusManager(InGame.Bridge.MyPlayerNumber);
+            var corvus = bloon.Sim.GetCorvusManager(me);
 
             if (corvus.CanSpellBeCast(CorvusSpellType.SoulBarrier) &&
                 CorvusAbilityChoice.EnabledForSpell(CorvusSpellType.SoulBarrier))

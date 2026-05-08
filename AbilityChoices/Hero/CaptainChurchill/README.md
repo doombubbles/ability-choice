@@ -7,10 +7,10 @@
         <h4>Armor Piercing Shells</h4>
     </td>
     <td>
-       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 2 layers of Bloon and do extra damage to Ceramic and higher.<br/>Lvl 17: Armor Piercing Shells do even more damage.
+       Lvl 3: Periodically Churchill's shots can pop Black Bloons and do extra damage to Ceramic Bloons for a short duration. Duration increases as Churchill levels.
     </td>
     <td>
-       -
+       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 3 layers of Bloon and do extra damage to Ceramic and higher.
     </td>
 </tr><tr>
     <td align='center'>

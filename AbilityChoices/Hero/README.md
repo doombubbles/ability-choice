@@ -128,10 +128,10 @@ Hero Ability Choices list the new upgrade description for each level where there
         <h4>Armor Piercing Shells</h4>
     </td>
     <td>
-       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 2 layers of Bloon and do extra damage to Ceramic and higher.<br/>Lvl 17: Armor Piercing Shells do even more damage.
+       Lvl 3: Periodically Churchill's shots can pop Black Bloons and do extra damage to Ceramic Bloons for a short duration. Duration increases as Churchill levels.
     </td>
     <td>
-       -
+       Lvl 3: Every third shot becomes an Armor Piercing Shell that can pop Black Bloons and does extra damage to Ceramic Bloons.<br/>Lvl 13: Armor Piercing Shells happen every other shot, pop 3 layers of Bloon and do extra damage to Ceramic and higher.
     </td>
 </tr><tr>
     <td align='center'>
@@ -158,7 +158,7 @@ Hero Ability Choices list the new upgrade description for each level where there
        Lvl 3: Periodically Biohacks the 4 closest Monkeys, making them pop an extra layer for a few attacks but then skipping their next.<br/>Lvl 13: Biohack increases bonus damage and affects 6 Monkeys at a time.<br/>Lvl 19: Biohack lasts for more attacks and affected Monkeys pop 3 extra layers instead of 2.
     </td>
     <td>
-       Lvl 3: Biohacks the closest other tower, letting them pop an extra layer per attack.<br/>Lvl 13: Biohack increases bonus damage.<br/>Lvl 19: Biohack makes the affected monkey pop 3 extra layers instead of 2.
+       Lvl 3: Biohacks the closest other tower, making it pop an extra layer per attack but have 25% reduced attack speed.<br/>Lvl 13: Biohack bonus damage increased to 2 and no longer reduced attack speed.<br/>Lvl 19: Biohack makes the affected monkey pop 3 extra layers instead of 2.
     </td>
 </tr><tr>
     <td align='center'>
@@ -246,10 +246,20 @@ Hero Ability Choices list the new upgrade description for each level where there
         <h4>The Long Arm of Light</h4>
     </td>
     <td>
-       Lvl 3: Further increased attack range. Everything third shot has bonus power & damages all Bloon types.<br/>Lvl 16: Long Arm of Light projectiles becomes even more deadly, and now happen every other attack.
+       Lvl 3: Adora occasionally gets greatly increases attack range and power for a short time & damages all Bloon Types.
     </td>
     <td>
-       -
+       Lvl 3: Further increased attack range. Everything third shot has bonus power & damages all Bloon types.<br/>Lvl 16: Long Arm of Light projectiles becomes even more deadly, and now happen every other attack.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Blood Sacrifice</h4>
+    </td>
+    <td>
+       Lvl 7: You may pay tribute to Adora, passively spending money in order to give bonus XP to Adora and boost her attack range and rate of fire (and also 3+/X/X Super Monkeys').<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range, and cost efficiency for paying tribute.
+    </td>
+    <td>
+       Lvl 7: Adora get more 10% Hero XP for each 3+/X/X Super Monkey (up to 50%). Each one nearby will buff the range and rate of fire of themselves and Adora by 5%, stacking up to 25%.<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range. Super Monkey buff is now 10% per stack, up to 50%.
     </td>
 </tr><tr>
     <td align='center'>
@@ -287,16 +297,6 @@ Hero Ability Choices list the new upgrade description for each level where there
     </td>
     <td>
        Lvl 7: Sea mines last longer. Brickell gains increased attack range and Camo Bloon detection.
-    </td>
-</tr><tr>
-    <td align='center'>
-        <h4>Blood Sacrifice</h4>
-    </td>
-    <td>
-       Lvl 7: You may pay tribute to Adora, passively spending money in order to give bonus XP to Adora and boost her attack range and rate of fire.<br/>Lvl 20: Ball of Light is greatly improved, plus increased rate of fire, range, and cost efficiency for paying tribute.
-    </td>
-    <td>
-       -
     </td>
 </tr><tr>
     <td align='center'>
@@ -715,6 +715,43 @@ and the right column is the changed item shop descriptions for each hero level.
     </td>
     <td>
        -
+    </td>
+</tr>
+</table>
+
+### Silas
+
+
+<table>
+   <tr>
+    <td align='center'>
+        <h4>Frostbite</h4>
+    </td>
+    <td>
+       Lvl 3: Periodically Silas can hit all Bloons types for a short duration, doing extra damage to Frozen Bloons based on remaining freeze time.<br/>Lvl 9: Frozen Bloons take more damage from Frostbite attacks. Ice Fragment damage & pierce increased.<br/>Lvl 15: Frozen Bloons take more damage from all special attacks, and special attacks are more frequent.<br/>Lvl 20: Frozen Bloons take even more damage from Frostbite attacks. Silas creates Ice Walls more often. Monkeys that freeze Bloons freeze them yet longer again.
+    </td>
+    <td>
+       Lvl 3: Every 4th attack can hit all Bloons types and does extra damage to Frozen Bloons based on remaining freeze time.<br/>Lvl 9: Frozen Bloons take more damage from Frostbite attacks. Ice Fragment damage & pierce increased.<br/>Lvl 15: Frozen Bloons take more damage from all special attacks, and special attacks are more frequent.<br/>Lvl 20: Frozen Bloons take even more damage from Frostbite attacks. Silas creates Ice Walls more often. Monkeys that freeze Bloons freeze them yet longer again.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Frozen Cascade</h4>
+    </td>
+    <td>
+       Lvl 7: Occasionally creates shattering blasts of ice around Silas then other Ice Monkeys spreading out from Silas. Frozen Bloons take extra damage.
+    </td>
+    <td>
+       Lvl 7: The Ice Fragments of nearby Ice Monkey can hit all Bloon types and do more damage, further increased against Frozen Bloons.
+    </td>
+</tr><tr>
+    <td align='center'>
+        <h4>Frozen Burial</h4>
+    </td>
+    <td>
+       Lvl 10: Periodically freezes and damages all Bloons, dealing more damage to already frozen Bloons, then fills the track with mini Ice Walls.
+    </td>
+    <td>
+       Lvl 10: Silas creates more Ice Walls, and Ice Walls now deal damage to Bloons.
     </td>
 </tr>
 </table>

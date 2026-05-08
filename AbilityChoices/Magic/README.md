@@ -74,16 +74,6 @@
     </td>
 </tr><tr>
     <td align='center'>
-       <h4>The Anti-Bloon</h4>
-    </td>
-    <td>
-       Frequently eradicates nearby Bloons.
-    </td>
-    <td>
-       Nanobot plasma seeks out and destroys Bloons with strong Crits
-    </td>
-</tr><tr>
-    <td align='center'>
        <h4>Legend of the Night</h4>
     </td>
     <td>
@@ -91,6 +81,16 @@
     </td>
     <td>
        -
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>The Anti-Bloon</h4>
+    </td>
+    <td>
+       Frequently eradicates nearby Bloons.
+    </td>
+    <td>
+       Nanobot plasma seeks out and destroys Bloons with strong Crits
     </td>
 </tr>
 </table>
@@ -141,7 +141,7 @@
        <h4>Total Transformation</h4>
     </td>
     <td>
-       Has a monstrous laser attack, and 2 nearby Monkeys are constantly transformed into monsters.
+       Has a monstrous laser attack, and 3+ nearby Monkeys are constantly transformed into monsters.
     </td>
     <td>
        Transforms just itself permanently into an even more powerful monster!
@@ -158,20 +158,30 @@
        <h4>Jungle's Bounty</h4>
     </td>
     <td>
-       Vines create stronger thorn piles. Periodically generates cash, plus extra per Banana Farm near the Druid.
+       Vines create stronger thorn piles. Druid generates cash and lives at the end of each round, plus extra cash per Banana Farm near the Druid. Periodically crushes multiple Bloons at once.
     </td>
     <td>
-       Vines create stronger thorn piles. Nearby income generation is increased by 20%.
+       -
     </td>
 </tr><tr>
     <td align='center'>
        <h4>Spirit of the Forest</h4>
     </td>
     <td>
-       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Periodically gives lives as well as more cash.
+       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Crushing vines grab more Bloons.
     </td>
     <td>
-       Grows thorned vines along the path that deal constant damage and bonus damage to ceramics. Vines nearest the Spirit of the Forest do more damage. Income bonus increased to 30%
+       -
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>Root of all Nature</h4>
+    </td>
+    <td>
+       That from which all life branches. Toggle to forego its own income generation to go into a 25 % effectiveness Wrathful state.
+    </td>
+    <td>
+       That from which all life branches. Permanently foregoes all of its own income generation to always be in a 30 % effectiveness Wrathful state.
     </td>
 </tr>
 </table>

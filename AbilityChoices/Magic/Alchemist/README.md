@@ -17,7 +17,7 @@
        <h4>Total Transformation</h4>
     </td>
     <td>
-       Has a monstrous laser attack, and 2 nearby Monkeys are constantly transformed into monsters.
+       Has a monstrous laser attack, and 3+ nearby Monkeys are constantly transformed into monsters.
     </td>
     <td>
        Transforms just itself permanently into an even more powerful monster!

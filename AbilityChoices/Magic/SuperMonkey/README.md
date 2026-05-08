@@ -34,16 +34,6 @@
     </td>
 </tr><tr>
     <td align='center'>
-       <h4>The Anti-Bloon</h4>
-    </td>
-    <td>
-       Frequently eradicates nearby Bloons.
-    </td>
-    <td>
-       Nanobot plasma seeks out and destroys Bloons with strong Crits
-    </td>
-</tr><tr>
-    <td align='center'>
        <h4>Legend of the Night</h4>
     </td>
     <td>
@@ -51,6 +41,16 @@
     </td>
     <td>
        -
+    </td>
+</tr><tr>
+    <td align='center'>
+       <h4>The Anti-Bloon</h4>
+    </td>
+    <td>
+       Frequently eradicates nearby Bloons.
+    </td>
+    <td>
+       Nanobot plasma seeks out and destroys Bloons with strong Crits
     </td>
 </tr>
 </table>
