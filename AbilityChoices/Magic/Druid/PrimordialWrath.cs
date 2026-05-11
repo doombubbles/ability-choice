@@ -41,7 +41,7 @@ public class PrimordialWrath : TowerAbilityChoice
 
         primordialWrath.maxMultiplier = 1 + (primordialWrath.maxMultiplier - 1) * Factor1;
         primordialWrath.damageMultiplierPerThreshold *= Factor1;
-        primordialWrath.rangeMultiplier *= Factor1;
+        primordialWrath.rangeMultiplier = 1 + (primordialWrath.rangeMultiplier - 1) * Factor1;
         primordialWrath.attackSpreadMultiplier = 1 - (1 - primordialWrath.attackSpreadMultiplier) * Factor1;
 
         primordialWrath.wrathActiveSound = null;
@@ -75,10 +75,10 @@ public class PrimordialWrath : TowerAbilityChoice
             wrath.maxDamageMultiplier = 1 + (wrath.maxDamageMultiplier - 1) * Factor2;
         });
 
-        model.range *= 1 + primordialWrath.rangeMultiplier * Factor2;
+        model.range *= 1 + (primordialWrath.rangeMultiplier - 1) * Factor2;
         foreach (var attackModel in model.GetAttackModels())
         {
-            attackModel.range *= 1 + primordialWrath.rangeMultiplier * Factor2;
+            attackModel.range *= 1 + (primordialWrath.rangeMultiplier - 1) * Factor2;
         }
 
         model.GetDescendants<ArcEmissionModel>().ForEach(emissionModel =>
