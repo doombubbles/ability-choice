@@ -8,14 +8,15 @@ on:
 
 env:
   PROJECT_NAME: AbilityChoice
-  MELONLOADER_BRANCH: alpha-development
   
   MOD_HELPER_NAME: Btd6ModHelper
+  MOD_HELPER_BRANCH: master
   BLOONSTD6: ./BloonsTD6
 
 jobs:
   build:
-    
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     steps:

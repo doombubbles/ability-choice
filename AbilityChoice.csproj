@@ -12,6 +12,7 @@
     <Import Project="..\btd6.targets" />
     
     <ItemGroup>
+        <Content Include=".github\workflows\build.yml"/>
         <Compile Remove="GenerateReadme.cs" Condition="'$(Configuration)' != 'Debug'" />
     </ItemGroup>
     

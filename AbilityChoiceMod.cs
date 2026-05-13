@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AbilityChoice.AbilityChoices.Hero.Adora;
 using AbilityChoice.AbilityChoices.Primary.IceMonkey;
 using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
@@ -87,14 +88,6 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public override void OnMainMenu()
     {
         AbilityChoiceSettings.SaveToFile(false);
-    }
-
-    public override void OnFixedUpdate()
-    {
-        if (InGame.instance != null && InGame.Bridge != null && AdoraSacrificeUI.Instance != null)
-        {
-            AdoraSacrificeUI.Instance.Process();
-        }
     }
 
     public override void OnUpdate()
@@ -306,7 +299,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public override void OnGameObjectsReset()
     {
         OverclockHandler.Dots.Clear();
-        AdoraSacrificeUI.NextSacrificeTimes.Clear();
+        BloodSacrifice.NextSacrificeTimes.Clear();
         CorvusHandler.SpellsToReactivate.Clear();
     }
 
@@ -329,7 +322,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
     public override void OnTowerSaved(Tower tower, TowerSaveDataModel saveData)
     {
-        if (AdoraSacrificeUI.NextSacrificeTimes.TryGetValue(tower.Id, out var time))
+        if (BloodSacrifice.NextSacrificeTimes.TryGetValue(tower.Id, out var time))
         {
             saveData.metaData["AbilityChoice-NextSacrificeTime"] = time.ToString();
         }
@@ -365,7 +358,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         if (saveData.metaData.TryGetValue("AbilityChoice-NextSacrificeTime", out var time))
         {
-            AdoraSacrificeUI.NextSacrificeTimes[tower.Id] = int.Parse(time);
+            BloodSacrifice.NextSacrificeTimes[tower.Id] = int.Parse(time);
         }
 
         if (tower.GetMutatorById("Overclock").Is(out var mutator))
