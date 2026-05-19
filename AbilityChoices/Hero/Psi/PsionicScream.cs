@@ -47,15 +47,17 @@ public class PsionicScream : HeroAbilityChoice
         var effect = ability.GetBehaviors<CreateEffectOnAbilityModel>()
             .Select(e => e.effectModel)
             .First(e => e.fullscreen == Fullscreen.No);
-        weapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false,
-            false, false, false));
+        weapon.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effect, lifespan = effect.lifespan, fullscreen = effect.fullscreen
+        }));
 
         var projectile = weapon.projectile;
 
         projectile.pierce /= Factor;
 
         projectile.GetBehavior<ProjectileFilterModel>().filters = projectile.filters =
-            projectile.filters.AddTo(new FilterWithChanceModel("", 1f / Factor));
+            projectile.filters.AddTo(FilterWithChanceModel.Create(new() { filterChance = 1f / Factor }));
 
         model.AddBehavior(attack);
     }
@@ -77,12 +79,24 @@ public class PsionicScream : HeroAbilityChoice
         {
             var newProj = weapon.projectile.Duplicate();
 
-            newProj.AddBehavior(new CreateProjectileOnContactModel(Name, projectile.Duplicate(),
-                new SingleEmissionModel("", null), false, false, false));
-            newProj.AddBehavior(new CreateEffectOnContactModel(Name, effect.Duplicate()));
+            newProj.AddBehavior(CreateProjectileOnContactModel.Create(new()
+            {
+                name = Name,
+                projectile = projectile.Duplicate(),
+                emission = SingleEmissionModel.Create()
+            }));
+            newProj.AddBehavior(CreateEffectOnContactModel.Create(new()
+            {
+                name = Name, effectModel = effect.Duplicate()
+            }));
 
-            weapon.AddBehavior(new AlternateProjectileModel("", newProj, new InstantDamageEmissionModel("", null),
-                Factor, 3));
+            weapon.AddBehavior(AlternateProjectileModel.Create(new()
+            {
+                projectile = newProj,
+                emissionModel = InstantDamageEmissionModel.Create(),
+                interval = Factor,
+                alternateAnimation = 3
+            }));
         });
     }
 }

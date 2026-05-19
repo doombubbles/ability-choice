@@ -12,6 +12,7 @@ using Il2CppAssets.Scripts.Models.Towers.Filters;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Simulation.SMath;
+using Il2CppAssets.Scripts.Unity.Towers.Weapons;
 
 namespace AbilityChoice.AbilityChoices.Hero.Sauda;
 
@@ -42,8 +43,15 @@ public class LeapingSwordAttack : HeroAbilityChoice
         var time = .2f;
 
         impact.display = impact.GetBehavior<DisplayModel>().display = dot.display;
-        impact.AddBehavior(new ArriveAtTargetModel("", time, new[] { .95f, 1f }, true, false, 0, true, true, false, 0,
-            true));
+        impact.AddBehavior(ArriveAtTargetModel.Create(new()
+        {
+            timeToTake = time,
+            curveSamples = [.95f, 1f],
+            filterCollisionWhileMoving = true,
+            stopOnTargetReached = true,
+            keepUpdatingTargetPos = true,
+            positionAboveMoabTypes = true
+        }));
         impact.GetBehavior<AgeModel>().Lifespan += time;
         impact.GetBehavior<DamageModel>().damage /= Factor;
         impact.GetBehaviors<DamageModifierForTagModel>().ForEach(modifier => modifier.damageAddative /= Factor);
@@ -59,27 +67,33 @@ public class LeapingSwordAttack : HeroAbilityChoice
 
         dot.GetBehavior<AgeModel>().Lifespan /= Factor;
 
-        impact.AddBehavior(new CreateProjectileOnExpireModel("", dot, new SingleEmissionModel("", null), true, false));
+        impact.AddBehavior(CreateProjectileOnExpireModel.Create(new()
+        {
+            projectile = dot,
+            emission = SingleEmissionModel.Create(),
+            useRotation = true
+        }));
 
         var melee = model.GetAttackModel();
 
-        var attack = new AttackHelper(Name)
+        var attack = AttackModel.Create(new()
         {
-            Range = 9999,
-            Behaviors = melee.behaviors,
-            AttackThroughWalls = true,
-            Weapon = new WeaponHelper
+            name = Name,
+            range = 9999,
+            behaviors = melee.behaviors,
+            attackThroughWalls = true,
+            weapon = WeaponModel.Create(new()
             {
-                Animation = -1,
-                Rate = ability.Cooldown / Factor,
-                Projectile = impact,
-                Eject = new Vector3(0, 0, 9999),
-                Emission = SingleEmissionModel.Create(new()
+                animation = -1,
+                rate = ability.Cooldown / Factor,
+                eject = new Vector3(0, 0, 9999),
+                emission = SingleEmissionModel.Create(new()
                 {
                     behaviors = [EmissionRotationZeroModel.Create()]
                 }),
-            }
-        };
+                projectile = impact,
+            })
+        });
 
         model.AddBehavior(attack);
     }
@@ -98,8 +112,15 @@ public class LeapingSwordAttack : HeroAbilityChoice
         proj.pierce = weaponModel.projectile.pierce * 2;
         proj.ignorePierceExhaustion = false;
 
-        proj.AddBehavior(new TravelStraitModel("", 150f, .5f));
-        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 180, false, 1000, false, true, false));
+        proj.AddBehavior(TravelStraitModel.Create(new() { speed = 150f, lifespan = .5f }));
+        proj.AddBehavior(TrackTargetModel.Create(new()
+        {
+            distance = 999,
+            trackNewTargets = true,
+            maxSeekAngle = 180,
+            turnRate = 1000,
+            useLifetimeAsDistance = true
+        }));
 
         proj.GetDamageModel().damage /= Factor;
         if (proj.HasBehavior(out SaudaAfflictionDamageModifierModel saudaDamage))
@@ -112,18 +133,19 @@ public class LeapingSwordAttack : HeroAbilityChoice
             saudaDamage.lv19NonMoabBonus /= Factor;
         }
 
-        model.AddBehavior(new AttackHelper(Name)
+        model.AddBehavior(AttackModel.Create(new()
         {
-            Range = model.range,
+            name = Name,
+            range = model.range,
             CanSeeCamo = true,
-            Weapon = new WeaponHelper
+            weapon = WeaponModel.Create(new()
             {
-                Animation = -1,
-                Rate = weaponModel.Rate * 2,
-                Emission = SingleEmissionModel.Create(),
-                Eject = new Vector3(0, weaponModel.ejectY, 0),
-                Projectile = proj,
-            }
-        });
+                animation = -1,
+                rate = weaponModel.Rate * 2,
+                emission = SingleEmissionModel.Create(),
+                eject = weaponModel.GetEject(),
+                projectile = proj,
+            })
+        }));
     }
 }

@@ -29,20 +29,34 @@ public class CallToArms : TowerAbilityChoice
 
         var bonus = CalcAvgBonus(c2a.Lifespan / ability.Cooldown, c2a.multiplier);
 
-        var buff = new RateSupportModel(Name, 1 / bonus, true, $"Village:{Name}", IsGlobal, 1,
-            new Il2CppReferenceArray<TowerFilterModel>(0), buffIndicator.buffName, buffIndicator.iconName)
+        var buff = RateSupportModel.Create(new()
         {
-            onlyShowBuffIfMutated = true,
-            isUnique = true
-        };
+            name = Name,
+            multiplier = 1 / bonus,
+            isUnique = true,
+            mutatorId = $"Village:{Name}",
+            isGlobal = IsGlobal,
+            priority = 1,
+            filters = new Il2CppReferenceArray<TowerFilterModel>(0),
+            buffLocsName = buffIndicator.buffName,
+            buffIconName = buffIndicator.iconName,
+            onlyShowBuffIfMutated = true
+        });
 
-        var buff2 = new PiercePercentageSupportModel(Name, true, bonus, $"Village:{Name}2",
-            new Il2CppReferenceArray<TowerFilterModel>(0), IsGlobal, buffIndicator.buffName, buffIndicator.iconName, 1)
+        var buff2 = PiercePercentageSupportModel.Create(new()
         {
+            name = Name,
+            isUnique = true,
+            percentIncrease = bonus,
+            mutatorId = $"Village:{Name}2",
+            filters = new Il2CppReferenceArray<TowerFilterModel>(0),
+            isGlobal = IsGlobal,
+            buffLocsName = buffIndicator.buffName,
+            buffIconName = buffIndicator.iconName,
+            priority = 1,
             onlyShowBuffIfMutated = true,
-            showBuffIcon = false,
-            isUnique = true
-        };
+            showBuffIcon = false
+        });
 
 
         model.AddBehavior(buff);
@@ -60,12 +74,19 @@ public class CallToArms : TowerAbilityChoice
 
         var bonus = CalcAvgBonus(c2a.Lifespan / ability.Cooldown, (float) newBonus);
 
-        var buff = new RateSupportModel($"RateSupportModel_{Name}", 1 / bonus, true, $"Village:{Name}", IsGlobal, 1,
-            new Il2CppReferenceArray<TowerFilterModel>(0), buffIndicator.buffName, buffIndicator.iconName)
+        var buff = RateSupportModel.Create(new()
         {
-            onlyShowBuffIfMutated = true,
-            isUnique = true
-        };
+            name = $"RateSupportModel_{Name}",
+            multiplier = 1 / bonus,
+            isUnique = true,
+            mutatorId = $"Village:{Name}",
+            isGlobal = IsGlobal,
+            priority = 1,
+            filters = new Il2CppReferenceArray<TowerFilterModel>(0),
+            buffLocsName = buffIndicator.buffName,
+            buffIconName = buffIndicator.iconName,
+            onlyShowBuffIfMutated = true
+        });
 
         model.AddBehavior(buff);
     }

@@ -48,8 +48,10 @@ public class KineticCharge : HeroAbilityChoice
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         var sound = abilityModel.GetBehavior<CreateSoundOnAbilityModel>();
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
-            false, false, false, false));
+        abilityWeapon.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effect, lifespan = effect.lifespan, fullscreen = effect.fullscreen
+        }));
 
         abilityWeapon.AddBehavior(CreateSoundOnProjectileCreatedModel.Create(new()
         {

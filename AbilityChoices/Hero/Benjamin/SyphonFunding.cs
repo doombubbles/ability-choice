@@ -56,7 +56,7 @@ public class SyphonFunding : HeroAbilityChoice
         };
 
         trojanAttack.RemoveBehavior<RandomTargetModel>();
-        trojanAttack.targetProvider = new TargetStrongModel("", false, false);
+        trojanAttack.targetProvider = TargetStrongModel.Create();
         trojanAttack.AddBehavior(trojanAttack.targetProvider);
 
         if (model.tier >= 20)

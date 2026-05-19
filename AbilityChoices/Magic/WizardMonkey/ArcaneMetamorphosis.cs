@@ -1,13 +1,12 @@
 ﻿using System;
 using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
-using Il2CppAssets.Scripts.Models.Effects;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
@@ -93,25 +92,29 @@ public class ArcaneMetamorphosis : TowerAbilityChoice
 
         foreach (var towerModel in model.GetBehavior<TowerCreateParagonTowerModel>().towerModels)
         {
-            towerModel.AddBehavior(new AttackHelper("Explosion")
+            towerModel.AddBehavior(AttackModel.Create(new()
             {
-                Range = 2000,
-                AddToSharedGrid = false,
+                name = "Explosion",
+                range = 2000,
+                addsToSharedGrid = false,
                 CanSeeCamo = true,
-                FireWithoutTarget = true,
-                AttackThroughWalls = true,
-                Weapon = new WeaponHelper
+                fireWithoutTarget = true,
+                attackThroughWalls = true,
+                weapon = WeaponModel.Create(new()
                 {
-                    Rate = ability2.Cooldown / Factor,
-                    FireWithoutTarget = true,
-                    Projectile = phoenixRebirth.projectileExplosionModel.Duplicate(),
-                    Behaviors =
+                    rate = ability2.Cooldown / Factor,
+                    fireWithoutTarget = true,
+                    projectile = phoenixRebirth.projectileExplosionModel.Duplicate(),
+                    behaviors =
                     [
-                        new EjectEffectModel("", phoenixRebirth.effectSubtowerModel, 2.0f, Fullscreen.No, false, false,
-                            false, false)
+                        EjectEffectModel.Create(new()
+                        {
+                            effectModel = phoenixRebirth.effectSubtowerModel,
+                            lifespan = 2.0f
+                        })
                     ]
-                }
-            });
+                })
+            }));
 
             towerModel.UpdateTargetProviders();
         }

@@ -67,20 +67,20 @@ public class MOABHex : HeroAbilityChoice
         {
             foreach (var tag in NonBADs)
             {
-                proj.AddBehavior(new DamagePercentOfMaxModel(tag, percent, new[]
+                proj.AddBehavior(DamagePercentOfMaxModel.Create(new()
                 {
-                    tag 
-                }, false));
+                    name = tag, percent = percent, tags = [tag]
+                }));
             }
 
             model.range += 10;
         }
         else
         {
-            proj.AddBehavior(new DamagePercentOfMaxModel("", percent, new[]
+            proj.AddBehavior(DamagePercentOfMaxModel.Create(new()
             {
-                BloonTag.Moabs
-            }, false));
+                percent = percent, tags = [BloonTag.Moabs]
+            }));
 
             model.range += 20;
         }

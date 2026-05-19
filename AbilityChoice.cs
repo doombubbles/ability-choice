@@ -155,7 +155,10 @@ public abstract class AbilityChoice : NamedModContent
         }
         else
         {
-            model.AddBehavior(new ActivateAbilityAfterIntervalModel(name, ability, ability.Cooldown));
+            model.AddBehavior(ActivateAbilityAfterIntervalModel.Create(new()
+            {
+                name = name, abilityModel = ability, interval = ability.Cooldown
+            }));
         }
     }
 

@@ -35,8 +35,10 @@ public class IceJetBig : IceJet
 
         effect.useCenterPosition = true;
 
-        global.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false,
-            false, false, false));
+        global.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effect, lifespan = effect.lifespan, fullscreen = effect.fullscreen
+        }));
 
         global.AddBehavior(CreateSoundOnProjectileCreatedModel.Create(new()
         {

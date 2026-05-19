@@ -5,6 +5,8 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
@@ -47,73 +49,41 @@ public class RallyingRoar : HeroAbilityChoice
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
         var buff = ability.GetBehavior<ActivateTowerDamageSupportZoneModel>();
 
-        model.AddBehavior(new AttackHelper("WeakeningRoar")
+        model.AddBehavior(AttackModel.Create(new()
         {
-            Range = buff.range,
-            AttackThroughWalls = true,
+            name = "WeakeningRoar",
+            range = buff.range,
+            attackThroughWalls = true,
             CanSeeCamo = true,
-            Weapon = new WeaponHelper("WeakeningRoar")
+            weapon = WeaponModel.Create(new()
             {
-                Animation = 3,
-                Rate = ability.Cooldown / Factor,
-                Behaviors =
+                name = "WeakeningRoar",
+                animation = 3,
+                rate = ability.Cooldown / Factor,
+                behaviors =
                 [
-                    new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen, false, false,
-                        false, false)
+                    EjectEffectModel.Create(new() { effectModel = effect }),
                 ],
-                Projectile = new ProjectileHelper("WeakeningRoar")
+                projectile = ProjectileModel.Create(new()
                 {
-                    Radius = buff.range,
-                    Pierce = 1000,
+                    id = "WeakeningRoar",
+                    radius = buff.range,
+                    pierce = 1000,
                     CanHitCamo = true,
-                    Behaviors = new Model[]
-                    {
-                        new AgeModel("", .05f, 0, false, null),
+                    behaviors =
+                    [
+                        AgeModel.Create(new() { lifespan = .05f }),
                         AddBonusDamagePerHitToBloonModel.Create(new()
                         {
                             mutationId = "WeakeningRoar",
                             lifespan = buff.lifespan / Factor,
                             perHitDamageAddition = buff.damageIncrease,
                             isUnique = true,
-                        }),
-                    }
-                }
-            }
-        });
-
-        /*model.AddBehavior(new AttackModel("Roar", new[]
-        {
-            new WeaponModel("", 3, ability.Cooldown / Factor, new ProjectileModel(new PrefabReference { guidRef = "" },
-                "Roar", buff.range, 0, 99999, 0, new Model[]
-                {
-                    new ProjectileFilterModel("", new[]
-                    {
-                        new FilterInvisibleModel("", false, false)
-                    }),
-                    new AgeModel("", .05f, 0, false, null),
-                    new AddBonusDamagePerHitToBloonModel("", "WeakeningRoar", buff.lifespan / Factor,
-                        buff.damageIncrease, 99999, true, false, false),
-                    new DisplayModel("", new PrefabReference { guidRef = "" }, 0, DisplayCategory.Projectile)
-                }, filters: new[]
-                {
-                    new FilterInvisibleModel("", false, false)
-                }, collisionPasses: new[]
-                {
-                    0
-                }
-            ), behaviors: new[]
-            {
-                new EjectEffectModel("", effect.assetId, effect, effect.lifespan, effect.fullscreen, false, false,
-                    false, false)
-            }, emission: new SingleEmissionModel("", null))
-        }, buff.range, new[]
-        {
-            new AttackFilterModel("", new[]
-            {
-                new FilterInvisibleModel("", false, false)
+                        })
+                    ]
+                })
             })
-        }, null, 0, 0, 0, true, false, 0, false, 0));
-        */
+        }));
 
         model.RemoveBehavior<PatBuffIndicatorModel>();
     }

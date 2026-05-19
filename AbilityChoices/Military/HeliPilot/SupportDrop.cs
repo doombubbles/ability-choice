@@ -28,10 +28,20 @@ public class SupportDrop : TowerAbilityChoice
         var projectileModel = downDraft.GetDescendant<ProjectileModel>();
         var windModel = projectileModel.GetBehavior<WindModel>();
         windModel.distanceMin = windModel.distanceMax;
-        projectileModel.AddBehavior(new DamageModel("DamageModel_", 1, 0, true, false, true,
-            BloonProperties.None, BloonProperties.None, false, false));
-        projectileModel.AddBehavior(new DamageModifierForTagModel("DamageModifierForTagModel_", "Moabs", 1, 9,
-            false, true));
+        projectileModel.AddBehavior(DamageModel.Create(new()
+        {
+            name = "DamageModel_",
+            damage = 1,
+            immuneBloonProperties = BloonProperties.None,
+            immuneBloonPropertiesOriginal = BloonProperties.None
+        }));
+        projectileModel.AddBehavior(DamageModifierForTagModel.Create(new()
+        {
+            name = "DamageModifierForTagModel_",
+            tag = "Moabs",
+            damageAddative = 9,
+            applyOverMaxDamage = true
+        }));
         projectileModel.hasDamageModifiers = true;
 
         var filter = projectileModel.GetBehavior<ProjectileFilterModel>();

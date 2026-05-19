@@ -29,22 +29,29 @@ public class TakeAim : TowerAbilityChoice
 
         var range = model.GetAttackModel("Rifle").range;
 
-        model.AddBehavior(new RangeSupportModel("", true, Multiplier, 0,
-            takeAim.Mutator.saveId, null, false, takeAim.buffLocsName, takeAim.buffIconName)
+        model.AddBehavior(RangeSupportModel.Create(new()
         {
+            isUnique = true,
+            multiplier = Multiplier,
+            mutatorId = takeAim.Mutator.saveId,
+            buffLocsName = takeAim.buffLocsName,
+            buffIconName = takeAim.buffIconName,
             appliesToOwningTower = true,
             showBuffIcon = true,
             isCustomRadius = true,
             customRadius = range
-        });
+        }));
 
-        model.AddBehavior(new VisibilitySupportModel("", true, takeAim.Mutator.saveId + "2", false, null, takeAim.buffLocsName, takeAim.buffIconName)
+        model.AddBehavior(VisibilitySupportModel.Create(new()
         {
-            appliesToOwningTower = false,
+            isUnique = true,
+            mutatorId = takeAim.Mutator.saveId + "2",
+            buffLocsName = takeAim.buffLocsName,
+            buffIconName = takeAim.buffIconName,
             showBuffIcon = true,
             isCustomRadius = true,
             customRadius = range
-        });
+        }));
     }
 
     protected override void RemoveAbility(TowerModel model)

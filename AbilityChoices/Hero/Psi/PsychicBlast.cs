@@ -81,9 +81,16 @@ public class PsychicBlast : HeroAbilityChoice
         {
             if (proj.id != "BaseProjectile") return;
 
-            proj.AddBehavior(new CreateProjectileOnContactModel(Name, projectile.Duplicate(),
-                new SingleEmissionModel("", null), false, false, false));
-            proj.AddBehavior(new CreateEffectOnContactModel(Name, effect.Duplicate()));
+            proj.AddBehavior(CreateProjectileOnContactModel.Create(new()
+            {
+                name = Name,
+                projectile = projectile.Duplicate(),
+                emission = SingleEmissionModel.Create()
+            }));
+            proj.AddBehavior(CreateEffectOnContactModel.Create(new()
+            {
+                name = Name, effectModel = effect.Duplicate()
+            }));
         });
     }
 }

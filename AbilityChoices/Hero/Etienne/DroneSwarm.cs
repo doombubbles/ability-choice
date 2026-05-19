@@ -60,7 +60,7 @@ public class DroneSwarm : HeroAbilityChoice
         var attack = model.GetAttackModel();
         if (!attack.HasBehavior<TargetDivideAndConquerModel>())
         {
-            attack.AddBehavior(new TargetDivideAndConquerModel("", true, false));
+            attack.AddBehavior(TargetDivideAndConquerModel.Create(new() { isSelectable = true }));
             model.UpdateTargetProviders();
         }
     }

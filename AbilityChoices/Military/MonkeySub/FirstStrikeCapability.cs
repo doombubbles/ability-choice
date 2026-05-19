@@ -42,8 +42,13 @@ public class FirstStrikeCapability : TowerAbilityChoice
         }
 
         var asset = abilityWeapon.projectile.GetBehavior<CreateEffectOnExpireModel>();
-        asset.effectModel = new EffectModel(asset.name, asset.assetId, .5f, asset.lifespan, Fullscreen.No,
-            false, false, false, false, false, false);
+        asset.effectModel = EffectModel.Create(new()
+        {
+            name = asset.name,
+            assetId = asset.assetId,
+            scale = .5f,
+            lifespan = asset.lifespan
+        });
 
         model.AddBehavior(abilityAttack);
     }

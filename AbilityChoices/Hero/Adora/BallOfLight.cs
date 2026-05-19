@@ -33,7 +33,10 @@ public class BallOfLight : HeroAbilityChoice
             weaponModel.Rate /= uptime;
         }
 
-        model.AddBehavior(new TowerCreateTowerModel(Name + model.tier, tower, true));
+        model.AddBehavior(TowerCreateTowerModel.Create(new()
+        {
+            name = Name + model.tier, towerModel = tower, isAirBasedTower = true
+        }));
         
         // keep around for AdoraSunGodTransformation
         model.AddBehavior(createTower);

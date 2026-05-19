@@ -60,7 +60,7 @@ public class UCAV : HeroAbilityChoice
 
         if (model.tier == 10)
         {
-            model.AddBehavior(new DestroyChildTowersOnUpgradeModel("", "UAV"));
+            model.AddBehavior(DestroyChildTowersOnUpgradeModel.Create(new() { towerId = "UAV" }));
         }
     }
 }

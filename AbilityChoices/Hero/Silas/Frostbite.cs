@@ -89,7 +89,10 @@ public class Frostbite : HeroAbilityChoice
             projectile.hasDamageModifiers = true;
         });
 
-        var alt = new AlternateProjectileModel("", projectile, null, interval);
+        var alt = AlternateProjectileModel.Create(new()
+        {
+            projectile = projectile, interval = interval
+        });
 
         weapon.AddBehavior(alt);
     }

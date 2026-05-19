@@ -43,10 +43,14 @@ public class MOABTakedown : TowerAbilityChoice
                          .ToList()
                          .Where(projectileModel => projectileModel.id == "Explosion"))
             {
-                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f,
-                    20, false, false));
-                projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f,
-                    10, false, false));
+                projectileModel.AddBehavior(DamageModifierForTagModel.Create(new()
+                {
+                    name = "MoabDamage", tag = "Moabs", damageAddative = 20
+                }));
+                projectileModel.AddBehavior(DamageModifierForTagModel.Create(new()
+                {
+                    name = "MoabDamage", tag = "Ceramic", damageAddative = 10
+                }));
                 projectileModel.hasDamageModifiers = true;
             }
         }

@@ -86,7 +86,10 @@ public class LongArmOfLight : HeroAbilityChoice
         trackTarget.Lifespan *= longArmOfLight.multiplier;
 
 
-        var alt = new AlternateProjectileModel("", proj, null, interval);
+        var alt = AlternateProjectileModel.Create(new()
+        {
+            projectile = proj, interval = interval
+        });
 
         weapon.AddBehavior(alt);
     }

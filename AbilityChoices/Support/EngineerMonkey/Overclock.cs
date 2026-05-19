@@ -27,14 +27,18 @@ public class Overclock : TowerAbilityChoice
     {
         var overclock = AbilityModel(model).GetBehavior<OverclockModel>();
 
-        model.AddBehavior(new RangeSupportModel(nameof(Overclock), true,
-            1 / CalcAvgBonus(Multiplier, 1 / overclock.rateModifier),
-            CalcAvgBonus(Multiplier, overclock.villageRangeModifier), overclock.mutatorId, null,
-            false, overclock.buffLocsName, overclock.buffIconName)
+        model.AddBehavior(RangeSupportModel.Create(new()
         {
+            name = nameof(Overclock),
+            isUnique = true,
+            multiplier = 1 / CalcAvgBonus(Multiplier, 1 / overclock.rateModifier),
+            additive = CalcAvgBonus(Multiplier, overclock.villageRangeModifier),
+            mutatorId = overclock.mutatorId,
+            buffLocsName = overclock.buffLocsName,
+            buffIconName = overclock.buffIconName,
             appliesToOwningTower = true,
             showBuffIcon = true,
-        });
+        }));
     }
 
     protected override void RemoveAbility(TowerModel model)

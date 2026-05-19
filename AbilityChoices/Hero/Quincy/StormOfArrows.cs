@@ -67,23 +67,60 @@ public class StormOfArrows : HeroAbilityChoice
 
         var filters = new TowerFilterModel[]
         {
-            new FilterInBaseTowerIdModel("", new[] { TowerType.DartMonkey }),
-            new FilterInTowerTiersModel("", 0, 5, 0, 5, 3, 5),
+            FilterInBaseTowerIdModel.Create(new() { baseIds = [TowerType.DartMonkey] }),
+            FilterInTowerTiersModel.Create(new()
+            {
+                path1MinTier = 0, path1MaxTier = 5,
+                path2MinTier = 0, path2MaxTier = 5,
+                path3MinTier = 3, path3MaxTier = 5
+            }),
         };
 
-        model.AddBehavior(new RateSupportModel("", 1 - mult, true, "QuincyRateBuff", true, 0,
-            filters, buffIcon.BuffLocsName, buffIcon.BuffIconName));
+        model.AddBehavior(RateSupportModel.Create(new()
+        {
+            multiplier = 1 - mult,
+            isUnique = true,
+            mutatorId = "QuincyRateBuff",
+            isGlobal = true,
+            filters = filters,
+            buffLocsName = buffIcon.BuffLocsName,
+            buffIconName = buffIcon.BuffIconName
+        }));
 
-        model.AddBehavior(new RangeSupportModel("", true, mult, 0, "QuincyRangeBuff",
-            filters, true, buffIcon.BuffLocsName, buffIcon.BuffIconName));
+        model.AddBehavior(RangeSupportModel.Create(new()
+        {
+            isUnique = true,
+            multiplier = mult,
+            mutatorId = "QuincyRangeBuff",
+            filters = filters,
+            isGlobal = true,
+            buffLocsName = buffIcon.BuffLocsName,
+            buffIconName = buffIcon.BuffIconName
+        }));
 
         if (model.tier >= 20)
         {
-            model.AddBehavior(new DamageModifierSupportModel("", true, "QuincyDamageBuff", filters, true,
-                new DamageModifierForTagModel("", BloonTag.Moabs, 1 + mult, 0, false, false)));
+            model.AddBehavior(DamageModifierSupportModel.Create(new()
+            {
+                isUnique = true,
+                mutatorId = "QuincyDamageBuff",
+                filters = filters,
+                isGlobal = true,
+                damageModifierModel = DamageModifierForTagModel.Create(new()
+                {
+                    tag = BloonTag.Moabs, damageMultiplier = 1 + mult
+                })
+            }));
 
-            model.AddBehavior(new DamageTypeSupportModel("", true, "QuincyDamageTypeBuff", BloonProperties.None,
-                filters, buffIcon.BuffLocsName, buffIcon.BuffIconName));
+            model.AddBehavior(DamageTypeSupportModel.Create(new()
+            {
+                isUnique = true,
+                mutatorId = "QuincyDamageTypeBuff",
+                immuneBloonProperties = BloonProperties.None,
+                filters = filters,
+                buffLocsName = buffIcon.BuffLocsName,
+                buffIconName = buffIcon.BuffIconName
+            }));
         }
     }
 }

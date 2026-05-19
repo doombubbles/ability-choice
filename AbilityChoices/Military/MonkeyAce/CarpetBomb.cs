@@ -1,6 +1,5 @@
 ﻿using AbilityChoice.Displays;
 using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using HarmonyLib;
 using Il2CppAssets.Scripts.Models.Towers;
@@ -9,6 +8,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Unity;
@@ -53,8 +53,15 @@ public class CarpetBomb : TowerAbilityChoice
         var createEffect = proj.GetBehavior<CreateEffectOnExhaustFractionModel>();
         proj.RemoveBehavior(createEffect);
         proj.SetDisplay(createEffect.effectModel.assetId);
-        proj.AddBehavior(new ArriveAtTargetModel("", 0, new[] {0, 0.9f}, true,
-            false, 500, false, true, false, 360f, true));
+        proj.AddBehavior(ArriveAtTargetModel.Create(new()
+        {
+            curveSamples = [0, 0.9f],
+            filterCollisionWhileMoving = true,
+            altSpeed = 500,
+            keepUpdatingTargetPos = true,
+            maxTurnAngle = 360f,
+            positionAboveMoabTypes = true
+        }));
 
         var overallRate = ability.Cooldown / carpetBomb.numProjectiles;
 
@@ -70,32 +77,39 @@ public class CarpetBomb : TowerAbilityChoice
             tower.RemoveBehavior<TowerExpireOnParentUpgradedModel>();
             tower.GetBehavior<AirUnitModel>().display = new PrefabReference(GetDisplayGUID<ParagonBomber>());
 
-            tower.AddBehavior(new AttackHelper("", true)
+            tower.AddBehavior(AttackAirUnitModel.Create(new()
             {
-                Range = 2000,
-                AttackThroughWalls = true,
+                range = 2000,
+                attackThroughWalls = true,
                 CanSeeCamo = true,
-                TargetProvider = new FighterPilotPatternStrongModel("", false, 40, true),
-                Weapon = new WeaponHelper
+                targetProvider = FighterPilotPatternStrongModel.Create(new()
                 {
-                    Emission = carpetBomb.singleEmissionModel.Duplicate(),
-                    Rate = overallRate * 3,
-                    CustomStartCooldown = overallRate * i,
-                    StartInCooldown = true,
-                    Projectile = proj.Duplicate(),
-                    Behaviors =
+                    offsetDistance = 40,
+                    isOnSubTower = true
+                }),
+                weapon = WeaponModel.Create(new()
+                {
+                    emission = carpetBomb.singleEmissionModel.Duplicate(),
+                    rate = overallRate * 3,
+                    customStartCooldown = overallRate * i,
+                    startInCooldown = true,
+                    projectile = proj.Duplicate(),
+                    behaviors =
                     [
-                        new FireFromAirUnitModel("")
+                        FireFromAirUnitModel.Create()
                     ]
-                }
-            });
+                })
+            }));
 
             tower.GetDescendant<FighterMovementModel>().maxSpeed += i;
 
 
             tower.UpdateTargetProviders();
 
-            model.AddBehavior(new TowerCreateTowerModel("Plane" + i, tower, true));
+            model.AddBehavior(TowerCreateTowerModel.Create(new()
+            {
+                name = "Plane" + i, towerModel = tower, isAirBasedTower = true
+            }));
         }
 
 

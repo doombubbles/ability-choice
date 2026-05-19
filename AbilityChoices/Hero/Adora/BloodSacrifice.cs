@@ -146,31 +146,6 @@ public class BloodSacrifice : HeroAbilityChoice
 
         var bloodSacrifice = model.GetDescendant<BloodSacrificeModel>();
 
-        /*model.AddBehavior(RateSupportModel.Create(new()
-        {
-            mutatorId = Name + "Rate",
-            multiplier = .9f,
-
-            buffIconName = bloodSacrifice.buffIconName,
-            buffLocsName = bloodSacrifice.buffLocsName,
-            isUnique = true,
-            onlyShowBuffIfMutated = true,
-            filters = Tier3SuperMonkeys
-        }));
-        model.AddBehavior(RangeSupportModel.Create(new()
-        {
-            mutatorId = Name + "Range",
-            multiplier = .1f,
-
-            buffIconName = bloodSacrifice.buffIconName,
-            buffLocsName = bloodSacrifice.buffLocsName,
-            isUnique = true,
-            onlyShowBuffIfMutated = true,
-            filters = Tier3SuperMonkeys,
-        }));*/
-
-        /*if (model.tier < 20) return;*/
-
         model.AddBehavior(AddBehaviorToTowerSupportModel.Create(new()
         {
             mutationId = Name + "AddBehavior",
@@ -189,9 +164,6 @@ public class BloodSacrifice : HeroAbilityChoice
                 })
             ],
 
-            /*buffIconName = bloodSacrifice.buffIconName,
-            buffLocsName = bloodSacrifice.buffLocsName,
-            onlyShowBuffIfMutated = true,*/
             filters = Tier3SuperMonkeys,
         }));
     }

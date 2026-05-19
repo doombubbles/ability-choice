@@ -52,7 +52,7 @@ public class DarkRitual : HeroAbilityChoice
 
         var weapon = attack.weapons[0];
         weapon.Rate = lifespan;
-        weapon.AddBehavior(new WeaponRateMinModel("", lifespan));
+        weapon.AddBehavior(WeaponRateMinModel.Create(new() { min = lifespan }));
         weapon.animation = -1;
 
         var clear = attack.GetDescendant<ClearHitBloonsModel>();

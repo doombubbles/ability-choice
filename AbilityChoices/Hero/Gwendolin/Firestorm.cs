@@ -61,8 +61,10 @@ public class Firestorm : HeroAbilityChoice
             var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
             effect.scale = .6f;
 
-            weapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, Fullscreen.No, false,
-                false, false, false));
+            weapon.AddBehavior(EjectEffectModel.Create(new()
+            {
+                effectModel = effect, lifespan = effect.lifespan
+            }));
 
             attack.name += "Firestorm";
 
@@ -91,8 +93,13 @@ public class Firestorm : HeroAbilityChoice
 
             newProj.radius = heatItUp.projectileModel.radius;
 
-            heatItUp.projectileModel.AddBehavior(new CreateProjectileOnExhaustFractionModel("", newProj,
-                new SingleEmissionModel("", null), 1, -1, false, false, false));
+            heatItUp.projectileModel.AddBehavior(CreateProjectileOnExhaustFractionModel.Create(new()
+            {
+                projectile = newProj,
+                emission = SingleEmissionModel.Create(),
+                fraction = 1,
+                durationfraction = -1
+            }));
         }
     }
 

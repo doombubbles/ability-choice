@@ -42,7 +42,7 @@ public class ConcussiveShell : HeroAbilityChoice
             slowModel.dontRefreshDuration = true;
         });
         weapon.GetDescendants<SlowModifierForTagModel>().ForEach(slowModel => slowModel.lifespanOverride /= Factor);
-        weapon.Rate = ability.Cooldown / Factor;
+        weapon.rate = ability.Cooldown / Factor;
 
         model.AddBehavior(attack);
     }

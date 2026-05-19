@@ -52,8 +52,13 @@ public class GrandSabotage : Sabotage
             {
                 if (weaponModel.projectile.GetDamageModel().IsType(out DamageModel damageModel))
                 {
-                    var behavior = new DamageModifierForTagModel("DamageModifierForTagModel_" + i, tags[i], 1.0f,
-                        10 * (i + 1), false, false) { tags = new[] { tags[i] } };
+                    var behavior = DamageModifierForTagModel.Create(new()
+                    {
+                        name = "DamageModifierForTagModel_" + i,
+                        tag = tags[i],
+                        damageAddative = 10 * (i + 1),
+                        tags = [tags[i]]
+                    });
                     weaponModel.projectile.AddBehavior(behavior);
                     weaponModel.projectile.pierce += 10;
 
@@ -68,13 +73,30 @@ public class GrandSabotage : Sabotage
         var abilityModel = AbilityModel(model);
 
         var range = abilityModel.GetDescendant<ActivateRangeSupportZoneModel>();
-        var permaRange = new RangeSupportModel("RangeSupportModel_", true, range.multiplier, range.additive / 2f,
-            range.mutatorId, range.filters, range.isGlobal, range.buffLocsName, range.buffIconName);
+        var permaRange = RangeSupportModel.Create(new()
+        {
+            name = "RangeSupportModel_",
+            isUnique = true,
+            multiplier = range.multiplier,
+            additive = range.additive / 2f,
+            mutatorId = range.mutatorId,
+            filters = range.filters,
+            isGlobal = range.isGlobal,
+            buffLocsName = range.buffLocsName,
+            buffIconName = range.buffIconName
+        });
         model.AddBehavior(permaRange);
 
         var damage = abilityModel.GetDescendant<ActivateDamageModifierSupportZoneModel>();
-        var permaDamage = new DamageModifierSupportModel("DamageSupportModel_", damage.isUnique, damage.mutatorId,
-            damage.filters, damage.isGlobal, damage.damageModifierModel);
+        var permaDamage = DamageModifierSupportModel.Create(new()
+        {
+            name = "DamageSupportModel_",
+            isUnique = damage.isUnique,
+            mutatorId = damage.mutatorId,
+            filters = damage.filters,
+            isGlobal = damage.isGlobal,
+            damageModifierModel = damage.damageModifierModel
+        });
         model.AddBehavior(permaDamage);
     }
 }

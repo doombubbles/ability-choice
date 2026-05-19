@@ -27,19 +27,36 @@ public class ArtilleryCommand : HeroAbilityChoice
 
     public override void Apply1(TowerModel model)
     {
-        model.AddBehavior(new AbilityCooldownScaleSupportModel("", false, 2.0f, false, true,
-            Filters, "ArtilleryCommanderBuff", "BuffIconStrikerJones", true));
+        model.AddBehavior(AbilityCooldownScaleSupportModel.Create(new()
+        {
+            abilityCooldownSpeedScale = 2.0f,
+            isGlobal = true,
+            filters = Filters,
+            buffLocsName = "ArtilleryCommanderBuff",
+            buffIconName = "BuffIconStrikerJones",
+            onlyShowBuffIfMutated = true
+        }));
     }
 
     private static TowerFilterModel[] Filters => new TowerFilterModel[]
     {
-        new FilterInBaseTowerIdModel("", new[] { TowerType.BombShooter, TowerType.MortarMonkey })
+        FilterInBaseTowerIdModel.Create(new() { baseIds = [TowerType.BombShooter, TowerType.MortarMonkey] })
     };
 
     public override void Apply2(TowerModel model)
     {
-        model.AddBehavior(new DamageModifierSupportModel("", true, Name + "StunDamage", Filters, true,
-            new DamageModifierForBloonStateModel("", "Stun", 1.25f, 0, false, false, false)));
+        model.AddBehavior(DamageModifierSupportModel.Create(new()
+        {
+            isUnique = true,
+            mutatorId = Name + "StunDamage",
+            filters = Filters,
+            isGlobal = true,
+            damageModifierModel = DamageModifierForBloonStateModel.Create(new()
+            {
+                bloonState = "Stun",
+                damageMultiplier = 1.25f
+            })
+        }));
     }
 
     protected override void ApplyBoth(TowerModel model)
@@ -51,14 +68,27 @@ public class ArtilleryCommand : HeroAbilityChoice
         var bonus = CalcAvgBonus(
             ability.GetDescendant<ArtilleryCommandModel>().buffFrames / (float) ability.cooldownFrames, 2);
 
-        model.AddBehavior(new PierceSupportModel("MULT", true, bonus, Name + "Pierce", Filters, true,
-            "ArtilleryCommanderBuff",
-            "BuffIconStrikerJones"));
-
-        model.AddBehavior(new DamageSupportModel("", true, bonus - 1, Name + "Damage", Filters, true, false, 0)
+        model.AddBehavior(PierceSupportModel.Create(new()
         {
+            name = "MULT",
+            isUnique = true,
+            pierce = bonus,
+            mutatorId = Name + "Pierce",
+            filters = Filters,
+            isGlobal = true,
             buffLocsName = "ArtilleryCommanderBuff",
             buffIconName = "BuffIconStrikerJones"
-        });
+        }));
+
+        model.AddBehavior(DamageSupportModel.Create(new()
+        {
+            isUnique = true,
+            increase = bonus - 1,
+            mutatorId = Name + "Damage",
+            filters = Filters,
+            isGlobal = true,
+            buffLocsName = "ArtilleryCommanderBuff",
+            buffIconName = "BuffIconStrikerJones"
+        }));
     }
 }

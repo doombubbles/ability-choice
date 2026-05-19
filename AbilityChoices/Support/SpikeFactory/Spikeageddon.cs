@@ -30,22 +30,6 @@ public class Spikeageddon : TowerAbilityChoice
         proj.GetDescendants<DamageModel>().ForEach(damageModel => damageModel.damage /= Factor);
         proj.GetDescendants<DamageModifierForTagModel>().ForEach(tagModel => tagModel.damageAddative /= Factor);
 
-        /*model.AddBehavior(new AttackHelper(Name)
-        {
-            CanSeeCamo = true,
-            Range = 2000,
-            AttackThroughWalls = true,
-            FireWithoutTarget = true,
-            TargetProvider = new TargetCloseModel("", false, false),
-            Weapon = new WeaponHelper
-            {
-                Rate = ability.Cooldown / Factor,
-                Animation = 3,
-                Emission = spikeageddon.singleEmissionModel,
-                Projectile = proj
-            }
-        });*/
-
         TechBotify(model);
     }
 

@@ -84,7 +84,10 @@ public class ArmorPiercingShells : HeroAbilityChoice
         projectile.GetDescendant<CreateProjectileOnExhaustPierceModel>().count += ability
             .GetBehavior<MutateCreateProjectileOnExhaustPierceOnAbilityModel>().countIncrease;
 
-        var alt = new AlternateProjectileModel("", projectile, null, interval);
+        var alt = AlternateProjectileModel.Create(new()
+        {
+            projectile = projectile, interval = interval
+        });
 
         weapon.AddBehavior(alt);
     }

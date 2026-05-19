@@ -44,28 +44,45 @@ public class NavalTactics : HeroAbilityChoice
 
         var isGlobal = model.tier >= 19;
 
-        model.AddBehavior(new RateSupportModel("", 1 / bonus, rateBuff.isUnique, rateBuff.mutatorId, isGlobal,
-                0, rateBuff.filters, rateBuff.buffLocsName, rateBuff.buffIconName)
-            { appliesToOwningTower = rateBuff.canEffectThisTower });
+        model.AddBehavior(RateSupportModel.Create(new()
+        {
+            multiplier = 1 / bonus,
+            isUnique = rateBuff.isUnique,
+            mutatorId = rateBuff.mutatorId,
+            isGlobal = isGlobal,
+            filters = rateBuff.filters,
+            buffLocsName = rateBuff.buffLocsName,
+            buffIconName = rateBuff.buffIconName,
+            appliesToOwningTower = rateBuff.canEffectThisTower
+        }));
 
         if (damageBuff != null)
         {
-            model.AddBehavior(new DamageTypeSupportModel("", damageBuff.isUnique, damageBuff.mutatorId,
-                damageBuff.immuneBloonProperties, damageBuff.filters, damageBuff.buffLocsName,
-                damageBuff.buffIconName)
+            model.AddBehavior(DamageTypeSupportModel.Create(new()
             {
+                isUnique = damageBuff.isUnique,
+                mutatorId = damageBuff.mutatorId,
+                immuneBloonProperties = damageBuff.immuneBloonProperties,
+                filters = damageBuff.filters,
+                buffLocsName = damageBuff.buffLocsName,
+                buffIconName = damageBuff.buffIconName,
                 appliesToOwningTower = damageBuff.canEffectThisTower,
                 isGlobal = isGlobal
-            });
+            }));
         }
 
         if (camoBuff != null)
         {
-            model.AddBehavior(new VisibilitySupportModel("", camoBuff.isUnique, camoBuff.mutatorId, isGlobal,
-                camoBuff.filters, camoBuff.buffLocsName, camoBuff.buffIconName)
+            model.AddBehavior(VisibilitySupportModel.Create(new()
             {
+                isUnique = camoBuff.isUnique,
+                mutatorId = camoBuff.mutatorId,
+                isGlobal = isGlobal,
+                filters = camoBuff.filters,
+                buffLocsName = camoBuff.buffLocsName,
+                buffIconName = camoBuff.buffIconName,
                 appliesToOwningTower = camoBuff.canEffectThisTower
-            });
+            }));
         }
     }
 

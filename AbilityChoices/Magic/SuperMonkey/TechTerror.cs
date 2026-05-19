@@ -25,7 +25,12 @@ public class TechTerror : TowerAbilityChoice
         var abilityWeapon = abilityAttack.weapons[0];
 
         var effect = ability.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
-        var effectBehavior = new CreateEffectOnExhaustFractionModel("", effect, 0, Fullscreen.No, 1.0f, -1f, false);
+        var effectBehavior = CreateEffectOnExhaustFractionModel.Create(new()
+        {
+            effectModel = effect,
+            fraction = 1.0f,
+            durationFraction = -1f
+        });
         abilityWeapon.projectile.AddBehavior(effectBehavior);
         abilityWeapon.projectile.GetDamageModel().damage /= Factor;
         abilityWeapon.rate = ability.Cooldown / Factor;

@@ -45,10 +45,14 @@ public class ZOMGTakedown : MOABTakedown
                 }
                 else if (projectileModel.GetDamageModel() != null)
                 {
-                    projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Moabs", 1.0f, 20, false,
-                        false));
-                    projectileModel.AddBehavior(new DamageModifierForTagModel("MoabDamage", "Ceramic", 1.0f, 5, false,
-                        false));
+                    projectileModel.AddBehavior(DamageModifierForTagModel.Create(new()
+                    {
+                        name = "MoabDamage", tag = "Moabs", damageAddative = 20
+                    }));
+                    projectileModel.AddBehavior(DamageModifierForTagModel.Create(new()
+                    {
+                        name = "MoabDamage", tag = "Ceramic", damageAddative = 5
+                    }));
                     projectileModel.hasDamageModifiers = true;
                 }
             }

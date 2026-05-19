@@ -25,13 +25,20 @@ public class Sabotage : TowerAbilityChoice
         var slowAttack = abilityModel.GetDescendant<AttackModel>().Duplicate();
         var slowWeapon = slowAttack.weapons[0];
         slowWeapon.fireBetweenRounds = false;
-        slowWeapon.AddBehavior(new WeaponRateMinModel("", 2));
+        slowWeapon.AddBehavior(WeaponRateMinModel.Create(new() { min = 2 }));
         var slowingProjectile = slowAttack.weapons[0].projectile;
         slowingProjectile.RemoveBehavior<SlowMinusAbilityDurationModel>();
         slowingProjectile.GetBehavior<AgeModel>().Lifespan = 2;
 
-        var slowBehavior = new SlowModel("Sabotage", mult, 2, slow.mutationId, 999, "", true,
-            false, null, false, false, false, 0);
+        var slowBehavior = SlowModel.Create(new()
+        {
+            name = "Sabotage",
+            multiplier = mult,
+            lifespan = 2,
+            mutationId = slow.mutationId,
+            layers = 999,
+            isUnique = true
+        });
         slowingProjectile.AddBehavior(slowBehavior);
 
         model.AddBehavior(slowAttack);
@@ -47,8 +54,16 @@ public class Sabotage : TowerAbilityChoice
 
         var dontSlowBadBehavior = abilityWeapon.projectile.GetBehavior<SlowModifierForTagModel>();
 
-        var slowBehavior = new SlowModel("Sabotage", 0.5f, 2f, slowMutator.mutationId, 999, "", true, false, null,
-            false, false, false, 0) {mutator = slowMutator};
+        var slowBehavior = SlowModel.Create(new()
+        {
+            name = "Sabotage",
+            multiplier = 0.5f,
+            lifespan = 2f,
+            mutationId = slowMutator.mutationId,
+            layers = 999,
+            isUnique = true,
+            mutator = slowMutator
+        });
 
 
         foreach (var weaponModel in model.GetWeapons())

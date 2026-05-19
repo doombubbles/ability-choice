@@ -26,6 +26,9 @@ public class EliteSupplyDrop : SupplyDrop
         }
 
         var delay = projectileModel.GetBehavior<RetargetOnContactModel>().delay;
-        projectileModel.AddBehavior(new ClearHitBloonsModel("ClearHitBloonsModel_", delay));
+        projectileModel.AddBehavior(ClearHitBloonsModel.Create(new()
+        {
+            name = "ClearHitBloonsModel_", interval = delay
+        }));
     }
 }

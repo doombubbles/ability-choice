@@ -3,8 +3,10 @@ using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
 namespace AbilityChoice.AbilityChoices.Hero.Sauda;
 
@@ -14,16 +16,16 @@ public class SwordCharge : HeroAbilityChoice
 
     public override Dictionary<int, string> Descriptions1 => new()
     {
-        {10, "Sauda sends mirages of herself along the track, devastating Bloons as she goes."},
-        {14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!"},
-        {20, "Sword Charge and Leaping Sword power greatly increased."}
+        { 10, "Sauda sends mirages of herself along the track, devastating Bloons as she goes." },
+        { 14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!" },
+        { 20, "Sword Charge and Leaping Sword power greatly increased." }
     };
 
     public override Dictionary<int, string> Descriptions2 => new()
     {
-        {10, "Sauda sends mirages of herself forward towards Bloons."},
-        {14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!"},
-        {20, "Sword Charge and Leaping Sword power greatly increased."}
+        { 10, "Sauda sends mirages of herself forward towards Bloons." },
+        { 14, "Sauda attacks even faster, and Sword Charge mirages are sent twice as often!" },
+        { 20, "Sword Charge and Leaping Sword power greatly increased." }
     };
 
     public const float Factor = 5;
@@ -63,8 +65,19 @@ public class SwordCharge : HeroAbilityChoice
 
         var proj = swordCharge.projectileModel;
 
-        proj.AddBehavior(new TravelStraitModel("", proj.GetBehavior<TravelAlongPathModel>().speedFrames * 60, 1f));
-        proj.AddBehavior(new TrackTargetModel("", 999, true, false, 360, false, 1000, false, true, false));
+        proj.AddBehavior(TravelStraitModel.Create(new()
+        {
+            lifespan = 1,
+            speed = proj.GetBehavior<TravelAlongPathModel>().speedFrames * 60
+        }));
+        proj.AddBehavior(TrackTargetModel.Create(new()
+        {
+            distance = 999,
+            trackNewTargets = true,
+            maxSeekAngle = 360,
+            turnRate = 1000,
+            useLifetimeAsDistance = true
+        }));
 
         proj.RemoveBehavior<AgeModel>();
         proj.RemoveBehavior<TravelAlongPathModel>();
@@ -83,34 +96,27 @@ public class SwordCharge : HeroAbilityChoice
 
         var rate = ability.Cooldown / Factor / swordCharge.iterations;
 
-        model.AddBehavior(new AttackHelper(Name)
+        model.AddBehavior(AttackModel.Create(new()
         {
-            Range = 9999,
-            AddToSharedGrid = false,
+            name = Name,
+            range = 9999,
+            addsToSharedGrid = false,
             CanSeeCamo = true,
-            Behaviors =
+            behaviors =
             [
-                new RotateToTargetModel("", true, false, false, 0, true, false)
+                RotateToTargetModel.Create(new()
+                {
+                    onlyRotateDuringThrow = true,
+                    rotateTower = true
+                })
             ],
-            Weapon = new WeaponHelper
+            weapon = WeaponModel.Create(new()
             {
-                Animation = -1,
-                Rate = rate,
-                Projectile = proj
-            },
-        });
-
-        /*model.AddBehavior(new AttackModel(Name, new[]
-        {
-            new WeaponModel("", -1, rate, proj, emission: new SingleEmissionModel("", null))
-        }, 9999, new Model[]
-        {
-            new AttackFilterModel("", new FilterModel[]
-            {
-                new FilterInvisibleModel("", false, false)
-            }),
-            new RotateToTargetModel("", true, false, false, 0, true, false)
-        }, null, 0, 0, 0, true, false, 0, false, 0));*/
+                animation = -1,
+                rate = rate,
+                projectile = proj
+            })
+        }));
     }
     protected override void RemoveAbility(TowerModel model)
     {

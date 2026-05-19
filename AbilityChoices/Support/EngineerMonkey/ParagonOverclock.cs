@@ -1,13 +1,15 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+
 namespace AbilityChoice.AbilityChoices.Support.EngineerMonkey;
 
 public class ParagonOverclock : Ultraboost
@@ -28,15 +30,18 @@ public class ParagonOverclock : Ultraboost
 
         var overclock = AbilityModel(model).GetBehavior<OverclockModel>();
 
-        model.AddBehavior(new RangeSupportModel(nameof(ParagonOverclock), true,
-            1 / CalcAvgBonus(ParagonMultiplier, 1 / overclock.rateModifier),
-            CalcAvgBonus(ParagonMultiplier, overclock.villageRangeModifier), overclock.mutatorId, null,
-            false, overclock.buffLocsName, overclock.buffIconName)
+        model.AddBehavior(RangeSupportModel.Create(new()
         {
-            appliesToOwningTower = false,
+            name = nameof(ParagonOverclock),
+            isUnique = true,
+            multiplier = 1 / CalcAvgBonus(ParagonMultiplier, 1 / overclock.rateModifier),
+            additive = CalcAvgBonus(ParagonMultiplier, overclock.villageRangeModifier),
+            mutatorId = overclock.mutatorId,
+            buffLocsName = overclock.buffLocsName,
+            buffIconName = overclock.buffIconName,
             showBuffIcon = true,
             onlyAffectParagon = true
-        });
+        }));
     }
 
     private const int Factor = 10;
@@ -58,17 +63,18 @@ public class ParagonOverclock : Ultraboost
             towerModel.RemoveBehavior<CreateProjectileOnTowerDestroyModel>();
             towerModel.RemoveBehavior<CreateSoundOnSellModel>();
 
-            towerModel.AddBehavior(new AttackHelper("Explosion")
+            towerModel.AddBehavior(AttackModel.Create(new()
             {
+                name = "Explosion",
                 CanSeeCamo = true,
-                Range = explosion.radius,
-                Weapon = new WeaponHelper
+                range = explosion.radius,
+                weapon = WeaponModel.Create(new()
                 {
-                    Projectile = projectile,
-                    Rate = ability.Cooldown * 3 / Factor
-                },
-                TargetProvider = new TargetCloseModel("", false, true)
-            });
+                    projectile = projectile,
+                    rate = ability.Cooldown * 3 / Factor
+                }),
+                targetProvider = TargetCloseModel.Create(new() { isOnSubTower = true })
+            }));
 
         }
     }

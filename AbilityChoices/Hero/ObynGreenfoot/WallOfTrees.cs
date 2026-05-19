@@ -47,8 +47,13 @@ public class WallOfTrees : HeroAbilityChoice
     public override void Apply2(TowerModel model)
     {
         model.GetAttackModel().GetChild<WeaponModel>()
-            .SetEmission(new ArcEmissionModel("", model.tier < 20 ? 3 : 6, -25, 50, null, false, false));
+            .SetEmission(ArcEmissionModel.Create(new()
+            {
+                Count = model.tier < 20 ? 3 : 6,
+                offset = -25,
+                angle = 50
+            }));
 
-        model.AddBehavior(new CashIncreaseModel("", 0, model.tier < 20 ? 1.5f : 2f));
+        model.AddBehavior(CashIncreaseModel.Create(new() { multiplier = model.tier < 20 ? 1.5f : 2f }));
     }
 }

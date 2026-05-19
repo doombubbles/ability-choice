@@ -72,12 +72,12 @@ public class CocktailOfFire : HeroAbilityChoice
         var filterModel = projectile.GetBehavior<ProjectileFilterModel>();
         if (filterModel == null)
         {
-            filterModel = new ProjectileFilterModel("", null);
+            filterModel = ProjectileFilterModel.Create();
             projectile.AddBehavior(filterModel);
         }
 
         filterModel.filters = (filterModel.filters ?? new Il2CppReferenceArray<FilterModel>(0))
-            .AddTo(new FilterWithChanceModel("", 1f / Factor));
+            .AddTo(FilterWithChanceModel.Create(new() { filterChance = 1f / Factor }));
         projectile.UpdateCollisionPassList();
 
         model.AddBehavior(attack);
@@ -89,7 +89,7 @@ public class CocktailOfFire : HeroAbilityChoice
 
         var projectile = ability.GetDescendant<ProjectileModel>().GetDescendant<ProjectileModel>().Duplicate();
 
-        projectile.AddFilter(new FilterWithChanceModel("", .2f));
+        projectile.AddFilter(FilterWithChanceModel.Create(new() { filterChance = .2f }));
         projectile.GetBehavior<AgeModel>().Lifespan /= 5f;
         projectile.UpdateCollisionPassList();
 
@@ -105,7 +105,7 @@ public class CocktailOfFire : HeroAbilityChoice
         var newProj = newWeapon.projectile;
 
         newWeapon.Rate *= 10;
-        newWeapon.SetEmission(new SingleEmissionModel("", null));
+        newWeapon.SetEmission(SingleEmissionModel.Create());
         newWeapon.RemoveBehavior<CreateSoundOnProjectileCreatedModel>();
         newWeapon.RemoveBehavior<BonusProjectileAfterIntervalModel>();
 
@@ -114,8 +114,16 @@ public class CocktailOfFire : HeroAbilityChoice
         newProj.RemoveBehavior<DamageModel>();
         newProj.RemoveBehavior<AddBehaviorToBloonModel>();
 
-        newProj.AddBehavior(new CreateProjectileOnExhaustPierceModel("", projectile, new SingleEmissionModel("", null),
-            1f, 5, 5, true, new PrefabReference {guidRef = ""}, 1, false, false));
+        newProj.AddBehavior(CreateProjectileOnExhaustPierceModel.Create(new()
+        {
+            projectile = projectile,
+            emission = SingleEmissionModel.Create(),
+            pierceInterval = 1f,
+            count = 5,
+            minimumTimeDifferenceInFrames = 5,
+            destroyProjectile = true,
+            displayLifetime = 1
+        }));
 
         model.AddBehavior(newAttack);
     }

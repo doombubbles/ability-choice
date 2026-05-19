@@ -34,17 +34,22 @@ public class AbsoluteZero : Snowstorm
 
         var avgBuff = CalcAvgBonus(support.lifespan / abilityModel.Cooldown, 1 / support.rateModifier);
 
-        var buff = new RateSupportModel("AbilityChoice", 1 / avgBuff, true,
-            "AbsoluteZeroRateBuff2", true, 1,
-            new Il2CppReferenceArray<TowerFilterModel>([
-                new FilterInBaseTowerIdModel("", new Il2CppStringArray([TowerType.IceMonkey]))
-            ])
-            , support.buffLocsName, support.buffIconName)
+        var buff = RateSupportModel.Create(new()
         {
+            name = "AbilityChoice",
+            multiplier = 1 / avgBuff,
+            isUnique = true,
+            mutatorId = "AbsoluteZeroRateBuff2",
             isGlobal = true,
+            priority = 1,
+            filters = new Il2CppReferenceArray<TowerFilterModel>([
+                FilterInBaseTowerIdModel.Create(new() { baseIds = new Il2CppStringArray([TowerType.IceMonkey]) })
+            ]),
+            buffLocsName = support.buffLocsName,
+            buffIconName = support.buffIconName,
             maxStackSize = 2,
             appliesToOwningTower = true
-        };
+        });
         model.AddBehavior(buff);
     }
 }

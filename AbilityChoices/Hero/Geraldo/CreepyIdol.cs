@@ -39,8 +39,14 @@ public class CreepyIdol : GeraldoAbilityChioce
 
             if (onDestroy == null) continue;
 
-            var weapon = new WeaponModel("", projectile: onDestroy.projectileModel, emission: onDestroy.emissionModel,
-                fireWithoutTarget: true, rate: 30, startInCooldown: true);
+            var weapon = WeaponModel.Create(new()
+            {
+                projectile = onDestroy.projectileModel,
+                emission = onDestroy.emissionModel,
+                fireWithoutTarget = true,
+                rate = 30,
+                startInCooldown = true
+            });
 
             towerModel.GetAttackModel().AddWeapon(weapon);
         }

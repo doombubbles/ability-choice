@@ -51,7 +51,14 @@ public class RapidShot : HeroAbilityChoice
                      .Where(proj => proj.HasBehavior<RetargetOnContactModel>()))
         {
             proj.RemoveBehavior<RetargetOnContactModel>();
-            proj.AddBehavior(new TrackTargetModel("", 100, true, true, 360, false, 99999, false, false, false));
+            proj.AddBehavior(TrackTargetModel.Create(new()
+            {
+                distance = 100,
+                trackNewTargets = true,
+                constantlyAquireNewTarget = true,
+                maxSeekAngle = 360,
+                turnRate = 99999
+            }));
         }
     }
 }

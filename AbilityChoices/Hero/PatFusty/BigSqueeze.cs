@@ -36,7 +36,12 @@ public class BigSqueeze : HeroAbilityChoice
 
         var attack = ability.GetDescendant<AttackModel>().Duplicate();
 
-        var filter = new FilterOutTagModel(BloonTag.Zomg, BloonTag.Zomg, new Il2CppStringArray(0));
+        var filter = FilterOutTagModel.Create(new()
+        {
+            name = BloonTag.Zomg,
+            tag = BloonTag.Zomg,
+            disableWhenSupportMutatorIDs = []
+        });
 
         var attackFilter = attack.GetBehavior<AttackFilterModel>();
         if (model.tier < 20)
@@ -77,7 +82,10 @@ public class BigSqueeze : HeroAbilityChoice
 
         foreach (var tag in NonBADs)
         {
-            projectileModel.AddBehavior(new DamagePercentOfMaxModel(tag, percent, new[] { tag }, false));
+            projectileModel.AddBehavior(DamagePercentOfMaxModel.Create(new()
+            {
+                name = tag, percent = percent, tags = [tag]
+            }));
         }
     }
 }

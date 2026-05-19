@@ -44,8 +44,14 @@ public class MegaMine : HeroAbilityChoice
 
         var placeProjectile = ability.GetBehavior<PlaceProjectileAtModel>();
         var megaMine = placeProjectile.projectileModel.Duplicate();
-        megaMine.AddBehavior(new ArriveAtTargetModel("", 1, new float[] { 0, 1 }, true, false, 0, true, false, false,
-            0, true));
+        megaMine.AddBehavior(ArriveAtTargetModel.Create(new()
+        {
+            timeToTake = 1,
+            curveSamples = [0, 1],
+            filterCollisionWhileMoving = true,
+            stopOnTargetReached = true,
+            positionAboveMoabTypes = true
+        }));
 
         var newAttack = Game.instance.model.GetTower(TowerType.WizardMonkey, 1, 2, 0).GetAttackModel("Wall")
             .Duplicate();
@@ -83,8 +89,10 @@ public class MegaMine : HeroAbilityChoice
 
 
         var effectAtTower = placeProjectile.effectAtTowerModel;
-        weapon.AddBehavior(new EjectEffectModel("", effectAtTower, effectAtTower.lifespan,
-            Fullscreen.No, false, false, false, false));
+        weapon.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effectAtTower, lifespan = effectAtTower.lifespan
+        }));
 
 
         model.AddBehavior(newAttack);
@@ -110,8 +118,11 @@ public class MegaMine : HeroAbilityChoice
         var stunFactor = ability.Cooldown / 5;
         var radiusFactor = 10;
 
-        proj.AddBehavior(new DamageModifierForTagModel("", BloonTag.Moabs, 1,
-            megaMine.GetDamageModel().damage / damageFactor, false, false));
+        proj.AddBehavior(DamageModifierForTagModel.Create(new()
+        {
+            tag = BloonTag.Moabs,
+            damageAddative = megaMine.GetDamageModel().damage / damageFactor
+        }));
 
         proj.pierce += megaMine.pierce / pierceFactor;
 

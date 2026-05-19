@@ -79,8 +79,11 @@ public class FrozenBurial : HeroAbilityChoice
 
         foreach (var collidePierce in iceWallProj.GetBehaviors<CollideExtraPierceReductionModel>())
         {
-            iceWallProj.AddBehavior(new DamageModifierForTagModel("", collidePierce.bloonTag, 1,
-                collidePierce.extraAmount * 2, false, false));
+            iceWallProj.AddBehavior(DamageModifierForTagModel.Create(new()
+            {
+                tag = collidePierce.bloonTag,
+                damageAddative = collidePierce.extraAmount * 2
+            }));
         }
     }
 

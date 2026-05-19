@@ -1,12 +1,12 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Effects;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Simulation.SMath;
 namespace AbilityChoice.AbilityChoices.Military.MonkeySub;
@@ -40,32 +40,41 @@ public class FinalStrike : TowerAbilityChoice
             }
         });
 
-        proj.AddBehavior(new CreateSoundOnProjectileExpireModel("", finalStrike.nukeLaunchSoundModel,
-            finalStrike.nukeLaunchSoundModel, finalStrike.nukeLaunchSoundModel, finalStrike.nukeLaunchSoundModel,
-            finalStrike.nukeLaunchSoundModel, 0));
-
-        model.AddBehavior(new AttackHelper("FinalStrike")
+        proj.AddBehavior(CreateSoundOnProjectileExpireModel.Create(new()
         {
+            sound = finalStrike.nukeLaunchSoundModel
+        }));
+
+        model.AddBehavior(AttackModel.Create(new()
+        {
+            name = "FinalStrike",
             CanSeeCamo = true,
-            Range = 2000,
-            AttackThroughWalls = true,
-            AddToSharedGrid = false,
-            TargetProvider = new TargetStrongModel("", false, false),
-            Weapon = new WeaponHelper
+            range = 2000,
+            attackThroughWalls = true,
+            addsToSharedGrid = false,
+            targetProvider = TargetStrongModel.Create(),
+            weapon = WeaponModel.Create(new()
             {
-                Projectile = proj.Duplicate(),
-                Rate = ability.Cooldown / Factor / 3,
-                Eject = new Vector3(finalStrike.throwOffsetX, finalStrike.throwOffsetY, finalStrike.throwOffsetZ),
-                Emission = finalStrike.emissionModel,
-                Behaviors =
+                projectile = proj.Duplicate(),
+                rate = ability.Cooldown / Factor / 3,
+                eject = new Vector3(finalStrike.throwOffsetX, finalStrike.throwOffsetY, finalStrike.throwOffsetZ),
+                emission = finalStrike.emissionModel,
+                behaviors =
                 [
-                    new EjectEffectModel("", finalStrike.launchEffectModel, 1, Fullscreen.No, false, false, false,
-                        false),
-                    new EjectEffectModel("", finalStrike.launchEjectEffectModel, 1, Fullscreen.No, false, true, false,
-                        false)
+                    EjectEffectModel.Create(new()
+                    {
+                        effectModel = finalStrike.launchEffectModel,
+                        lifespan = 1
+                    }),
+                    EjectEffectModel.Create(new()
+                    {
+                        effectModel = finalStrike.launchEjectEffectModel,
+                        lifespan = 1,
+                        useEjectPoint = true
+                    })
                 ]
-            }
-        });
+            })
+        }));
     }
 
 
@@ -75,17 +84,27 @@ public class FinalStrike : TowerAbilityChoice
         var finalStrike = ability.GetBehavior<FinalStrikeModel>();
 
         var createProj = finalStrike.GetDescendant<CreateProjectilesOnTrackOnExpireModel>().projectile;
-        var emission = new SingleEmissionModel("", null);
+        var emission = SingleEmissionModel.Create();
 
         createProj.GetDescendant<AgeModel>().Lifespan /= Factor;
 
-        model.GetAttackModel(1).weapons[0]!.projectile.AddBehavior(
-            new CreateProjectilesOnTrackOnExpireModel("", createProj.Duplicate(), emission, false, 1, 60));
+        model.GetAttackModel(1).weapons[0]!.projectile.AddBehavior(CreateProjectilesOnTrackOnExpireModel.Create(new()
+        {
+            projectile = createProj.Duplicate(),
+            emission = emission,
+            count = 1,
+            range = 60
+        }));
 
         createProj.GetDescendant<ClearHitBloonsModel>().interval *= Factor / 2;
 
-        model.GetAttackModel().weapons[0]!.projectile.AddBehavior(new CreateProjectileOnExhaustFractionModel("",
-            createProj.Duplicate(), emission, 1, -1, false, false, false));
+        model.GetAttackModel().weapons[0]!.projectile.AddBehavior(CreateProjectileOnExhaustFractionModel.Create(new()
+        {
+            projectile = createProj.Duplicate(),
+            emission = emission,
+            fraction = 1,
+            durationfraction = -1
+        }));
 
     }
 }

@@ -53,8 +53,10 @@ public class ScatterMissile : HeroAbilityChoice
 
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
-            false, false, false, false));
+        abilityWeapon.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effect, lifespan = effect.lifespan, fullscreen = effect.fullscreen
+        }));
 
 
         model.AddBehavior(abilityAttack);
@@ -78,8 +80,10 @@ public class ScatterMissile : HeroAbilityChoice
 
         var effect = abilityModel.GetBehavior<CreateEffectOnAbilityModel>().effectModel;
 
-        abilityWeapon.AddBehavior(new EjectEffectModel("", effect, effect.lifespan, effect.fullscreen,
-            false, false, false, false));
+        abilityWeapon.AddBehavior(EjectEffectModel.Create(new()
+        {
+            effectModel = effect, lifespan = effect.lifespan, fullscreen = effect.fullscreen
+        }));
 
         model.AddBehavior(abilityAttack);
     }

@@ -51,9 +51,16 @@ public class FlightBoost : HeroAbilityChoice
         var flightBoost = model.GetDescendant<FlightBoostAbilityModel>();
 
         var mutator = flightBoost.Mutator;
-        model.AddBehavior(new RateSupportModel(nameof(FlightBoost), flightBoost.moveSpeedMultiplier, true,
-            nameof(FlightBoost), false, mutator.priority, null, mutator.buffIndicator.buffName,
-            mutator.buffIndicator.iconName));
+        model.AddBehavior(RateSupportModel.Create(new()
+        {
+            name = nameof(FlightBoost),
+            multiplier = flightBoost.moveSpeedMultiplier,
+            isUnique = true,
+            mutatorId = nameof(FlightBoost),
+            priority = mutator.priority,
+            buffLocsName = mutator.buffIndicator.buffName,
+            buffIconName = mutator.buffIndicator.iconName
+        }));
     }
 
     private void BothWeapons(TowerModel model)

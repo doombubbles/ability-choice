@@ -25,12 +25,23 @@ public class Heartstopper : HeroAbilityChoice
 
         immune.chance = model.tier >= 12 ? 1 : .5f;
 
-        model.AddBehavior(
-            new AddBehaviorToBloonInZoneModel("GrowBlock", model.range, "Heartstopper", true, new[] { growBlock }, null,
-                "GrowBlock"));
+        model.AddBehavior(AddBehaviorToBloonInZoneModel.Create(new()
+        {
+            name = "GrowBlock",
+            zoneRadius = model.range,
+            mutationId = "Heartstopper",
+            isUnique = true,
+            behaviors = [growBlock],
+            overlayType = "GrowBlock"
+        }));
 
-        model.AddBehavior(
-            new AddBehaviorToBloonInZoneModel("Purple", 999999, "HeartstopperBreakPurple", true, new[] { immune },
-                null, ""));
+        model.AddBehavior(AddBehaviorToBloonInZoneModel.Create(new()
+        {
+            name = "Purple",
+            zoneRadius = 999999,
+            mutationId = "HeartstopperBreakPurple",
+            isUnique = true,
+            behaviors = [immune]
+        }));
     }
 }

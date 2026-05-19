@@ -372,14 +372,19 @@ internal static class OverclockHandler
 
                 var rate = 1 / AbilityChoice.CalcAvgBonus(uptime, 1 / overclock.rateModifier);
                 var range = AbilityChoice.CalcAvgBonus(uptime, overclock.villageRangeModifier);
-                towerModel.AddBehavior(new RangeSupportModel("Overclock", true, rate, range, overclock.mutatorId, null,
-                    false, overclock.buffLocsName, overclock.buffIconName)
+                towerModel.AddBehavior(RangeSupportModel.Create(new()
                 {
-                    appliesToOwningTower = false,
+                    name = "Overclock",
+                    isUnique = true,
+                    multiplier = rate,
+                    additive = range,
+                    mutatorId = overclock.mutatorId,
+                    buffLocsName = overclock.buffLocsName,
+                    buffIconName = overclock.buffIconName,
                     showBuffIcon = true,
                     isCustomRadius = true,
                     customRadius = overclock.paragonZoneRange
-                });
+                }));
             }
         }
     }

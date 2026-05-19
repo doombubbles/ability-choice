@@ -1,10 +1,10 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
-using BTD_Mod_Helper.Api.Helpers;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Simulation.SMath;
 namespace AbilityChoice.AbilityChoices.Primary.TackShooter;
@@ -50,18 +50,24 @@ public class MeteorImpact : TowerAbilityChoice
         proj2.pierce *= 100;
         proj2.GetDescendant<DamageModel>().damage /= 2;
 
-        model.GetAttackModel().AddWeapon(new WeaponHelper("Fireballs")
+        model.GetAttackModel().AddWeapon(WeaponModel.Create(new()
         {
-            Animation = -1,
-            Eject = new Vector3(0, 0, 23),
-            Rate = ability.Cooldown / (Factor * Factor),
-            Emission = createProj.emission.Duplicate(),
-            Projectile = createProj.projectile,
-            Behaviors =
+            name = "Fireballs",
+            animation = -1,
+            eject = new Vector3(0, 0, 23),
+            rate = ability.Cooldown / (Factor * Factor),
+            emission = createProj.emission.Duplicate(),
+            projectile = createProj.projectile,
+            behaviors =
             [
-                new AlternateProjectileModel("", proj2, createProj.emission.Duplicate(), Factor)
+                AlternateProjectileModel.Create(new()
+                {
+                    projectile = proj2,
+                    emissionModel = createProj.emission.Duplicate(),
+                    interval = Factor
+                })
             ]
-        });
+        }));
     }
 
     protected override void ApplyBoth(TowerModel model)
