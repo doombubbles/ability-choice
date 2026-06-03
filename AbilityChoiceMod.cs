@@ -94,7 +94,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
     {
         if (UnityToSimulation.Current != null && ModContent.GetInstance<EclipseOfFimbulwinter>().Mode == 1 &&
             UnityToSimulation.Current.GetAllTowers()
-                .Any(tower => tower.Def.baseId == TowerType.IceMonkey && tower.Def.isParagon) &&
+                .Any(tower => tower?.Def != null && tower.Def.baseId == TowerType.IceMonkey && tower.Def.isParagon) &&
             UnityToSimulation.Current.GetBossBloon() != null &&
             UnityToSimulation.Current.GetCurrentBossSkull() == 0)
         {

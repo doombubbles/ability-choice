@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models;
@@ -12,6 +13,8 @@ namespace AbilityChoice;
 
 public abstract class AbilityChoice : NamedModContent
 {
+    internal static int? overrideMode;
+
     protected MelonPreferences_Entry<int> setting;
 
     public virtual string AbilityName => Regex.Replace(
@@ -24,13 +27,13 @@ public abstract class AbilityChoice : NamedModContent
 
     public override string DisplayName => $"[{AbilityName} Ability]";
 
-    public bool Enabled => setting?.Value is 1 or 2;
+    public bool Enabled => Mode is 1 or 2;
 
-    protected bool Mode2 => setting?.Value == 2;
+    protected bool Mode2 => Mode == 2;
 
     public int Mode
     {
-        get => setting?.Value ?? 0;
+        get => Math.Clamp(overrideMode ?? setting?.Value ?? 0, 0, HasMode2 ? 2 : 1);
         set
         {
             setting.Value = value;

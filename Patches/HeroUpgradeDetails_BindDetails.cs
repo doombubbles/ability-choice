@@ -3,12 +3,12 @@ using Il2CppAssets.Scripts.Unity.UI_New.Main.HeroSelect;
 
 namespace AbilityChoice.Patches;
 
-[HarmonyPatch(typeof(HeroUpgradeDetails), nameof(HeroUpgradeDetails.BindDetails))]
+[HarmonyPatch(typeof(HeroUpgradeDetails), nameof(HeroUpgradeDetails.BindHeroDetails))]
 internal static class HeroUpgradeDetails_BindDetails
 {
     [HarmonyPostfix]
     private static void Postfix(HeroUpgradeDetails __instance)
     {
-        HeroAbilityChoiceInfo.Setup(__instance.SelectedHeroId, __instance.heroUpgrades);
+        HeroAbilityChoiceInfo.Setup(__instance.DisplayedHeroId, __instance.heroUpgrades);
     }
 }

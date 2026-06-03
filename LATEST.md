@@ -1,1 +1,1 @@
-- Fixed the Primordial Wrath range multipliers not being calculated correctly
+- Updated for BTD6 v55
