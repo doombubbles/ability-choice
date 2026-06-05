@@ -54,8 +54,12 @@ public abstract class AbilityChoice : NamedModContent
     public override void Register()
     {
         setting = AbilityChoiceMod.AbilityChoiceSettings.CreateEntry(Id, 1);
-        // MelonLogger.Msg($"Registered AbilityChoice {Name} for upgrade {UpgradeId} and value {setting.Value}");
+    }
 
+    internal void CacheAffectedIds()
+    {
+        affectedIds.Clear();
+        affectedOrder.Clear();
         foreach (var id in GetAffected(Game.instance.model).Select(model => model.name))
         {
             if (affectedIds.Add(id))
@@ -68,7 +72,7 @@ public abstract class AbilityChoice : NamedModContent
     public void Toggle()
     {
         setting.Value++;
-        if (setting.Value > 2 || Mode2 && !HasMode2)
+        if (setting.Value > 2 || setting.Value > 1 && !HasMode2)
         {
             setting.Value = 0;
         }
@@ -144,11 +148,7 @@ public abstract class AbilityChoice : NamedModContent
     {
         ability ??= AbilityModel(model);
 
-        // ability.enabled = false;
-        if (!ability.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword))
-        {
-            ability.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
-        }
+        ability.isHidden = true;
 
         var name = $"{nameof(TechBotify)}_{ability.displayName.Replace(" ", "")}";
         if (model.behaviors.FirstOrDefault(a => a.name == name).Is<ActivateAbilityAfterIntervalModel>(out var m))

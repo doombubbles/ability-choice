@@ -1,1 +1,3 @@
-- Updated for BTD6 v55
+- Fixed an issue where it would take an extra click to cycle a few Ability Choices
+- Fixed an issue for some users with Tower Ability Choices not always activating
+- Switched to using `AbilityModel.isHidden` instead of the previous Harmony Patch system for hiding certain abilities

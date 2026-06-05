@@ -1,5 +1,6 @@
 ﻿using BTD_Mod_Helper.Api.Enums;
 using Il2CppAssets.Scripts.Models.Towers;
+
 namespace AbilityChoice.AbilityChoices.Support.SpikeFactory;
 
 public class CarpetOfSpikes : SpikeStorm
@@ -16,6 +17,6 @@ public class CarpetOfSpikes : SpikeStorm
     protected override void ApplyBoth(TowerModel model)
     {
         var ability = AbilityModel(model);
-        ability.displayName += AbilityChoiceMod.DontShowAbilityKeyword;
+        ability.isHidden = true;
     }
 }

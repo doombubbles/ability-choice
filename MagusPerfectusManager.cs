@@ -4,6 +4,7 @@ using HarmonyLib;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using static Il2CppAssets.Scripts.Simulation.Towers.Behaviors.MagusPerfectusGraveyardStateManager;
+
 namespace AbilityChoice;
 
 internal static class MagusPerfectusManager
@@ -52,8 +53,7 @@ internal static class MagusPerfectusManager
         [HarmonyPrefix]
         internal static void Prefix(PhoenixRebirth __instance, ref int __state)
         {
-            activatingPhoenixRebirth =
-                __instance.ability.abilityModel.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword);
+            activatingPhoenixRebirth = __instance.ability.abilityModel.isHidden;
         }
 
         [HarmonyPostfix]
@@ -102,7 +102,7 @@ internal static class MagusPerfectusManager
         [HarmonyPrefix]
         internal static bool Prefix(PhoenixRebirth __instance, ref bool __result)
         {
-            if (__instance.ability.abilityModel.displayName.Contains(AbilityChoiceMod.DontShowAbilityKeyword) &&
+            if (__instance.ability.abilityModel.isHidden &&
                 __instance.GraveyardManager.graveyardManaState == GraveyardManaState.Generating)
             {
                 __result = false;

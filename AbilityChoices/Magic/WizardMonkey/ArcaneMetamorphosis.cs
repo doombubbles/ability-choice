@@ -128,7 +128,7 @@ public class ArcaneMetamorphosis : TowerAbilityChoice
         }
         else
         {
-            AbilityModel(model).displayName += AbilityChoiceMod.DontShowAbilityKeyword;
+            AbilityModel(model).isHidden = true;
         }
     }
 }

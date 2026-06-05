@@ -63,11 +63,9 @@ public class AbilityChoiceMod : BloonsTD6Mod
         buttonText = "Set All"
     };
 
-    public static readonly ModSettingBool MoreBalanced = new(false)
+    public static readonly ModSettingBool MoreBalanced = new(true)
     {
-        description =
-            "While none of the effects is meant to be completely imbalanced, this settings makes things err " +
-            "more on the cautious side, at the risk of the effects not being as exciting to use."
+        description = "Nerfs a few effects that were unbalanced in their initial implementation"
     };
 
     public static readonly ModSettingInt MagusPerfectusSwitchThreshold = new(0)
@@ -79,7 +77,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
         icon = VanillaSprites.MagusPerfectusUpgradeIcon
     };
 
-    public static readonly string DontShowAbilityKeyword = " DONT SHOW";
+    // public static readonly string DontShowAbilityKeyword = " DONT SHOW";
 
     public override bool UsesArtifactDependants => true;
 
@@ -88,6 +86,14 @@ public class AbilityChoiceMod : BloonsTD6Mod
     public override void OnMainMenu()
     {
         AbilityChoiceSettings.SaveToFile(false);
+    }
+
+    public override void OnTitleScreen()
+    {
+        foreach (var abilityChoice in ModContent.GetContent<AbilityChoice>())
+        {
+            abilityChoice.CacheAffectedIds();
+        }
     }
 
     public override void OnUpdate()
@@ -147,7 +153,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
 
     public override void OnNewGameModel(GameModel gameModel)
     {
-        GetRelevantArtifactEfffects(out var boosts, out var towerSetChanges, out var abilityStackings);
+        GetRelevantArtifactEffects(out var boosts, out var towerSetChanges, out var abilityStackings);
 
         if (InGameData.CurrentGame?.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
@@ -172,7 +178,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
         }
     }
 
-    private static void GetRelevantArtifactEfffects(out List<BoostArtifactModel> boosts,
+    private static void GetRelevantArtifactEffects(out List<BoostArtifactModel> boosts,
         out List<CountAllCategoriesBehaviorModel> towerSetChanges,
         out List<AbilityStackingBehaviorModel> abilityStackings)
     {
