@@ -10,6 +10,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Scripts.Unity;
+
 namespace AbilityChoice.AbilityChoices.Magic.Alchemist;
 
 public class TotalTransformingTonic : TransformingTonic
@@ -22,10 +23,8 @@ public class TotalTransformingTonic : TransformingTonic
     public override string Description2 =>
         "Transforms just itself permanently into an even more powerful monster!";
 
-    private MorphTowerModel baseModel;
-    public MorphTowerModel BaseModel =>
-        baseModel ??= AbilityModel(GetAffected(Game.instance.model).MinBy(model => model.tiers.Sum()))
-            .GetBehavior<MorphTowerModel>();
+    public MorphTowerModel BaseModel => field ??=
+        AbilityModel(GetAffected(Game.instance.model).MinBy(model => model.tiers.Sum())).GetBehavior<MorphTowerModel>();
 
     private const int Factor = 8;
 
@@ -86,7 +85,8 @@ public class TotalTransformingTonic : TransformingTonic
     {
         model.lifespanFrames = (int) Math.Round(ability.EffectiveCooldownFrames()) + 2;
         model.lifespan = model.lifespanFrames / 60f;
-        model.maxTowers = Math.CeilToInt(BaseModel.maxTowers * BaseModel.lifespan / (ability.EffectiveCooldown() * Factor));
+        model.maxTowers =
+            Math.CeilToInt(BaseModel.maxTowers * BaseModel.lifespan / (ability.EffectiveCooldown() * Factor));
     }
 
     [HarmonyPatch(typeof(MorphTower), nameof(MorphTower.UpdatedModel))]
@@ -95,7 +95,8 @@ public class TotalTransformingTonic : TransformingTonic
         [HarmonyPrefix]
         internal static void Prefix(MorphTower __instance, Model modelToUse)
         {
-            if (GetInstance<TotalTransformingTonic>() is not {Mode: 1} totalTransform) return;
+            if (__instance.ability.tower.towerModel.baseId != TowerType.Alchemist ||
+                GetInstance<TotalTransformingTonic>() is not { Mode: 1 } totalTransform) return;
 
             var morphTowerModel = modelToUse.Cast<MorphTowerModel>();
             var abilityModel = __instance.ability.tower.towerModel.GetDescendant<ActivateAbilityAfterIntervalModel>()
@@ -111,7 +112,8 @@ public class TotalTransformingTonic : TransformingTonic
         [HarmonyPrefix]
         internal static void Prefix(MorphTower __instance)
         {
-            if (GetInstance<TotalTransformingTonic>() is not {Mode: 1} totalTransform) return;
+            if (__instance.ability.tower.towerModel.baseId != TowerType.Alchemist ||
+                GetInstance<TotalTransformingTonic>() is not { Mode: 1 } totalTransform) return;
 
             var morphTowerModel = __instance.morphTowerModel;
             var abilityModel = __instance.ability.tower.towerModel.GetDescendant<ActivateAbilityAfterIntervalModel>()
