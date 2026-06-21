@@ -24,6 +24,8 @@ public class AbilityChoiceTest : ModTest
                 var tower = AssertNotNull(CreateTowerAt(Bridge, new Vector2(0, 0), towerModel, costOverride: 0),
                     towerModel.name);
                 yield return null;
+                yield return null;
+                yield return null;
                 Bridge.SellTower(tower.Id);
             }
         }

@@ -1,1 +1,0 @@
-- Fixed an Alchemist patch messing with the Dan D'Monke transform ability

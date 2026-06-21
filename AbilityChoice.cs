@@ -151,12 +151,8 @@ public abstract class AbilityChoice : NamedModContent
         ability.isHidden = true;
 
         var name = $"{nameof(TechBotify)}_{ability.displayName.Replace(" ", "")}";
-        if (model.behaviors.FirstOrDefault(a => a.name == name).Is<ActivateAbilityAfterIntervalModel>(out var m))
-        {
-            m.abilityModel = ability;
-            m.interval = ability.Cooldown;
-        }
-        else
+        if (model.behaviors.OfIl2CppType<ActivateAbilityAfterIntervalModel>()
+            .All(m => m.abilityModel?.displayName != ability.displayName))
         {
             model.AddBehavior(ActivateAbilityAfterIntervalModel.Create(new()
             {

@@ -56,8 +56,6 @@ public class EclipseOfFimbulwinter : TowerAbilityChoice
 
         ability.Cooldown /= Factor;
 
-        TechBotify(model);
-
         model.GetDescendants<AddHeatToBloonModel>().ForEach(heat =>
         {
             heat.heatAmount *= 2;
@@ -88,5 +86,15 @@ public class EclipseOfFimbulwinter : TowerAbilityChoice
         }
     }
 
-
+    protected override void RemoveAbility(TowerModel model)
+    {
+        if (Mode2)
+        {
+            base.RemoveAbility(model);
+        }
+        else
+        {
+            TechBotify(model);
+        }
+    }
 }

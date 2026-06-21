@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using AbilityChoice.AbilityChoices.Hero.Adora;
 using AbilityChoice.AbilityChoices.Primary.IceMonkey;
@@ -6,6 +6,7 @@ using AbilityChoice.Patches;
 using BTD_Mod_Helper.Api.Enums;
 using BTD_Mod_Helper.Api.ModOptions;
 using BTD_Mod_Helper.Extensions;
+using HarmonyLib;
 using Il2CppAssets.Scripts.Data;
 using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Artifacts;
@@ -30,11 +31,19 @@ using UnityEngine.EventSystems;
 
 [assembly: MelonInfo(typeof(AbilityChoiceMod), ModHelperData.Name, ModHelperData.Version, ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6-Epic")]
 
 namespace AbilityChoice;
 
 public class AbilityChoiceMod : BloonsTD6Mod
 {
+    private static readonly ModSettingBool ApplyAfterChallengeRules = new(true)
+    {
+        icon = VanillaSprites.ChallengeRulesBtn,
+        description =
+            "Makes Ability Choices calculate and apply their tower modification AFTER Challenge Rules change the cooldowns of towers rather than before"
+    };
+
     private static readonly ModSettingButton SetAllToOff = new()
     {
         action = () => ModContent.GetContent<TowerAbilityChoice>().ForEach(choice => choice.Mode = 0),
@@ -151,7 +160,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
         AbilityChoiceSettings = MelonPreferences.CreateCategory("AbilityChoiceSettings");
     }
 
-    public override void OnNewGameModel(GameModel gameModel)
+    public static void ApplyAbilityChoices(GameModel gameModel)
     {
         GetRelevantArtifactEffects(out var boosts, out var towerSetChanges, out var abilityStackings);
 
@@ -175,6 +184,29 @@ public class AbilityChoiceMod : BloonsTD6Mod
         if (InGameData.CurrentGame?.rogueData != null && RogueLegendsManager.instance?.RogueSaveData != null)
         {
             ProcessBoosts(gameModel, boosts, towerSetChanges, abilityStackings, true);
+        }
+    }
+
+    public override void OnNewGameModel(GameModel gameModel)
+    {
+        if (!ApplyAfterChallengeRules)
+        {
+            ApplyAbilityChoices(gameModel);
+        }
+    }
+
+    // TODO switch to LateOnNewGameModel after Mod Helper update
+    [HarmonyPatch(typeof(CosmeticHelper), nameof(CosmeticHelper.ApplyCosmeticsToGameModel))]
+    internal static class CosmeticHelper_ApplyCosmeticsToGameModel
+    {
+        [HarmonyPostfix]
+        internal static void Postfix()
+        {
+            var gameModel = CosmeticHelper.rootGameModel;
+            if (ApplyAfterChallengeRules)
+            {
+                ApplyAbilityChoices(gameModel);
+            }
         }
     }
 

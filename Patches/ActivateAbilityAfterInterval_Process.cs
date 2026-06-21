@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
+
 namespace AbilityChoice.Patches;
 
 [HarmonyPatch(typeof(ActivateAbilityAfterInterval), nameof(ActivateAbilityAfterInterval.Process))]
