@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [4.4.6] - 2026-06-24
+
 - Fixed Apply After Challenge Rules setting making ability choices not fully apply in Legends gamemodes
 
 ## [4.4.5] - 2026-06-21
@@ -303,5 +305,6 @@ Desperado ability choices will be added in a subsequent update after I fix other
 - Updated for Mod Helper 3.0
 - Fixed for BTD6 v32.0
 
-[unreleased]: https://github.com/doombubbles/ability-choice/compare/4.4.5...HEAD
+[unreleased]: https://github.com/doombubbles/ability-choice/compare/4.4.6...HEAD
+[4.4.6]: https://github.com/doombubbles/ability-choice/compare/4.4.5...4.4.6
 [4.4.5]: https://github.com/doombubbles/ability-choice/compare/a0e756a6a5dae11ab1b2366429d1467e471b2c14...4.4.5
