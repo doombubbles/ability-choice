@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Fixed Apply After Challenge Rules setting making ability choices not fully apply in Legends gamemodes
+
 ## [4.4.5] - 2026-06-21
 
 - New setting "Apply After Challenge Rules" - Default On

@@ -187,9 +187,11 @@ public class AbilityChoiceMod : BloonsTD6Mod
         }
     }
 
+    private static bool UseLateOnNewGameModel => ApplyAfterChallengeRules && !InGameData.CurrentGame.IsLegend();
+
     public override void OnNewGameModel(GameModel gameModel)
     {
-        if (!ApplyAfterChallengeRules)
+        if (!UseLateOnNewGameModel)
         {
             ApplyAbilityChoices(gameModel);
         }
@@ -203,7 +205,7 @@ public class AbilityChoiceMod : BloonsTD6Mod
         internal static void Postfix()
         {
             var gameModel = CosmeticHelper.rootGameModel;
-            if (ApplyAfterChallengeRules)
+            if (UseLateOnNewGameModel)
             {
                 ApplyAbilityChoices(gameModel);
             }
